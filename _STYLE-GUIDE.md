@@ -1,3 +1,3 @@
 #_STYLE-GUIDE.md
-Koalas STYLE GUIDE
+Koalas STYLE GUIDE: Airbnb React/JSX Style Guide
 
