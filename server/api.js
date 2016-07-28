@@ -1,27 +1,8 @@
 var express = require('express');
-var fs = require('fs');
-var path = require('path');
-
-var morgan       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
-
 var nodemailer = require('nodemailer');
 
 var app = express();
 
-
-
-// for development
-app.use(morgan('dev'));
-app.use(cookieParser()); // to read cookies
-app.use(bodyParser()); // read forms
-
-// set a normalized path to public.
-var rootPath = path.normalize(__dirname + '/../public');
-
-app.use('/node_modules', express.static(__dirname + './node_modules/'));
 
 app.post('/signup', function(req, res){
 
@@ -70,6 +51,4 @@ app.post('/joinGroup', function(req, res){
 
 });
 
-var port = process.env.PORT || 8000;
-app.listen(port);
-console.log("port:", port);
+module.exports = app;
