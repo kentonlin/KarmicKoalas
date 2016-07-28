@@ -1,24 +1,21 @@
-var Main = require('./app/components/Main');
 
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  NavigatorIOS,
   Text,
-  View
+  View,
+  StyleSheet
 } from 'react-native';
 
-class KarmicKoalas extends Component {
+class Main extends Component {
   render() {
+    console.log('HELLO');
+    debugger;
     return (
-      <NavigatorIOS
-          initialRoute={{
-            component: Main,
-            title: 'My Initial App View',
-          }}
-          style={{flex: 1}}
-        />
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Our first component!!! :)
+        </Text>
+      </View>
     );
   }
 }
@@ -28,11 +25,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000',
+    backgroundColor: '#eee',
   },
   welcome: {
     fontSize: 20,
-    color:'#fff',
     textAlign: 'center',
     margin: 10,
   },
@@ -43,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('KarmicKoalas', () => KarmicKoalas);
+module.exports = Main;
