@@ -1,4 +1,5 @@
 var app = require("express");  
+var app = require("./api");
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
 
