@@ -45,11 +45,11 @@ componentWillUnmount() {
       <View style={styles.container}>
         <MapView
           style={styles.map}
-      
+
           showsUserLocation={true}
           followUserLocation={true}
         />
-        <View style={styles.navBar}><Text style={styles.navBarText}>Run Rabbit Run</Text></View>
+        <View style={styles.navBar}><Text style={styles.navBarText}>Killa Koala</Text></View>
       </View>
     )
   }
