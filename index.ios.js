@@ -1,4 +1,5 @@
 var Main = require('./app/components/Main');
+var SignUp = require('./app/components/SignUp');
 
 import React, { Component } from 'react';
 import {
@@ -6,6 +7,9 @@ import {
   StyleSheet,
   NavigatorIOS,
   Text,
+  TouchableHighlight,
+  TextInput,
+  AlertIOS,
   View
 } from 'react-native';
 
