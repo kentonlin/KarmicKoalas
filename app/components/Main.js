@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
+  MapView,
   StyleSheet
 } from 'react-native';
 
@@ -15,6 +16,9 @@ class Main extends Component {
         <Text style={styles.welcome}>
           Our first component!!! :)
         </Text>
+        <MapView
+        style={{height: 200, width: 400}} showsUserLocation={true}/>
+
       </View>
     );
   }
@@ -37,6 +41,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+
 });
 
 module.exports = Main;
