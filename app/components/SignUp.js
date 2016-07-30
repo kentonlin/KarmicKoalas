@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
   Text,
   View,
@@ -30,9 +31,13 @@ const styles = StyleSheet.create({
 });
 
 class SignUp extends Component {
+	constructor(props) {
+    super(props)
+    this.state = {}
+  }
 	render() {
 		return (
-			<View>
+			<View style={styles.container}>
 				<Text>
 					Sign Up
 				</Text>
@@ -44,12 +49,17 @@ class SignUp extends Component {
           style={{height: 40}}
           placeholder="Enter your password: "
           />
-        <TouchableHighlight
-            <Text>Go</Text>
+        <TouchableHighlight style={styles.button}
+        	onPress={this.showAlert}>
+            <Text style={styles.buttonText}>Go</Text>
         </TouchableHighlight>
 			</View>
-			)
-	}
+			);
+	 }
 
-	
-}	
+	 showalert() {
+	 		AlertIOS.alert('Awesome Alert', 'This is my first React Native alert.', [{text: 'Thanks'}])
+	 }	
+}
+
+module.exports =  SignUp;	
