@@ -7,12 +7,9 @@ import { AppRegistry, View, StyleSheet, NavigatorIOS, Text } from 'react-native'
 import ViewContainer from './app/components/ViewContainer'
 import Main from './app/components/Main'
 import SignUp from './app/components/SignUp'
-<<<<<<< 5fa5c18bf979df24db749e72fc17c0a3a11f68fb
-import Socketview from './app/utils/sockets'
+var Socketview = required('./app/utils/sockets'); 
 
-=======
 import StatusBarBackground from './app/components/StatusBarBackground'
->>>>>>> Socket Changes - Need to Rebase
 
 class KarmicKoalas extends Component {
   render() {
