@@ -1,7 +1,8 @@
-
 import React, { Component } from 'react'
 import haversine from 'haversine'
 import pick from 'lodash/pick'
+var socket = require ('../utils/sockets')
+
 import {
   AppRegistry,
   StyleSheet,
@@ -60,6 +61,9 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Our first component!!! :)
+        </Text>
         <MapView
           style={styles.map}
 
