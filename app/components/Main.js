@@ -1,18 +1,9 @@
-
 import React, { Component } from 'react'
 import haversine from 'haversine'
 import pick from 'lodash/pick'
-var socket = require ('../utils/sockets')
+import socket from '../utils/sockets'
 
-import {
-  AppRegistry,
-  StyleSheet,
-  View,
-  Text,
-  MapView,
-  Dimensions,
-  StatusBarIOS
-} from 'react-native'
+import { AppRegistry, StyleSheet, View, Text, MapView, Dimensions, StatusBarIOS } from 'react-native'
 
 const { width, height } = Dimensions.get('window')
 

@@ -1,14 +1,10 @@
-'use strict'
-
 import React, { Component } from 'react'
-
 import { AppRegistry, View, StyleSheet, NavigatorIOS, Text } from 'react-native';
 
-import ViewContainer from './app/components/ViewContainer'
 import Main from './app/components/Main'
+import SocketView from './app/utils/sockets'
+import ViewContainer from './app/components/ViewContainer'
 import SignUp from './app/components/SignUp'
-var Socketview = required('./app/utils/sockets'); 
-
 import StatusBarBackground from './app/components/StatusBarBackground'
 
 class KarmicKoalas extends Component {
@@ -23,10 +19,6 @@ class KarmicKoalas extends Component {
           }}
           style={{flex: 1}}
         />
-      <ViewContainer>
-        <StatusBarBackground />
-        <Text>{`Hello from Inside the ViewContainer`}</Text> 
-      </ViewContainer>
     );
   }
 }
