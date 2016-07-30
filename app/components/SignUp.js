@@ -1,4 +1,5 @@
-import {Component, View, StyleSheet, NavigatorIOS, Text, AlertIOS, TextInput, TouchableHighlight, } from 'react-native';
+import React, { Component } from 'react'
+import { View, StyleSheet, NavigatorIOS, Text, AlertIOS, TextInput, TouchableHighlight } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {

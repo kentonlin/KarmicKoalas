@@ -1,12 +1,18 @@
 'use strict'
 
-import {AppRegistry, Component, View, StyleSheet, NavigatorIOS, Text} from 'react-native';
+import React, { Component } from 'react'
+
+import { AppRegistry, View, StyleSheet, NavigatorIOS, Text } from 'react-native';
 
 import ViewContainer from './app/components/ViewContainer'
 import Main from './app/components/Main'
 import SignUp from './app/components/SignUp'
+<<<<<<< 5fa5c18bf979df24db749e72fc17c0a3a11f68fb
 import Socketview from './app/utils/sockets'
 
+=======
+import StatusBarBackground from './app/components/StatusBarBackground'
+>>>>>>> Socket Changes - Need to Rebase
 
 class KarmicKoalas extends Component {
   render() {
@@ -21,6 +27,7 @@ class KarmicKoalas extends Component {
           style={{flex: 1}}
         />
       <ViewContainer>
+        <StatusBarBackground />
         <Text>{`Hello from Inside the ViewContainer`}</Text> 
       </ViewContainer>
     );

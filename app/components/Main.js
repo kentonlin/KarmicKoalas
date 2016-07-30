@@ -1,4 +1,6 @@
+
 import React, { Component } from 'react'
+
 import haversine from 'haversine'
 import pick from 'lodash/pick'
 var socket = require ('../utils/sockets')
@@ -53,10 +55,11 @@ class Main extends Component {
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
+  
   calcDistance(newLatLng) {
      const { prevLatLng } = this.state
      return (haversine(prevLatLng, newLatLng) || 0)
-   }
+  }
 
 
   render() {
