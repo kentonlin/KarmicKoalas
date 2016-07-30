@@ -11,14 +11,14 @@ class KarmicKoalas extends Component {
   render() {
     return (
       <NavigatorIOS
-          initialRoute={{
-            component: Main,
-            title: 'Killa Koala',
-            component: Main,
-            title: 'My Initial App View',
-          }}
-          style={{flex: 1}}
-        />
+        initialRoute={{
+          component: SignUp,
+          title: 'Sign Up and Enjoy Killa Koala',
+          // component: Main,
+          // title: 'Killa Koala',
+        }}
+        style={{flex: 1}}
+      />
     );
   }
 }
