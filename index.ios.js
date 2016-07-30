@@ -1,4 +1,5 @@
 var Main = require('./app/components/Main');
+var SocketView = require ('./app/utils/sockets')
 
 import React, { Component } from 'react';
 import {
@@ -16,6 +17,8 @@ class KarmicKoalas extends Component {
           initialRoute={{
             component: Main,
             title: 'Killa Koala',
+            component: Main,
+            title: 'My Initial App View',
           }}
           style={{flex: 1}}
         />
