@@ -1,4 +1,4 @@
-var express = require('express');
+//var express = require('express');
 var nodemailer = require('nodemailer');
 
 var app = express();
@@ -51,4 +51,4 @@ app.post('/joinGroup', function(req, res){
 
 });
 
-module.exports = app;
+module.exports = api;
