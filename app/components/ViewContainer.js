@@ -1,9 +1,6 @@
 'use strict'
 
-import React, { 
-	Component,
-	View
-} from 'react-native'
+import {Component, View} from 'react-native';
 
 class ViewContainer extends Component {
 	render() {

@@ -1,8 +1,6 @@
 'use strict'
 
-import React, {Component} from 'react';
-
-import {AppRegistry, View, StyleSheet, NavigatorIOS, Text, TouchableHighlight, TextInput, AlertIOS} from 'react-native';
+import {AppRegistry, Component, View, StyleSheet, NavigatorIOS, Text} from 'react-native';
 
 import ViewContainer from './app/components/ViewContainer'
 import Main from './app/components/Main'

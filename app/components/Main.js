@@ -14,6 +14,7 @@ import {
 } from 'react-native'
 
 
+
 const { width, height } = Dimensions.get('window')
 
 class Main extends Component {
