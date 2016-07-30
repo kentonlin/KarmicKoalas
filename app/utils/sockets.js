@@ -10,7 +10,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-console.log('loadin  g')
+console.log('loading')
 class Sockets extends Component {
   constructor(props) {
     super(props);
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eee',
   },
   searchInput: {
+    marginTop: 100,
     fontSize: 20,
     height: 50,
     backgroundColor: '#000',
