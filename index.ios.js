@@ -1,14 +1,15 @@
-var Main = require('./app/components/Main');
-var SocketView = require ('./app/utils/sockets')
+'use strict'
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  NavigatorIOS,
-  Text,
-  View
-} from 'react-native';
+import React, { Component } from 'react'
+
+import { AppRegistry, View, StyleSheet, NavigatorIOS, Text } from 'react-native';
+
+import ViewContainer from './app/components/ViewContainer'
+import Main from './app/components/Main'
+import SignUp from './app/components/SignUp'
+var Socketview = required('./app/utils/sockets'); 
+
+import StatusBarBackground from './app/components/StatusBarBackground'
 
 class KarmicKoalas extends Component {
   render() {
@@ -16,15 +17,16 @@ class KarmicKoalas extends Component {
       <NavigatorIOS
           initialRoute={{
             component: Main,
-<<<<<<< b66356dcea859ba8f137e74b22dfdd3dc12070e7
             title: 'Killa Koala',
             component: Main,
-=======
->>>>>>> foo
             title: 'My Initial App View',
           }}
           style={{flex: 1}}
         />
+      <ViewContainer>
+        <StatusBarBackground />
+        <Text>{`Hello from Inside the ViewContainer`}</Text> 
+      </ViewContainer>
     );
   }
 }
