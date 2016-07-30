@@ -1,5 +1,9 @@
 var Main = require('./app/components/Main');
+<<<<<<< 7d18257a638eb7c87392486bb5ebd41d3cf66712
 var SocketView = require ('./app/utils/sockets')
+=======
+var SignUp = require('./app/components/SignUp');
+>>>>>>> Need to rebase
 
 import React, { Component } from 'react';
 import {
@@ -7,6 +11,9 @@ import {
   StyleSheet,
   NavigatorIOS,
   Text,
+  TouchableHighlight,
+  TextInput,
+  AlertIOS,
   View
 } from 'react-native';
 
