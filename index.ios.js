@@ -14,7 +14,13 @@ class KarmicKoalas extends Component {
             title: 'Killa Koala',
           }}
           style={{flex: 1}}
-        />
+        
+        initialRoute={{
+           component: Main,
+           title: 'Killa Koala'
+        }}
+        style={{flex: 1}}
+      />
     );
   }
 }
@@ -38,5 +44,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
 
 AppRegistry.registerComponent('KarmicKoalas', () => KarmicKoalas);
