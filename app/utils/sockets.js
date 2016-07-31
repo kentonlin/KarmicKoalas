@@ -10,13 +10,15 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-
+console.log('loading')
 class Sockets extends Component {
   constructor(props) {
     super(props);
-    this.socket = io('http://localhost:3000', {jsonp: false});
+    this.socket = io.connect('http://localhost:3001');
+    this.socket.emit('location', { my: 'data' });
+    this.socket.on('location', function (data) { console.log('data',data) })
     this.state = {
-      location:null
+      location: "Baltimore"
     }
    }
   ComponentDidMount(){
@@ -37,11 +39,11 @@ class Sockets extends Component {
         <TextInput
             style={styles.searchInput}
             value={this.state.location}
-            onChange={this.handleChange.bind(this)} />
+            onChange={this.handleChange.bind(this)} ></TextInput>
         <TouchableHighlight onPress={() => {
             this.socket.emit('location', this.state.location);
             this.setState({location:''}) 
-        }}><Text>Test</Text></TouchableHighlight>
+        }}><Text>Location: {this.state.location}</Text></TouchableHighlight>
       </View>
       )
   }
@@ -55,6 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eee',
   },
   searchInput: {
+    marginTop: 100,
     fontSize: 20,
     height: 50,
     backgroundColor: '#000',

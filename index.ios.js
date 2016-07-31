@@ -7,7 +7,7 @@ import { AppRegistry, View, StyleSheet, NavigatorIOS, Text } from 'react-native'
 import ViewContainer from './app/components/ViewContainer'
 import Main from './app/components/Main'
 import SignUp from './app/components/SignUp'
-var Socketview = required('./app/utils/sockets'); 
+var SocketView = require('./app/utils/sockets'); 
 
 import StatusBarBackground from './app/components/StatusBarBackground'
 
@@ -16,17 +16,16 @@ class KarmicKoalas extends Component {
     return (
       <NavigatorIOS
           initialRoute={{
-            component: Main,
-            title: 'Killa Koala',
-            component: Main,
-            title: 'My Initial App View',
+            component: SocketView,
+            title: 'Killa Koala'
           }}
           style={{flex: 1}}
         />
-      <ViewContainer>
-        <StatusBarBackground />
-        <Text>{`Hello from Inside the ViewContainer`}</Text> 
-      </ViewContainer>
+      // <ViewContainer>
+      //   <StatusBarBackground />
+      //   <Text>'Hello from Inside the ViewContainer'
+      //   </Text> 
+      // </ViewContainer>
     );
   }
 }
