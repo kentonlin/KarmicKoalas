@@ -1,15 +1,5 @@
-
 import React, { Component } from 'react'
-import {
-  AppRegistry,
-  StyleSheet,
-  View,
-  Text,
-  MapView,
-  Dimensions,
-  StatusBarIOS
-} from 'react-native'
-
+import { StyleSheet, View, Text, MapView, Dimensions, StatusBarIOS } from 'react-native';
 
 const { width, height } = Dimensions.get('window')
 
@@ -38,7 +28,6 @@ class Main extends Component {
 componentWillUnmount() {
   navigator.geolocation.clearWatch(this.watchID);
 }
-
 
   render() {
     return (

@@ -1,17 +1,9 @@
-var Main = require('./app/components/Main');
-var SignUp = require('./app/components/SignUp');
+'use strict'
 
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  NavigatorIOS,
-  Text,
-  TouchableHighlight,
-  TextInput,
-  AlertIOS,
-  View
-} from 'react-native';
+import { AppRegistry, StyleSheet, NavigatorIOS, View, Text, TouchableHighlight, TextInput, AlertIOS } from 'react-native';
+import Main from './app/components/Main';
+import SignUp from './app/components/SignUp';
 
 class KarmicKoalas extends Component {
   render() {

@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableHighlight,
-  TextInput,
-  AlertIOS
-} from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
