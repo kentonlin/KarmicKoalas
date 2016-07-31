@@ -2,8 +2,12 @@
 
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, NavigatorIOS, View, Text, TouchableHighlight, TextInput, AlertIOS } from 'react-native';
-import Main from './app/components/Main';
-import SignUp from './app/components/SignUp';
+
+import Main from './app/components/Main'
+import SignUp from './app/components/SignUp'
+import SocketView from './app/utils/sockets'
+import ViewContainer from './app/components/ViewContainer'
+import StatusBarBackground from './app/components/StatusBarBackground'
 
 class KarmicKoalas extends Component {
   render() {
@@ -18,6 +22,11 @@ class KarmicKoalas extends Component {
         initialRoute={{
            component: Main,
            title: 'Killa Koala'
+        initialRoute={{
+          component: SignUp,
+          title: 'Sign Up and Enjoy Killa Koala',
+          // component: Main,
+          // title: 'Killa Koala',
         }}
         style={{flex: 1}}
       />
@@ -44,6 +53,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
 
 AppRegistry.registerComponent('KarmicKoalas', () => KarmicKoalas);

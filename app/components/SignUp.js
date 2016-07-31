@@ -1,8 +1,9 @@
+'use strict'
+
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS } from 'react-native';
 
 class SignUp extends Component {
-
 	constructor(props) {
     super(props)
     this.state = {
@@ -13,7 +14,7 @@ class SignUp extends Component {
 
 	render() {
 		return (
-			<View>
+			<View style={styles.container}>
 				<Text>
 					Sign Up
 				</Text>
@@ -33,6 +34,7 @@ class SignUp extends Component {
 			</View>
 			)
 	}
+
 }
 
 const styles = StyleSheet.create({
