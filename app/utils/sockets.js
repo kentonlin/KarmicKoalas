@@ -14,7 +14,7 @@ console.log('loading')
 class Sockets extends Component {
   constructor(props) {
     super(props);
-    this.socket = io.connect('ws://localhost:3000');
+    this.socket = io.connect('http://localhost:3001');
     this.socket.emit('location', { my: 'data' });
     this.socket.on('location', function (data) { console.log('data',data) })
     this.state = {
