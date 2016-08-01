@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import haversine from 'haversine'
 import pick from 'lodash/pick'
 var socket = require ('../utils/sockets')
+var userAgent = require ('./userAgent');
+var io = require ('socket.io-client/socket.io');
 
 import {
   AppRegistry,
@@ -19,7 +21,8 @@ const { width, height } = Dimensions.get('window')
 class Main extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
+    this.socket = io.connect('http://localhost:3001', {jsonp: false});
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
@@ -46,6 +49,7 @@ class Main extends Component {
         prevLatLng: newLatLngs
      })
     console.log(this.state.distanceTravelled);
+    this.socket.emit('location', {'cordinates': this.state.prevLatLng});
   });
 }
 

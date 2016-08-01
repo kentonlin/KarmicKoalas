@@ -5,44 +5,59 @@ import {
   Text,
   View,
   MapView,
-  StyleSheet, 
+  StyleSheet,
   TextInput,
   TouchableHighlight
 } from 'react-native';
 
 console.log('loading')
+
+// <script>
+//     var socket = io.connect();
+//
+//     socket.on('date', function(data){
+//         $('#date').text(data.date);
+//     });
+//
+//     $(document).ready(function(){
+//         $('#text').keypress(function(e){
+//             socket.emit('client_data', {'letter': String.fromCharCode(e.charCode)});
+//         });
+//     });
+// </script>
+
 class Sockets extends Component {
   constructor(props) {
     super(props);
-    this.socket = io.connect('http://localhost:3001');
-    this.socket.emit('location', { my: 'data' });
-    this.socket.on('location', function (data) { console.log('data',data) })
+    this.socket = io.connect('http://localhost:3001', {jsonp: false});
+    //this.socket.emit('location', { my: 'data' });
+  //  this.socket.on('location', function (data) { console.log('data',data) })
     this.state = {
       location: "Baltimore"
     }
    }
   ComponentDidMount(){
-    this.socket.emit('location', 'foo');
+    //this.socket.emit('location', {'letter': String.fromCharCode(e.charCode)});
   }
   handleChange(e){
     this.setState({
         location:e.nativeEvent.text
     })
     //for speed testing.. not ona button  this.state.location
-      this.socket.emit('location', 'foo');
+      this.socket.emit('location', {'cordinates': e.nativeEvent.text});
   }
 
   render(){
     return (
       <View>
-        
+
         <TextInput
             style={styles.searchInput}
             value={this.state.location}
             onChange={this.handleChange.bind(this)} ></TextInput>
         <TouchableHighlight onPress={() => {
             this.socket.emit('location', this.state.location);
-            this.setState({location:''}) 
+            this.setState({location:''})
         }}><Text>Location: {this.state.location}</Text></TouchableHighlight>
       </View>
       )
@@ -72,4 +87,4 @@ const styles = StyleSheet.create({
 
 });
 
-module.exports = Sockets;  
+module.exports = Sockets;
