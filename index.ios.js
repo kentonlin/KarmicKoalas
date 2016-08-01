@@ -7,7 +7,7 @@ import { AppRegistry, View, StyleSheet, NavigatorIOS, Text } from 'react-native'
 import ViewContainer from './app/components/ViewContainer'
 import Main from './app/components/Main'
 import SignUp from './app/components/SignUp'
-var SocketView = require('./app/utils/sockets'); 
+import SocketView from './app/utils/sockets'
 
 import StatusBarBackground from './app/components/StatusBarBackground'
 
