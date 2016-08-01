@@ -45,7 +45,7 @@ class Main extends Component {
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
-  
+
   calcDistance(newLatLng) {
      const { prevLatLng } = this.state
      return (haversine(prevLatLng, newLatLng) || 0)
