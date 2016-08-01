@@ -37,17 +37,6 @@ class KarmicKoalas extends Component {
       </TabBarIOS.Item>
 
       <TabBarIOS.Item
-        selected={this.state.selectedTab === 'TopNavigation'}
-        title='TopNav'
-        onPress={() => {
-            this.setState({
-              selectedTab: 'TopNavigation',
-            });
-        }}>
-        <TopNavigation />
-      </TabBarIOS.Item>
-
-      <TabBarIOS.Item
         selected={this.state.selectedTab === 'SignUp'}
         title='SignUp'
         onPress={() => {
@@ -58,6 +47,17 @@ class KarmicKoalas extends Component {
         <SignUp />
       </TabBarIOS.Item>
 
+      <TabBarIOS.Item
+        selected={this.state.selectedTab === 'TopNavigation'}
+        title='TopNav'
+        onPress={() => {
+            this.setState({
+              selectedTab: 'TopNavigation',
+            });
+        }}>
+        <TopNavigation />
+      </TabBarIOS.Item>
+      
       <TabBarIOS.Item
         selected={this.state.selectedTab === 'Main'}
         title='Main'
@@ -73,12 +73,9 @@ class KarmicKoalas extends Component {
   }
 }
 const styles = StyleSheet.create({
-    icon: {
-      height: 2,
+    title: {
+      height: 20,
       flexDirection: 'row',
-      // backgroundColor: '#48BBEC',
-      // alignSelf: 'stretch',
-      // justifyContent: 'center'
     }
 });
 
