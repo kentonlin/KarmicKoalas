@@ -1,18 +1,11 @@
+'use strict'
 
 import React, { Component } from 'react'
+import { StyleSheet, View, Text, MapView, Dimensions, StatusBarIOS } from 'react-native';
+
 import haversine from 'haversine'
 import pick from 'lodash/pick'
-var socket = require ('../utils/sockets')
-
-import {
-  AppRegistry,
-  StyleSheet,
-  View,
-  Text,
-  MapView,
-  Dimensions,
-  StatusBarIOS
-} from 'react-native'
+import socket from '../utils/sockets'
 
 const { width, height } = Dimensions.get('window')
 
@@ -57,7 +50,6 @@ class Main extends Component {
      const { prevLatLng } = this.state
      return (haversine(prevLatLng, newLatLng) || 0)
   }
-
 
   render() {
     return (
