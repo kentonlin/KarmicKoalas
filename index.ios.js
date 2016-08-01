@@ -57,7 +57,6 @@ class KarmicKoalas extends Component {
         }}>
         <TopNavigation />
       </TabBarIOS.Item>
-      
       <TabBarIOS.Item
         selected={this.state.selectedTab === 'Main'}
         title='Main'
