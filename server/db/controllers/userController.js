@@ -10,4 +10,9 @@ module.exports = {
       cb(user);
     });
   },
+  getUser: function(userId){
+    User.where({userId: userId}).fetch().then(function(user){
+      console.log(user);
+    });
+  }
 };

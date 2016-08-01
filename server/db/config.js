@@ -21,19 +21,6 @@ db.schema.hasTable('users').then(function(exists){
   }
 });
 
-db.schema.hasTable('groups').then(function(exists){
-  if(!exists){
-    return db.schema.createTable('groups', function(group){
-      group.increments('id').primary();
-      group.integer('host').unsigned().references('users.id');
-      group.integer('route').unsigned().references('routes.id');
-      group.json('invitees');
-      group.timestamp('start_time');
-      group.timestamps();
-    });
-  }
-});
-
 db.schema.hasTable('routes').then(function(exists){
   if(!exists){
     return db.schema.createTable('routes', function(route){
@@ -47,6 +34,19 @@ db.schema.hasTable('routes').then(function(exists){
     });
   }
 });
+
+db.schema.hasTable('groups').then(function(exists){
+  if(!exists){
+    return db.schema.createTable('groups', function(group){
+      group.increments('id').primary();
+      group.integer('host').unsigned().references('users.id');
+      group.integer('route').unsigned().references('routes.id');
+      group.json('invitees');
+      group.timestamps();
+    });
+  }
+});
+
 
 var bookshelf = require('bookshelf')(db);
 module.exports = bookshelf;
