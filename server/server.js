@@ -3,14 +3,17 @@ var express = require('express')
 app = express();
 var http = require('http')
 var server = require('http').Server(app);
+var port = process.env.PORT || 3001;
 
 app.use(express.static('../'));
 
 // var bodyParser = require('body-parser');
 // app.use(bodyParser.json());
 
-server.listen(3001);
-console.log('server listening on ' + '3001')
+app.listen(port, function () {
+  console.log('Example app listening on port ' + port);
+});
+
 // use socket.io
 var io = require('socket.io').listen(server);
 
