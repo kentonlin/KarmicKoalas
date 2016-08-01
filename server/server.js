@@ -5,7 +5,7 @@ var http = require('http')
 var server = require('http').Server(app);
 var port = process.env.PORT || 3001;
 app.use(express.static('../'));
-var api = require("./api");
+//var api = require("./api");
 
 // var bodyParser = require('body-parser');
 // app.use(bodyParser.json());
