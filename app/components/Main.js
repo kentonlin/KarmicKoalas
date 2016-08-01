@@ -20,7 +20,8 @@ class Main extends Component {
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
-      prevLatLng: {}
+      prevLatLng: {},
+      users: []
      }
   }
 
@@ -44,6 +45,7 @@ class Main extends Component {
      })
     console.log(this.state.distanceTravelled);
     this.socket.emit('location', {'cordinates': this.state.prevLatLng});
+    this.state.users = [this.state.prevLatLng];
   });
 }
 
@@ -64,7 +66,7 @@ class Main extends Component {
         </Text>
         <MapView
           style={styles.map}
-
+          annotations={this.state.users}
           showsUserLocation={true}
           followUserLocation={true}
           overlays={[{
