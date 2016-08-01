@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    //"start": "node server/server.js"
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
@@ -15,7 +14,6 @@
     "nodemailer": "^2.5.0",
     "react": "15.2.1",
     "react-native": "0.30.0",
-    "react-native-socket.io-client": "^1.4.8",
-    "socket.io": "^1.4.8"
+    "react-native-socketio": "^0.3.0"
   }
 }
