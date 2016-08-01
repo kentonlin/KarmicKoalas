@@ -7,6 +7,8 @@ class SignUp extends Component {
 	constructor(props) {
     super(props)
     this.state = {
+      name: '',
+      email: '',
       username: '',
       password: ''
     }
@@ -14,26 +16,32 @@ class SignUp extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>
+				<Text style={styles.textHeader}>
 					Sign Up
 				</Text>
-				<TextInput
+        <TextInput
           style={{height: 40}}
-          value={this.state.username}
-          placeholder="Enter your username: "
+          placeholder="Enter your name: "
         />
         <TextInput
           style={{height: 40}}
-          value={this.state.password}
-          placeholder="Enter your password: "
+          placeholder="Email Address: "
+        />
+				<TextInput
+          style={{height: 40}}
+          placeholder="Username: "
+        />
+        <TextInput
+          style={{height: 40}}
+          placeholder="Password: "
           />
-        <TouchableHighlight>
+        <TouchableHighlight style={styles.button}>
             <Text>Go</Text>
         </TouchableHighlight>
 			</View>
 			)
 	}
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -41,6 +49,14 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: '#F5FCFF'
+    },
+    TextInput: {
+      borderWidth: 2,
+      color: 'blue'
+    },
+    textHeader: {
+      fontSize: 30,
+      color: 'blue'
     },
     buttonText: {
       fontSize: 18,
@@ -55,6 +71,5 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
     }
 });
-
 
 module.exports =  SignUp;	

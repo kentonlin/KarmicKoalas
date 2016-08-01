@@ -10,6 +10,8 @@ import SignUp from './app/components/SignUp'
 import SocketView from './app/utils/sockets'
 import ViewContainer from './app/components/ViewContainer'
 import StatusBarBackground from './app/components/StatusBarBackground'
+import TopNavigation from './app/components/TopNavigation'
+// import welcome_Icon from './app/assets/google_maps_icon.png';
 
 class KarmicKoalas extends Component {
 
@@ -25,7 +27,7 @@ class KarmicKoalas extends Component {
       <TabBarIOS selectedTab={this.state.selectedTab}>
       <TabBarIOS.Item
         selected={this.state.selectedTab === 'welcome'}
-        icon={{uri: 'featured'}}
+        title='Welcome'
         onPress={() => {
             this.setState({
               selectedTab: 'welcome',
@@ -35,19 +37,19 @@ class KarmicKoalas extends Component {
       </TabBarIOS.Item>
 
       <TabBarIOS.Item
-        selected={this.state.selectedTab === 'more'}
-        icon={{uri: 'contacts'}}
+        selected={this.state.selectedTab === 'TopNavigation'}
+        title='TopNav'
         onPress={() => {
             this.setState({
-              selectedTab: 'more',
+              selectedTab: 'TopNavigation',
             });
         }}>
-        <More />
+        <TopNavigation />
       </TabBarIOS.Item>
 
       <TabBarIOS.Item
         selected={this.state.selectedTab === 'SignUp'}
-        icon={{uri: './app/assets/google_maps_icon'}}
+        title='SignUp'
         onPress={() => {
             this.setState({
               selectedTab: 'SignUp',
@@ -58,7 +60,7 @@ class KarmicKoalas extends Component {
 
       <TabBarIOS.Item
         selected={this.state.selectedTab === 'Main'}
-        icon={{uri: 'contacts'}}
+        title='Main'
         onPress={() => {
             this.setState({
               selectedTab: 'Main',
@@ -70,5 +72,14 @@ class KarmicKoalas extends Component {
     );
   }
 }
+const styles = StyleSheet.create({
+    icon: {
+      height: 2,
+      flexDirection: 'row',
+      // backgroundColor: '#48BBEC',
+      // alignSelf: 'stretch',
+      // justifyContent: 'center'
+    }
+});
 
 AppRegistry.registerComponent('KarmicKoalas', () => KarmicKoalas);

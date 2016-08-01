@@ -13,7 +13,10 @@ var styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#123456'
+		backgroundColor: 'blue'
+	},
+	icon: {
+
 	}
 });
 
@@ -21,9 +24,9 @@ class Welcome extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text style={styles.description}>
-					Welcome to Killa Koalas aka Vaya aka Travel with Friends!
-				</Text>
+				 	<Text style={styles.description}>
+						Welcome to WeGo. Build cool routes and chat with your friends on the go!
+					</Text>
 			</View>				
 		);
 	}
