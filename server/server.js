@@ -24,13 +24,9 @@ io.set('log level', 1);
 io.sockets.on('connection', function(socket){
 
      socket.on('location', function(data) {
-<<<<<<< 3104e525d03734f8f30120af2a1ffa5bf730404d
-      console.log("Incoming location:", data)
-
       //sending dummy data for group update 
-=======
       console.log("Incoming location:", data);
->>>>>>> combined group arr from server works
+
       socket.emit('groupUpdate', {'group':[{'latitude': data.coordinates.latitude, 'longitude':  data.coordinates.longitude, 'title': 'Konst' }, {'latitude':data.coordinates.latitude + 0.0008, 'longitude': data.coordinates.longitude, 'title': 'Bo' }]});
     });
     socket.on('error', function(err) {
