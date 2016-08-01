@@ -17,15 +17,25 @@ class SignUp extends Component {
 				<Text>
 					Sign Up
 				</Text>
+        <TextInput
+          style={{height: 40}}
+          value={this.state.name}
+          placeholder="Enter your name: "
+        />
+        <TextInput
+          style={{height: 40}}
+          value={this.state.email}
+          placeholder="Email Address: "
+        />
 				<TextInput
           style={{height: 40}}
           value={this.state.username}
-          placeholder="Enter your username: "
+          placeholder="Username: "
         />
         <TextInput
           style={{height: 40}}
           value={this.state.password}
-          placeholder="Enter your password: "
+          placeholder="Password: "
           />
         <TouchableHighlight>
             <Text>Go</Text>
@@ -33,7 +43,7 @@ class SignUp extends Component {
 			</View>
 			)
 	}
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -41,6 +51,9 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: '#F5FCFF'
+    },
+    TextInput: {
+      borderWidth: 2,
     },
     buttonText: {
       fontSize: 18,

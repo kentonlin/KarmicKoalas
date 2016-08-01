@@ -22,7 +22,7 @@ class Welcome extends Component {
 		return (
 			<View style={styles.container}>
 				<Text style={styles.description}>
-					Welcome to Killa Koalas aka Vaya aka Travel with Friends!
+					Welcome to WeGo. Build cool routes and chat with your friends on the go!
 				</Text>
 			</View>				
 		);
