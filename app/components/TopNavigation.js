@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+// import StatusBarBackground from './app/components/StatusBarBackground'
 
 class TopNavigation extends Component {
 	constructor(props) {
@@ -12,13 +13,16 @@ class TopNavigation extends Component {
   }
 	render() {
 		return (
-			<View>
+			<View style={styles.container}>
+        
         <TouchableHighlight style={styles.button}>
             <Text style={styles.buttonText}>Create Route</Text>
         </TouchableHighlight>
+
         <TouchableHighlight style={styles.button}>
             <Text style={styles.buttonText}>Search Routes</Text>
         </TouchableHighlight>
+
         <TouchableHighlight style={styles.button}>
             <Text style={styles.buttonText}>See Groups</Text>
         </TouchableHighlight>
@@ -32,7 +36,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#F5FCFF'
+      backgroundColor: 'cornflowerblue'
     },
     buttonText: {
       fontSize: 18,
@@ -41,9 +45,10 @@ const styles = StyleSheet.create({
     },
     button: {
       height: 20,
-      flexDirection: 'row',
+      flexDirection: 'column',
       backgroundColor: 'skyblue',
-      justifyContent: 'center'
+      justifyContent: 'space-between',
+      borderRadius: 25
     }
 });
 
