@@ -44,8 +44,13 @@ class Main extends Component {
         prevLatLng: newLatLngs
      })
     console.log(this.state.distanceTravelled);
-    this.socket.emit('location', {'cordinates': this.state.prevLatLng});
-    this.state.users = [this.state.prevLatLng];
+    this.socket.emit('location', {'coordinates': this.state.prevLatLng});
+    //this.state.users = [this.state.prevLatLng];
+    this.socket.on('groupUpdate',(data) =>  {
+      console.log("Group Data from server", data);
+      this.state.users = data.group;
+    } );
+    //this.state.users = [{'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude, 'title': 'Konst' }, {'latitude': this.state.prevLatLng.latitude + 0.0008, 'longitude': this.state.prevLatLng.longitude, 'title': 'Bo' }];
   });
 }
 
