@@ -23,7 +23,7 @@ class KarmicKoalas extends Component {
   render() {
     return (
       <TabBarIOS selectedTab={this.state.selectedTab}>
-      <TabBarIOS.Item 
+      <TabBarIOS.Item
         selected={this.state.selectedTab === 'welcome'}
         icon={{uri: 'featured'}}
         onPress={() => {
@@ -34,7 +34,7 @@ class KarmicKoalas extends Component {
         <Welcome />
       </TabBarIOS.Item>
 
-      <TabBarIOS.Item 
+      <TabBarIOS.Item
         selected={this.state.selectedTab === 'more'}
         icon={{uri: 'contacts'}}
         onPress={() => {
@@ -45,7 +45,7 @@ class KarmicKoalas extends Component {
         <More />
       </TabBarIOS.Item>
 
-      <TabBarIOS.Item 
+      <TabBarIOS.Item
         selected={this.state.selectedTab === 'SignUp'}
         icon={{uri: './app/assets/google_maps_icon'}}
         onPress={() => {
@@ -56,7 +56,7 @@ class KarmicKoalas extends Component {
         <SignUp />
       </TabBarIOS.Item>
 
-      <TabBarIOS.Item 
+      <TabBarIOS.Item
         selected={this.state.selectedTab === 'Main'}
         icon={{uri: 'contacts'}}
         onPress={() => {
@@ -67,7 +67,6 @@ class KarmicKoalas extends Component {
         <Main />
       </TabBarIOS.Item>
       </TabBarIOS>
-      
     );
   }
 }

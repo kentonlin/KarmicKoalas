@@ -6,13 +6,17 @@ import { StyleSheet, View, Text, MapView, Dimensions, StatusBarIOS } from 'react
 import haversine from 'haversine'
 import pick from 'lodash/pick'
 import socket from '../utils/sockets'
+import userAgent from './userAgent'
+import io from 'socket.io-client/socket.io'
+
 
 const { width, height } = Dimensions.get('window')
 
 class Main extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
+    this.socket = io.connect('http://localhost:3001', {jsonp: false});
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
@@ -39,13 +43,14 @@ class Main extends Component {
         prevLatLng: newLatLngs
      })
     console.log(this.state.distanceTravelled);
+    this.socket.emit('location', {'cordinates': this.state.prevLatLng});
   });
 }
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
-  
+
   calcDistance(newLatLng) {
      const { prevLatLng } = this.state
      return (haversine(prevLatLng, newLatLng) || 0)
