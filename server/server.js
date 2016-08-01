@@ -16,7 +16,7 @@ app.listen(port, function () {
 
 app.get('/', function (req, res) {
 	console.log(__dirname);
-	res.sendFile(__dirname + '../index.html');
+	res.sendFile('../index.html');
 });
 
 // use socket.io
