@@ -11,6 +11,21 @@ class TopNavigation extends Component {
       
     }
   }
+
+  _onPressButton() {
+    console.log('Groups Button pressed!');
+  
+    // fetch("http://localhost:3000/test?search=nraboy", {method: "GET"})
+    // .then((response) => response.json())
+    // .then((responseData) => {
+    //     AlertIOS.alert(
+    //         "GET Response",
+    //         "Search Query -> " + responseData.search
+    //     )
+    // })
+    // .done();
+  } 
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -23,7 +38,7 @@ class TopNavigation extends Component {
             <Text style={styles.buttonText}>Search Routes</Text>
         </TouchableHighlight>
 
-        <TouchableHighlight style={styles.button}>
+        <TouchableHighlight style={styles.button} onPress={this._onPressButton}>
             <Text style={styles.buttonText}>See Groups</Text>
         </TouchableHighlight>
 			</View>
