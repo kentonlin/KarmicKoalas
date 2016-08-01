@@ -1,16 +1,18 @@
-//var api = require("./api");
+
 var express = require('express')
 app = express();
 var http = require('http')
 var server = require('http').Server(app);
-
+var port = process.env.PORT || 3001;
 app.use(express.static('../'));
+var api = require("./api");
 
 // var bodyParser = require('body-parser');
 // app.use(bodyParser.json());
 
-server.listen(3001);
-console.log('server listening on ' + '3001')
+server.listen(port, ()=>
+  console.log('server listening on port: ' + port)
+  );
 // use socket.io
 var io = require('socket.io').listen(server);
 
