@@ -43,7 +43,7 @@ class Main extends Component {
         distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
         prevLatLng: newLatLngs
      })
-    console.log(this.state.distanceTravelled);
+    console.log('ROUT OBJECT', this.state.routeCoordinates);
     this.socket.emit('location', {'coordinates': this.state.prevLatLng});
     //this.state.users = [this.state.prevLatLng];
     this.socket.on('groupUpdate',(data) =>  {
