@@ -1,11 +1,11 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, MapView, Dimensions, StatusBarIOS } from 'react-native';
+import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS } from 'react-native';
 
 import haversine from 'haversine'
 import pick from 'lodash/pick'
-import socket from '../utils/sockets'
+//import socket from '../utils/sockets'
 import userAgent from './userAgent'
 import io from 'socket.io-client/socket.io'
 
@@ -16,17 +16,21 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io.connect('https://thawing-everglades-71687.herokuapp.com/', {jsonp: false});
+    this.socket = io.connect('localhost:3000', {jsonp: false});
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
-      users: []
+      users: [],
+      tweets: [],
+      groupId: 1,//groupId: props.groupId,   //this will come from group list view and pass to server
+      message: " "
      }
   }
 
   componentDidMount() {
   // StatusBarIOS.setStyle('light-content')
+  this.socket.emit('intitialize',{groupId:this.state.groupId})
 
   navigator.geolocation.getCurrentPosition(
     (position) => console.log(position),
@@ -35,8 +39,11 @@ class Main extends Component {
   )
   this.watchID = navigator.geolocation.watchPosition((position) => {
     console.log(position);
+    
     const { routeCoordinates, distanceTravelled } = this.state
-     const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude }
+    
+    const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude }
+    
     const positionLatLngs = pick(position.coords, ['latitude', 'longitude'])
     this.setState({
         routeCoordinates: routeCoordinates.concat(positionLatLngs),
@@ -46,10 +53,15 @@ class Main extends Component {
       
       console.log('ROUT OBJECT', this.state.routeCoordinates);
          
-      this.socket.emit('location', {'title': 'Konstantin', 'latitude': this.state.   prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude });
+      this.socket.emit('location', {'title': 'Konstantin', 'latitude': this.state.   prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude, groupId : this.state.groupId });
       
       //this.state.users = [this.state.prevLatLng];
-      
+      this.socket.on('tweet', (data) => {
+        console.log("Chat message from server", data);
+        this.state.message = data.text;
+        this.state.tweets.push(data.text);
+      });
+
       this.socket.on('groupUpdate',(data) =>  {
         console.log("Group Data from server", data);
         this.state.users = data;
@@ -57,6 +69,11 @@ class Main extends Component {
       //this.state.users = [{'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude, 'title': 'Konst' }, {'latitude': this.state.prevLatLng.latitude + 0.0008, 'longitude': this.state.prevLatLng.longitude, 'title': 'Bo' }];
     });
 }
+
+  sendChatMessage(){
+    console.log('sending tweet')
+    this.socket.emit('tweet', {text:this.state.message})
+  }
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
@@ -71,7 +88,7 @@ class Main extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Our first component!!! :)
+          Our first components!!! :)
         </Text>
         <MapView
           style={styles.map}
@@ -84,7 +101,17 @@ class Main extends Component {
             lineWidth: 8,
           }]}
         />
-        <View style={styles.navBar}><Text style={styles.navBarText}>Killa Koala</Text></View>
+        <View style={styles.navBar}>
+          <TextInput
+             placeholder="Send a Message to the Group"
+             style={styles.chat}
+             onChangeText={(message) => this.setState({message})}
+             value={this.state.message}/>
+             <View style={styles.button} 
+               onPress={() => sendChatMessage.bind(this)} >
+               <Text>Send</Text>
+             </View>
+        </View>
       </View>
     )
   }
@@ -97,8 +124,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+   button: {
+    backgroundColor: '#eeeeee',
+    padding: 10,
+    width:60,
+    left:320,
+    right: 10,
+    top: 0
+  },
+  chat: {
+    height: 40, 
+    borderColor: 'rgba(0,0,0,0.7)', 
+    borderWidth: 1,
+    backgroundColor: 'white',
+    top:20
+  },
   navBar: {
-    backgroundColor: 'rgba(0,0,0,0.7)',
+    backgroundColor: 'white',
     height: 64,
     width: width,
     position: 'absolute',
