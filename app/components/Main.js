@@ -31,6 +31,7 @@ class Main extends Component {
      }
   }
 
+
   componentDidMount() {
     console.log('mounted')
     this.state.socket = this.socket
@@ -42,7 +43,7 @@ class Main extends Component {
     (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
   )
-
+    
   this.watchID = navigator.geolocation.watchPosition((position) => {
     console.log(position);
     const { routeCoordinates, distanceTravelled } = this.state
@@ -54,7 +55,7 @@ class Main extends Component {
         prevLatLng: newLatLngs
      })
     console.log('ROUT OBJECT', this.state.routeCoordinates);
-    this.socket.emit('location', {'title': 'Konstantin', 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
+    this.socket.emit('location', {'title': 'Alexius', 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
     //this.state.users = [this.state.prevLatLng];
 
     this.socket.on('tweet', (data) => {

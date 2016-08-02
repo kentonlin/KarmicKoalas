@@ -52,15 +52,15 @@ const styles = StyleSheet.create({
     },
     TextInput: {
       borderWidth: 2,
-      color: 'blue'
+      color: 'white'
     },
     textHeader: {
       fontSize: 30,
-      color: 'blue'
+      color: 'white'
     },
     buttonText: {
       fontSize: 18,
-      color: 'green',
+      color: 'white',
       alignSelf: 'center'
     },
     button: {
