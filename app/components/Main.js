@@ -42,34 +42,32 @@ console.log('intialaze client side')
   )
   this.watchID = navigator.geolocation.watchPosition((position) => {
     console.log(position);
-    
+
     const { routeCoordinates, distanceTravelled } = this.state
-    
+
     const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude }
-    
+
     const positionLatLngs = pick(position.coords, ['latitude', 'longitude'])
     this.setState({
         routeCoordinates: routeCoordinates.concat(positionLatLngs),
         distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
-          prevLatLng: newLatLngs
-       })
-      
-      console.log('ROUT OBJECT', this.state.routeCoordinates);
-         
-      this.socket.emit('location', {'title': 'Rebecca', 'latitude': this.state.   prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude });
-      
-      //this.state.users = [this.state.prevLatLng];
-      this.socket.on('tweet', (data) => {
-        console.log("Chat message from server", data);
-        this.state.message = data.text;
-        this.state.tweets.push(data.text);
-      });
-
-      this.socket.on('groupUpdate',(data) =>  {
-        console.log("Group Data from server", data);
-        this.state.users = data;
-      } );
+        prevLatLng: newLatLngs
+     })
+    console.log('ROUT OBJECT', this.state.routeCoordinates);
+    this.socket.emit('location', {'title': 'Konstantin', 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude });
+    //this.state.users = [this.state.prevLatLng];
+    this.socket.on('tweet', (data) => {
+      console.log("Chat message from server", data);
+      this.state.message = data.text;
+      this.state.tweets.push(data.text);
     });
+
+    this.socket.on('groupUpdate',(data) =>  {
+      console.log("Group Data from server", data);
+      this.state.users = data;
+    } );
+    //this.state.users = [{'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude, 'title': 'Konst' }, {'latitude': this.state.prevLatLng.latitude + 0.0008, 'longitude': this.state.prevLatLng.longitude, 'title': 'Bo' }];
+  });
 }
 
   sendChatMessage(){
@@ -86,7 +84,7 @@ console.log('intialaze client side')
      const { prevLatLng } = this.state
      return (haversine(prevLatLng, newLatLng) || 0)
   }
-  
+
   handleKeyDown(e) {
     if(e.nativeEvent.key == "Enter"){
       console.log('sending tweet')
@@ -119,7 +117,7 @@ console.log('intialaze client side')
              style={styles.chat}
              onChangeText={(message) => this.setState({message})}
              value={this.state.message}/>
-          
+
         </View>
       </View>
     )
@@ -141,8 +139,8 @@ const styles = StyleSheet.create({
     top: 0
   },
   chat: {
-    height: 40, 
-    borderColor: 'rgba(0,0,0,0.7)', 
+    height: 40,
+    borderColor: 'rgba(0,0,0,0.7)',
     borderWidth: 2,
     backgroundColor: 'white',
     top:20,
