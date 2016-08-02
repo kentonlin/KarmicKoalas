@@ -6,7 +6,7 @@ import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, T
 import haversine from 'haversine'
 import pick from 'lodash/pick'
 //import socket from '../utils/sockets'
-import userAgent from './utils/userAgent'
+import userAgent from '../utils/userAgent'
 import io from 'socket.io-client/socket.io'
 
 
