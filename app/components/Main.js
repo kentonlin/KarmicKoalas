@@ -60,6 +60,7 @@ class Main extends Component {
     this.socket.on('tweet', (data) => {
       console.log("Chat message from server", data);
        this.state.incomingMessage = data.text;
+       this.forceUpdate();
       // this.state.tweets.push(data.text);
     });
     this.socket.on('groupUpdate',(data) =>  {
