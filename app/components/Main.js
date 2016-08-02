@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS } from 'react-native';
+import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, TouchableHighlight } from 'react-native';
 
 import haversine from 'haversine'
 import pick from 'lodash/pick'
@@ -16,7 +16,7 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io.connect('https://wegoios.herokuapp.com/', {jsonp: false});
+    this.socket = io.connect('localhost:3000', {jsonp: false});
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
@@ -24,11 +24,13 @@ class Main extends Component {
       users: [],
       tweets: [],
       groupId: 1,//groupId: props.groupId,   //this will come from group list view and pass to server
-      message: " "
+      message: " ",
+      socket:this.socket
      }
   }
 
   componentDidMount() {
+    this.state.socket = this.socket
   // StatusBarIOS.setStyle('light-content')
   this.socket.emit('intitialize',{groupId:this.state.groupId})
 
@@ -72,7 +74,8 @@ class Main extends Component {
 
   sendChatMessage(){
     console.log('sending tweet')
-    this.socket.emit('tweet', {text:this.state.message})
+    this.state.socket.emit('tweet', {text:this.state.message})
+    this.state.message = ' ';
   }
 
   componentWillUnmount() {
@@ -83,6 +86,14 @@ class Main extends Component {
      const { prevLatLng } = this.state
      return (haversine(prevLatLng, newLatLng) || 0)
   }
+  
+  handleKeyDown(e) {
+    if(e.nativeEvent.key == "Enter"){
+      console.log('sending tweet')
+    this.state.socket.emit('tweet', {text:this.state.message})
+    this.state.message = ' ';
+  }
+}
 
   render() {
     return (
@@ -103,14 +114,15 @@ class Main extends Component {
         />
         <View style={styles.navBar}>
           <TextInput
+             onKeyPress={this.handleKeyDown.bind(this)}
              placeholder="Send a Message to the Group"
              style={styles.chat}
              onChangeText={(message) => this.setState({message})}
              value={this.state.message}/>
-             <View style={styles.button} 
-               onPress={() => sendChatMessage.bind(this)} >
+             <TouchableHighlight style={styles.button} 
+               onPress={() => this.sendChatMessage.bind(this)} >
                <Text>Send</Text>
-             </View>
+             </TouchableHighlight>
         </View>
       </View>
     )
@@ -125,9 +137,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
    button: {
-    backgroundColor: '#eeeeee',
     padding: 10,
-    width:60,
+    width:70,
     left:320,
     right: 10,
     top: 0
@@ -135,12 +146,13 @@ const styles = StyleSheet.create({
   chat: {
     height: 40, 
     borderColor: 'rgba(0,0,0,0.7)', 
-    borderWidth: 1,
+    borderWidth: 2,
     backgroundColor: 'white',
-    top:20
+    top:20,
+    color: '#19B5FE'
   },
   navBar: {
-    backgroundColor: 'white',
+    backgroundColor: 'grey',
     height: 64,
     width: width,
     position: 'absolute',
