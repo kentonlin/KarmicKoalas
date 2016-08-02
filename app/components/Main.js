@@ -6,7 +6,7 @@ import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, T
 import haversine from 'haversine'
 import pick from 'lodash/pick'
 //import socket from '../utils/sockets'
-import userAgent from './utils/userAgent'
+import userAgent from '../utils/userAgent'
 import io from 'socket.io-client/socket.io'
 
 
@@ -16,7 +16,7 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io.connect('https://wegois.herokuapp.com/', {jsonp: false});
+    this.socket = io.connect('https://thawing-everglades-71687.herokuapp.com/', {jsonp: false});
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
@@ -26,7 +26,8 @@ class Main extends Component {
       groupId: '1',//groupId: props.groupId,   //this will come from group list view and pass to server
       message: " ",
       socket:this.socket,
-      groupOfUsers: {}
+      groupOfUsers: {},
+      incomingMessage: " "
      }
   }
 
@@ -35,19 +36,17 @@ class Main extends Component {
     this.state.socket = this.socket
   // StatusBarIOS.setStyle('light-content')
   this.socket.emit('intitialize',{groupId:this.state.groupId})
-console.log('intialaze client side')
+  console.log('intialaze client side')
   navigator.geolocation.getCurrentPosition(
     (position) => console.log(position),
     (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
   )
+
   this.watchID = navigator.geolocation.watchPosition((position) => {
     console.log(position);
-
     const { routeCoordinates, distanceTravelled } = this.state
-
     const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude }
-
     const positionLatLngs = pick(position.coords, ['latitude', 'longitude'])
     this.setState({
         routeCoordinates: routeCoordinates.concat(positionLatLngs),
@@ -55,14 +54,14 @@ console.log('intialaze client side')
         prevLatLng: newLatLngs
      })
     console.log('ROUT OBJECT', this.state.routeCoordinates);
-    this.socket.emit('location', {'title': 'Rebecca', 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude });
+    this.socket.emit('location', {'title': 'Konstantin', 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
     //this.state.users = [this.state.prevLatLng];
+
     this.socket.on('tweet', (data) => {
       console.log("Chat message from server", data);
-      this.state.message = data.text;
-      this.state.tweets.push(data.text);
+       this.state.incomingMessage = data.text;
+      // this.state.tweets.push(data.text);
     });
-
     this.socket.on('groupUpdate',(data) =>  {
       console.log("Group Data from server", data);
       this.state.groupOfUsers[data.title] = data;
@@ -99,18 +98,15 @@ console.log('intialaze client side')
 
   handleKeyDown(e) {
     if(e.nativeEvent.key == "Enter"){
-      console.log('sending tweet')
+      console.log('sending tweet', this.state.message)
     this.state.socket.emit('tweet', {text:this.state.message})
-    this.state.message = ' ';
+    this.state.message = "";
   }
 }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Our first components!!! :)
-        </Text>
         <MapView
           style={styles.map}
           annotations={this.state.users}
@@ -129,7 +125,9 @@ console.log('intialaze client side')
              style={styles.chat}
              onChangeText={(message) => this.setState({message})}
              value={this.state.message}/>
-
+           <Text style={styles.chat}>
+               {this.state.incomingMessage}
+           </Text>
         </View>
       </View>
     )
