@@ -50,21 +50,26 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center', 
       backgroundColor: 'cornflowerblue'
     },
+    topbar: {
+      justifyContent: 'flex-start'
+    },
     buttonText: {
-      fontSize: 18,
-      color: 'green',
+      fontSize: 30,
+      color: 'white',
       alignSelf: 'center'
     },
     button: {
-      height: 20,
-      flexDirection: 'column',
-      backgroundColor: 'skyblue',
+      height: 44,
+      flexDirection: 'row',
+      alignSelf: 'stretch',
       justifyContent: 'space-between',
-      borderRadius: 25
+      backgroundColor: 'skyblue'
+      // color: 'white'
     }
+
 });
 
 module.exports =  TopNavigation;	
