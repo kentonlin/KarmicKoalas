@@ -19,7 +19,6 @@ class SignUp extends Component {
 	
   render() {
 		return (
-			// <View style={styles.container}>
       <View style={styles.container}>
 				<Text style={styles.textHeader}>
 					Sign Up
@@ -63,6 +62,22 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'cornflowerblue'
+    },
+    navBar: {
+      backgroundColor: 'cornflowerblue',
+      height: 64,
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0
+    },
+    navText: {
+      color: 'white',
+      fontSize: 16,
+      fontWeight: "700",
+      textAlign: 'center',
+      paddingTop: 30
     },
     inputText: {
       height: 40,
