@@ -1,15 +1,16 @@
-#PRESS-RELEASE
+#This app is great for group bike rides, caravan road trips, tour groups, school groups and playing tag!
 
-#Route share  / treasure hunt 
-A Social app to add community to google maps functionality
+#WeGoToo
+WeGoToo is a social app which adds community to regular maps functionality
 
-Users define routes, add points of interest
-Users save route to public db of routes
-Users search public db of routes, select route to follow, send invitations to group
-Group users join routes and have live tracking of location
-Group users can message each other on the route
----Emulates https://googlegeodevelopers.blogspot.com/2015/06/harley-davidson-ride-planner-uses.html --uses
-https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/LocationAwarenessPG/CoreLocation/CoreLocation.html
+Users can create and share routes, add points of interest, or secret treasures, photos and tags.
+Routes are stored in our searchable cloud database.
+
+Users who are looking for some fun to share can search our routes, choose a  route to follow, and send invitations for the adventure to their friends.
+
+Groups of users then join routes together via invitation and and have live tracking of their locations and can 
+message each other on the route
+
 
 
 
