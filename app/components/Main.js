@@ -44,11 +44,11 @@ class Main extends Component {
         prevLatLng: newLatLngs
      })
     console.log('ROUT OBJECT', this.state.routeCoordinates);
-    this.socket.emit('location', {'user': 'Konstantin', 'coordinates': {'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude} });
+    this.socket.emit('location', {'title': 'Konstantin', 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude });
     //this.state.users = [this.state.prevLatLng];
     this.socket.on('groupUpdate',(data) =>  {
       console.log("Group Data from server", data);
-      this.state.users = data.group;
+      this.state.users = data;
     } );
     //this.state.users = [{'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude, 'title': 'Konst' }, {'latitude': this.state.prevLatLng.latitude + 0.0008, 'longitude': this.state.prevLatLng.longitude, 'title': 'Bo' }];
   });
