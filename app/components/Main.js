@@ -16,7 +16,7 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io.connect('https://thawing-everglades-71687.herokuapp.com/', {jsonp: false});
+    this.socket = io.connect('https://wegois.herokuapp.com/', {jsonp: false});
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
@@ -67,9 +67,8 @@ console.log('intialaze client side')
 
       this.socket.on('groupUpdate',(data) =>  {
         console.log("Group Data from server", data);
-       // this.state.users = data;
+        this.state.users = data;
       } );
-      //this.state.users = [{'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude, 'title': 'Konst' }, {'latitude': this.state.prevLatLng.latitude + 0.0008, 'longitude': this.state.prevLatLng.longitude, 'title': 'Bo' }];
     });
 }
 
@@ -120,10 +119,7 @@ console.log('intialaze client side')
              style={styles.chat}
              onChangeText={(message) => this.setState({message})}
              value={this.state.message}/>
-             <TouchableHighlight style={styles.button} 
-               onPress={() => this.sendChatMessage.bind(this)} >
-               <Text>Send</Text>
-             </TouchableHighlight>
+          
         </View>
       </View>
     )
