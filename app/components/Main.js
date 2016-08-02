@@ -25,7 +25,8 @@ class Main extends Component {
       tweets: [],
       groupId: '1',//groupId: props.groupId,   //this will come from group list view and pass to server
       message: " ",
-      socket:this.socket
+      socket:this.socket,
+      groupOfUsers: {}
      }
   }
 
@@ -64,9 +65,20 @@ console.log('intialaze client side')
 
     this.socket.on('groupUpdate',(data) =>  {
       console.log("Group Data from server", data);
-      this.state.users = data;
+      this.state.groupOfUsers[data.title] = data;
     } );
     //this.state.users = [{'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude, 'title': 'Konst' }, {'latitude': this.state.prevLatLng.latitude + 0.0008, 'longitude': this.state.prevLatLng.longitude, 'title': 'Bo' }];
+    console.log('groupOfUsers', this.state.groupOfUsers);
+    //function update user array for annotations
+    function updateUsersLocations(object){
+      var newUsersArray = [];
+      for(var key in object){
+        newUsersArray.push(object[key]);
+      }
+      return newUsersArray
+    }
+    this.state.users = updateUsersLocations(this.state.groupOfUsers);
+    console.log('Users!!!', this.state.users);
   });
 }
 
