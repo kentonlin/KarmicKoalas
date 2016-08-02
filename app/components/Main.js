@@ -16,24 +16,25 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io.connect('localhost:3000', {jsonp: false});
+    this.socket = io.connect('https://thawing-everglades-71687.herokuapp.com/', {jsonp: false});
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
       users: [],
       tweets: [],
-      groupId: 1,//groupId: props.groupId,   //this will come from group list view and pass to server
+      groupId: '1',//groupId: props.groupId,   //this will come from group list view and pass to server
       message: " ",
       socket:this.socket
      }
   }
 
   componentDidMount() {
+    console.log('mounted')
     this.state.socket = this.socket
   // StatusBarIOS.setStyle('light-content')
   this.socket.emit('intitialize',{groupId:this.state.groupId})
-
+console.log('intialaze client side')
   navigator.geolocation.getCurrentPosition(
     (position) => console.log(position),
     (error) => alert(error.message),
@@ -55,7 +56,7 @@ class Main extends Component {
       
       console.log('ROUT OBJECT', this.state.routeCoordinates);
          
-      this.socket.emit('location', {'title': 'Konstantin', 'latitude': this.state.   prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude, groupId : this.state.groupId });
+      this.socket.emit('location', {'title': 'Rebecca', 'latitude': this.state.   prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude });
       
       //this.state.users = [this.state.prevLatLng];
       this.socket.on('tweet', (data) => {
@@ -66,7 +67,7 @@ class Main extends Component {
 
       this.socket.on('groupUpdate',(data) =>  {
         console.log("Group Data from server", data);
-        this.state.users = data;
+       // this.state.users = data;
       } );
       //this.state.users = [{'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude, 'title': 'Konst' }, {'latitude': this.state.prevLatLng.latitude + 0.0008, 'longitude': this.state.prevLatLng.longitude, 'title': 'Bo' }];
     });
