@@ -16,7 +16,7 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io.connect('http://localhost:3001', {jsonp: false});
+    this.socket = io.connect('https://thawing-everglades-71687.herokuapp.com/', {jsonp: false});
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
@@ -43,8 +43,8 @@ class Main extends Component {
         distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
         prevLatLng: newLatLngs
      })
-    console.log(this.state.distanceTravelled);
-    this.socket.emit('location', {'coordinates': this.state.prevLatLng});
+    console.log('ROUT OBJECT', this.state.routeCoordinates);
+    this.socket.emit('location', {'user': 'Konstantin', 'coordinates': {'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude} });
     //this.state.users = [this.state.prevLatLng];
     this.socket.on('groupUpdate',(data) =>  {
       console.log("Group Data from server", data);
