@@ -16,7 +16,7 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io.connect('https://wegoios.herokuapp.com', {jsonp: false});
+    this.socket = io.connect('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
