@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, TouchableHighlight } from 'react-native';
-
+import Chat from './chat'
 import haversine from 'haversine'
 import pick from 'lodash/pick'
 //import socket from '../utils/sockets'
@@ -32,60 +32,48 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    console.log('mounted')
-    this.state.socket = this.socket
-  // StatusBarIOS.setStyle('light-content')
-  this.socket.emit('intitialize',{groupId:this.state.groupId})
-  console.log('intialaze client side')
-  navigator.geolocation.getCurrentPosition(
-    (position) => console.log(position),
-    (error) => alert(error.message),
-    {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-  )
-  this.watchID = navigator.geolocation.watchPosition((position) => {
-    console.log(position);
-    const { routeCoordinates, distanceTravelled } = this.state
-    const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude }
-    const positionLatLngs = pick(position.coords, ['latitude', 'longitude'])
-    this.setState({
-        routeCoordinates: routeCoordinates.concat(positionLatLngs),
-        distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
-        prevLatLng: newLatLngs
-     })
-    console.log('ROUT OBJECT', this.state.routeCoordinates);
-    this.socket.emit('location', {'title': 'Alexius', 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
-    //this.state.users = [this.state.prevLatLng];
+      console.log('mounted')
+      this.state.socket = this.socket
+      // StatusBarIOS.setStyle('light-content')
+      this.socket.emit('intitialize',{groupId:this.state.groupId})
+      console.log('intialaze client side')
+      navigator.geolocation.getCurrentPosition(
+        (position) => console.log(position),
+        (error) => alert(error.message),
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      )
+      this.watchID = navigator.geolocation.watchPosition((position) => {
+        console.log(position);
+        const { routeCoordinates, distanceTravelled } = this.state
+        const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude }
+        const positionLatLngs = pick(position.coords, ['latitude', 'longitude'])
+        this.setState({
+            routeCoordinates: routeCoordinates.concat(positionLatLngs),
+            distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
+            prevLatLng: newLatLngs
+         })
+        console.log('ROUT OBJECT', this.state.routeCoordinates);
+        this.socket.emit('location', {'title': 'Alexius', 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
+        //this.state.users = [this.state.prevLatLng];
 
-    this.socket.on('tweet', (data) => {
-      console.log("Chat message from server", data);
-       this.state.incomingMessage = data.text;
-       this.forceUpdate();
-      // this.state.tweets.push(data.text);
-    });
-    this.socket.on('groupUpdate',(data) =>  {
-      console.log("Group Data from server", data);
-      this.state.groupOfUsers[data.title] = data;
-    } );
-    //this.state.users = [{'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude, 'title': 'Konst' }, {'latitude': this.state.prevLatLng.latitude + 0.0008, 'longitude': this.state.prevLatLng.longitude, 'title': 'Bo' }];
-    console.log('groupOfUsers', this.state.groupOfUsers);
-    //function update user array for annotations
-    function updateUsersLocations(object){
-      var newUsersArray = [];
-      for(var key in object){
-        newUsersArray.push(object[key]);
-      }
-      return newUsersArray
-    }
-    this.state.users = updateUsersLocations(this.state.groupOfUsers);
-    console.log('Users!!!', this.state.users);
-  });
+        this.socket.on('groupUpdate',(data) =>  {
+          console.log("Group Data from server", data);
+          this.state.groupOfUsers[data.title] = data;
+        } );
+        //this.state.users = [{'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude, 'title': 'Konst' }, {'latitude': this.state.prevLatLng.latitude + 0.0008, 'longitude': this.state.prevLatLng.longitude, 'title': 'Bo' }];
+        console.log('groupOfUsers', this.state.groupOfUsers);
+        //function update user array for annotations
+        function updateUsersLocations(object){
+          var newUsersArray = [];
+          for(var key in object){
+            newUsersArray.push(object[key]);
+          }
+          return newUsersArray
+        }
+        this.state.users = updateUsersLocations(this.state.groupOfUsers);
+        console.log('Users!!!', this.state.users);
+      });
 }
-
-  sendChatMessage(){
-    console.log('sending tweet')
-    this.state.socket.emit('tweet', {text:this.state.message})
-    this.state.message = ' ';
-  }
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
@@ -96,13 +84,7 @@ class Main extends Component {
      return (haversine(prevLatLng, newLatLng) || 0)
   }
 
-  handleKeyDown(e) {
-    if(e.nativeEvent.key == "Enter"){
-      console.log('sending tweet', this.state.message)
-    this.state.socket.emit('tweet', {text:this.state.message})
-    this.state.message = "";
-  }
-}
+
 
   render() {
     return (
@@ -119,15 +101,7 @@ class Main extends Component {
           }]}
         />
         <View style={styles.navBar}>
-          <TextInput
-             onKeyPress={this.handleKeyDown.bind(this)}
-             placeholder="Send a Message to the Group"
-             style={styles.chat}
-             onChangeText={(message) => this.setState({message})}
-             value={this.state.message}/>
-           <Text style={styles.chat}>
-               {this.state.incomingMessage}
-           </Text>
+         <Chat socket={this.socket}/>
         </View>
       </View>
     )
@@ -147,14 +121,6 @@ const styles = StyleSheet.create({
     left:320,
     right: 10,
     top: 0
-  },
-  chat: {
-    height: 40,
-    borderColor: 'rgba(0,0,0,0.7)',
-    borderWidth: 2,
-    backgroundColor: 'white',
-    top:20,
-    color: '#19B5FE'
   },
   navBar: {
     backgroundColor: 'grey',
