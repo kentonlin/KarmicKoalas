@@ -6,8 +6,13 @@ import Chat from './chat'
 import haversine from 'haversine'
 import pick from 'lodash/pick'
 //import socket from '../utils/sockets'
-import userAgent from '../utils/userAgent'
-import io from 'socket.io-client/socket.io'
+
+if (window.navigator && Object.keys(window.navigator).length == 0) {
+  window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
+}
+const io = require('socket.io-client/socket.io');
+// import userAgent from '../utils/userAgent'
+// import io from 'socket.io-client/socket.io'
 
 
 const { width, height } = Dimensions.get('window')
@@ -16,7 +21,7 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io.connect('https://wegoios.herokuapp.com', {jsonp: false});
+    this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
