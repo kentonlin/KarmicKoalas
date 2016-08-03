@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
     var myRoom = data.groupId
     console.log('intialaze client side', myRoom)
     socket.join('myRoom');
-  })
+  });
   
   socket.on('location', (data) =>{
     console.log("Incoming location:", data)
