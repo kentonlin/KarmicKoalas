@@ -53,7 +53,7 @@ class Main extends Component {
             prevLatLng: newLatLngs
          })
         console.log('ROUT OBJECT', this.state.routeCoordinates);
-        this.socket.emit('location', {'title': 'Konstantin', 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
+        this.socket.emit('location', {'title': 'Konstantin-mobile', 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
         //this.state.users = [this.state.prevLatLng];
 
         this.socket.on('groupUpdate',(data) =>  {
