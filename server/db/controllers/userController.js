@@ -7,9 +7,15 @@ module.exports = {
     });
   },
   getUser: function(userId, cb){
-    User.where({userId: userId})
+    User.where({id: userId})
     .fetch()
     .then(function(user){
+      cb(user);
+    });
+  },
+  // not tested
+  updateUser: function(userId, data, cb){
+    new User({id: userId}).save(data).then(function(user){
       cb(user);
     });
   },
