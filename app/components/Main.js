@@ -16,7 +16,7 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io.connect('https://thawing-everglades-71687.herokuapp.com/', {jsonp: false, transports:['websocket'], allowUpgrades:true});
+    this.socket = io.connect('https://wegoios.herokuapp.com', {jsonp: false});
     this.state = {
       routeCoordinates: [],
       distanceTravelled: 0,
@@ -60,6 +60,7 @@ class Main extends Component {
     this.socket.on('tweet', (data) => {
       console.log("Chat message from server", data);
        this.state.incomingMessage = data.text;
+       this.forceUpdate();
       // this.state.tweets.push(data.text);
     });
     this.socket.on('groupUpdate',(data) =>  {
