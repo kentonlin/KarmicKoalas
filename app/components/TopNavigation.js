@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
-// import StatusBarBackground from './app/components/StatusBarBackground'
 
 class TopNavigation extends Component {
 	constructor(props) {
@@ -14,6 +13,8 @@ class TopNavigation extends Component {
 
   _onPressButton() {
     console.log('Groups Button pressed!');
+
+
   
     // fetch("http://localhost:3000/test?search=nraboy", {method: "GET"})
     // .then((response) => response.json())
@@ -28,8 +29,7 @@ class TopNavigation extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-        
+      <View style={styles.container}>
         <TouchableHighlight style={styles.button}>
             <Text style={styles.buttonText}>Create Route</Text>
         </TouchableHighlight>
@@ -37,7 +37,7 @@ class TopNavigation extends Component {
         <TouchableHighlight style={styles.button}>
             <Text style={styles.buttonText}>Search Routes</Text>
         </TouchableHighlight>
-
+        
         <TouchableHighlight style={styles.button} onPress={this._onPressButton}>
             <Text style={styles.buttonText}>See Groups</Text>
         </TouchableHighlight>

@@ -31,7 +31,6 @@ class Main extends Component {
      }
   }
 
-
   componentDidMount() {
     console.log('mounted')
     this.state.socket = this.socket
@@ -43,7 +42,6 @@ class Main extends Component {
     (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
   )
-    
   this.watchID = navigator.geolocation.watchPosition((position) => {
     console.log(position);
     const { routeCoordinates, distanceTravelled } = this.state

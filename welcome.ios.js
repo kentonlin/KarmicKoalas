@@ -14,9 +14,6 @@ var styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: 'cornflowerblue'
-	},
-	icon: {
-
 	}
 });
 
