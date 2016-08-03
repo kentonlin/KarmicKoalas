@@ -67,9 +67,7 @@ const styles = StyleSheet.create({
       alignSelf: 'stretch',
       justifyContent: 'space-between',
       backgroundColor: 'skyblue'
-      // color: 'white'
     }
-
 });
 
 module.exports =  TopNavigation;	

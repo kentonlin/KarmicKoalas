@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS } from 'react-native';
+import ViewContainer from './app/components/ViewContainer'
+import StatusBarBackground from './app/components/StatusBarBackground'
 
 class SignUp extends Component {
 	constructor(props) {
@@ -15,7 +17,9 @@ class SignUp extends Component {
   }
 	render() {
 		return (
-			<View style={styles.container}>
+			// <View style={styles.container}>
+      <ViewContainer>
+       <StatusBarBackground style={{backgroundColor: "mistyrose"}} />
 				<Text style={styles.textHeader}>
 					Sign Up
 				</Text>
@@ -38,7 +42,7 @@ class SignUp extends Component {
         <TouchableHighlight style={styles.button}>
             <Text>Go</Text>
         </TouchableHighlight>
-			</View>
+			</ViewContainer>
 			)
 	}
 };
@@ -54,21 +58,27 @@ const styles = StyleSheet.create({
       borderWidth: 2,
       color: 'white'
     },
-    textHeader: {
-      fontSize: 30,
+    placeholder: {
       color: 'white'
     },
+    textHeader: {
+      fontSize: 30,
+      color: 'white',
+      justifyContent: 'flex-start'
+    },
     buttonText: {
-      fontSize: 18,
+      fontSize: 30,
       color: 'white',
       alignSelf: 'center'
     },
     button: {
       height: 44,
+      width: 30,
+      borderRadius: 10,
       flexDirection: 'row',
-      backgroundColor: '#48BBEC',
       alignSelf: 'stretch',
       justifyContent: 'center'
+      // color: 'white'
     }
 });
 
