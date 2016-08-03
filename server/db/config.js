@@ -39,8 +39,8 @@ db.schema.hasTable('groups').then(function(exists){
   if(!exists){
     return db.schema.createTable('groups', function(group){
       group.increments('id').primary();
-      group.integer('host').unsigned().references('users.id');
-      group.integer('route').unsigned().references('routes.id');
+      group.integer('hostId').unsigned().references('users.id');
+      group.integer('routeId').unsigned().references('routes.id');
       group.json('invitees');
       group.timestamps();
     });
