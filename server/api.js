@@ -2,9 +2,11 @@ var nodemailer = require('nodemailer');
 var express = require('express');
 var bodyParser = require('body-parser');
 
-var User = require('./db/models/user.js');
-var Group = require('./db/models/group.js');
-var Route = require('./db/models/route.js');
+var User = require('./db/models/user');
+var Group = require('./db/models/group');
+var Route = require('./db/models/route');
+
+var userController = require('./db/controllers/userController');
 
 var app = express();
 
@@ -12,15 +14,13 @@ app.use(bodyParser.json());
 
 
 app.post('/signup', function(req, res){
-  new User({
+  userController.createUser({
+    name: req.body.name,
     username: req.body.username,
     email: req.body.email,
     routes: req.body.routes,
     groups: req.body.groups
-  })
-  .save()
-  .then(function(user){
-    // res.send(JSON.stringify(user));
+  }, function(user){
     res.send(user);
   });
 });
