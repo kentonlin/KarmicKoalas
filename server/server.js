@@ -1,18 +1,17 @@
 'use strict';
 
 const express = require('express');
-const socketIO = require('socket.io');
+//const socketIO = require('socket.io');
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, 'index.html');
+const app = require('./api');
+const server = require('http').Server(app)//express()
+ // .use((req, res) => res.sendFile(test) )
+server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
-const io = socketIO(server);
-var group = [];
+const io = require('socket.io')(server);
 var rooms = {};
 
 io.on('connection', (socket) => {
