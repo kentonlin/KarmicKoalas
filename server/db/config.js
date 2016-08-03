@@ -12,10 +12,11 @@ db.schema.hasTable('users').then(function(exists){
   if(!exists){
     return db.schema.createTable('users', function(user){
       user.increments('id').primary();
+      user.string('name', 100);
       user.string('username', 100).unique();
       user.string('email', 100).unique();
       user.json('routes');
-      user.json('groups');
+      user.json('events');
       user.timestamps();
     });
   }
@@ -35,14 +36,15 @@ db.schema.hasTable('routes').then(function(exists){
   }
 });
 
-db.schema.hasTable('groups').then(function(exists){
+db.schema.hasTable('events').then(function(exists){
   if(!exists){
-    return db.schema.createTable('groups', function(group){
-      group.increments('id').primary();
-      group.integer('hostId').unsigned().references('users.id');
-      group.integer('routeId').unsigned().references('routes.id');
-      group.json('invitees');
-      group.timestamps();
+    return db.schema.createTable('events', function(event){
+      event.increments('id').primary();
+      event.integer('hostId').unsigned().references('users.id');
+      event.integer('routeId').unsigned().references('routes.id');
+      event.json('invitees');
+      event.json('acceptedInvitees');
+      event.timestamps();
     });
   }
 });

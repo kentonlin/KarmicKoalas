@@ -12,5 +12,14 @@ module.exports = {
     .then(function(user){
       cb(user);
     });
+  },
+  getEvents: function(id, cb){
+    new User({id: id}).fetch().then(function(user){
+      Promise.all(JSON.parse(user.get('events')).map(function(groupId){
+        return new Group({id: groupId}).fetch()
+      })).then(function(groups){
+        cb(groups);
+      });
+    });
   }
 };
