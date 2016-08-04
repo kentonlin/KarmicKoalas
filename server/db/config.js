@@ -22,6 +22,16 @@ db.schema.hasTable('users').then(function(exists){
   }
 });
 
+db.schema.hasTable('keyword').then(function(exists){
+  if(!exists){
+    return db.schema.createTable('keyword', function(keyword){
+      keyword.increments('id').primary();
+      keyword.string('word', 100);
+      keyword.timestamps();
+    });
+  }
+});
+
 db.schema.hasTable('routes').then(function(exists){
   if(!exists){
     return db.schema.createTable('routes', function(route){
@@ -31,11 +41,6 @@ db.schema.hasTable('routes').then(function(exists){
       route.json('end',100);
       route.json('points_of_interest');
       route.json('route');
-      route.json('keyword1',100);
-      route.json('keyword2',100);
-      route.json('keyword3',100);
-      route.json('keyword4',100);
-      route.json('keyword5',100);
       route.timestamps();
     });
   }
