@@ -5,6 +5,10 @@ import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, T
 import haversine from 'haversine'
 import pick from 'lodash/pick'
 
+if (window.navigator && Object.keys(window.navigator).length == 0) {
+  window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
+}
+
 const { width, height } = Dimensions.get('window')
 
 class MapComponent extends Component {
@@ -12,7 +16,7 @@ class MapComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: 'Rebecca-desktop',
+      currentUser: 'Konstantin-desktop',
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
@@ -44,7 +48,8 @@ class MapComponent extends Component {
         this.props.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
         this.props.socket.on('groupUpdate',(data) =>  {
           console.log("Group Data from server", data);
-          if(data.title !== this.state.currentUser) this.state.groupOfUsers[data.title] = data;
+          //if(data.title !== this.state.currentUser)
+           this.state.groupOfUsers[data.title] = data;
         } );
         console.log('groupOfUsers', this.state.groupOfUsers);
 
@@ -81,12 +86,6 @@ class MapComponent extends Component {
           annotations={this.state.users}
           showsUserLocation={true}
           followUserLocation={false}
-          annotations={[{
-            latitude: 37.788,
-            longitude: -122.43,
-            title: 'Sunset Cafe',
-            subtitle: '4230 Sunset Blvd'
-          }]}
           overlays={[{
             coordinates: this.state.routeCoordinates,
             strokeColor: 'red',
