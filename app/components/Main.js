@@ -97,57 +97,18 @@ class Main extends Component {
     return (
       <View style={styles.container}>
         <MapComponent socket={this.state.socket}/>
-        <View style={styles.navBar}>
-           <Chat socket={this.socket}/>
-        </View>
+        <Chat socket={this.socket}/>
       </View>
     )
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  navBar: {
-    backgroundColor: 'grey',
-    height: 64,
-    width: width,
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0
-  },
-  bottomBar: {
-    position: 'absolute',
-    height: 100,
-    bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    width: width,
-    padding: 20,
-    flexWrap: 'wrap',
-    flexDirection: 'row'
-  },
-  bottomBarGroup: {
-    flex: 1
-  },
-  bottomBarHeader: {
-    color: '#fff',
-    fontWeight: "400",
-    textAlign: 'center'
-  },
-  bottomBarContent: {
-    color: '#fff',
-    fontWeight: "700",
-    fontSize: 18,
-    marginTop: 10,
-    color: '#19B5FE',
-    textAlign: 'center'
-  },
+  }
 })
 
 module.exports = Main;

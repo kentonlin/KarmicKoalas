@@ -76,19 +76,29 @@ class MapComponent extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+        <View style={styles.container}>
         <MapView
           style={styles.map}
           annotations={this.state.users}
-          annotations={this.state.users}
           showsUserLocation={true}
           followUserLocation={false}
+          annotations={[{
+            latitude: 37.788,
+            longitude: -122.43,
+            title: 'Sunset Cafe',
+            subtitle: '4230 Sunset Blvd'
+          }]}
           overlays={[{
             coordinates: this.state.routeCoordinates,
             strokeColor: 'red',
             lineWidth: 3,
           }]}
         />
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => {alert('Hello')}}>
+          <Text>Create new pin</Text>
+        </TouchableHighlight>
       </View>
     )
   }
@@ -96,66 +106,27 @@ class MapComponent extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    height: height,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    position: 'relative'
   },
-   button: {
-    padding: 10,
-    width:70,
-    left:320,
-    right: 10,
-    top: 0
-  },
-  navBar: {
-    backgroundColor: 'grey',
-    height: 64,
-    width: width,
+  button: {
+    flex: 1,
+    bottom:100,
     position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0
-  },
-  navBarText: {
-    color: '#19B5FE',
-    fontSize: 16,
-    fontWeight: "700",
-    textAlign: 'center',
-    paddingTop: 30
+    backgroundColor: '#fff',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
   },
   map: {
-    flex: 0.7,
+    flex: 1,
     width: width,
     height: height
-  },
-  bottomBar: {
-    position: 'absolute',
-    height: 100,
-    bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    width: width,
-    padding: 20,
-    flexWrap: 'wrap',
-    flexDirection: 'row'
-  },
-  bottomBarGroup: {
-    flex: 1
-  },
-  bottomBarHeader: {
-    color: '#fff',
-    fontWeight: "400",
-    textAlign: 'center'
-  },
-  bottomBarContent: {
-    color: '#fff',
-    fontWeight: "700",
-    fontSize: 18,
-    marginTop: 10,
-    color: '#19B5FE',
-    textAlign: 'center'
-  },
+  }
 })
 
 module.exports = MapComponent;
