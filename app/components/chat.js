@@ -64,12 +64,14 @@ class Chat extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding:10,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   chat: {
     height: 40,
+    padding:10,
     borderColor: 'rgba(0,0,0,0.7)',
     borderWidth: 2,
     backgroundColor: 'white',
