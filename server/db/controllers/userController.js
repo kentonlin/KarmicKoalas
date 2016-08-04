@@ -1,42 +1,51 @@
 var User = require('../models/user.js');
 
 module.exports = {
-  createUser: function(data, cb){
-    new User(data).save().then(function(user){
+  createUser: (data, cb) =>{
+    new User(data).save().then((user)=>{
       cb(user);
     });
   },
-  getUser: function(userId, cb){
+  getUser: (userId, cb)=>{
     // User.where({id: userId})
     // .fetch()
     // .then(function(user){
     //   cb(user);
     // });
-    new User({id: userId}).fetch().then(function(user){
+    new User({id: userId}).fetch().then((user)=>{
       cb(user);
     });
   },
-  updateUser: function(userId, data, cb){
-    new User({id: userId}).save(data).then(function(user){
+  updateUser: (userId, data, cb)=>{
+    new User({id: userId}).save(data).then((user)=>{
       cb(user);
     });
   },
-  getEvents: function(userId, cb){
-    new User({id: userId}).fetch().then(function(user){
-      Promise.all(JSON.parse(user.get('events')).map(function(groupId){
+  getEvents: (userId, cb)=>{
+    new User({id: userId}).fetch().then((user)=>{
+      Promise.all(JSON.parse(user.get('events')).map((groupId)=>{
         return new Group({id: groupId}).fetch()
-      })).then(function(groups){
+      })).then((groups)=>{
         cb(groups);
       });
     });
   },
-  addRoute: function(userId, routeId, cb){
-    new User({id: userId}).fetch().then(function(user){
+  addRoute: (userId, routeId, cb)=>{
+    new User({id: userId}).fetch().then((user)=>{
       var routes = JSON.parse(user.get('routes'));
       routes.push(+routeId);
-      new User({id: userId}).save({routes: JSON.stringify(routes)}).then(function(user){
+      new User({id: userId}).save({routes: JSON.stringify(routes)}).then((user)=>{
         cb(user);
       });
     });
+  },
+  getRoutes: (id, cb)=>{
+    new User({id: id}).fetch().then((user)=>{
+      Promise.all(JSON.parse(user.get('routes')).map((groupId)=>{
+        return new Route({id: routeId}).fetch()
+      })).then((routes)=>{
+        cb(routes);
+      })
+    })
   }
 };
