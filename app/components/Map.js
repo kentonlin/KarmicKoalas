@@ -9,12 +9,15 @@ if (window.navigator && Object.keys(window.navigator).length == 0) {
   window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
 }
 
+const io = require('socket.io-client/socket.io');
+
 const { width, height } = Dimensions.get('window')
 
 class MapComponent extends Component {
 
   constructor(props) {
     super(props);
+    this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
       currentUser: 'Konstantin-desktop',
       routeCoordinates: [],
@@ -45,8 +48,8 @@ class MapComponent extends Component {
             distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
             prevLatLng: newLatLngs
          })
-        this.props.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
-        this.props.socket.on('groupUpdate',(data) =>  {
+        this.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
+        this.socket.on('groupUpdate',(data) =>  {
           console.log("Group Data from server", data);
           //if(data.title !== this.state.currentUser)
            this.state.groupOfUsers[data.title] = data;
