@@ -5,5 +5,5 @@ module.exports = {
     new Event(data).save().then((event)=>{
       cb(event);
     });
-  },
+  }
 }

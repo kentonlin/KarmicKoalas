@@ -24,4 +24,4 @@ module.exports = {
 //   .fetch({withRelated: ['performer']})
 
 //search by proximity to start & end
-//     search within some distance of start/end
+//     search within some distance of start & end locs

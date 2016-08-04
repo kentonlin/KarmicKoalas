@@ -18,14 +18,14 @@ class Main extends Component {
     super(props);
     this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
-      groupId: '1',//groupId: props.groupId,   //this will come from group list view and pass to server
+      eventId: '1',//eventId: props.eventId,   //this will come from group list view and pass to server
       socket:this.socket
      }
   }
 
    componentDidMount() {
       this.state.socket = this.socket
-      this.socket.emit('intitialize',{groupId:this.state.groupId})
+      this.socket.emit('intitialize',{eventId:this.state.eventId})
  }
 
   render() {
