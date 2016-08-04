@@ -21,6 +21,15 @@ module.exports = {
       cb(user);
     });
   },
+  addEvent: (userId, eventId, cb)=>{
+    new User({id: userId}).fetch().then((user))=>{
+      var events = JSON.parse(user.get('events'));
+      events.push(+eventId);
+      new User({id: userId}).save({events: JSON.stringify(events)}).then((user)=>{
+        cb(user);
+      });
+    });
+  },
   getEvents: (userId, cb)=>{
     new User({id: userId}).fetch().then((user)=>{
       Promise.all(JSON.parse(user.get('events')).map((groupId)=>{
