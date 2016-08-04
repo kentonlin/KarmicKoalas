@@ -27,6 +27,18 @@ app.post('/signup', function(req, res){
   });
 });
 
+app.post('/updateUser', function(req, res){
+  userController.updateUser(req.body.userId, req.body.data, function(user){
+    res.send(user);
+  });
+});
+
+app.post('/addRoute', function(req, res){
+  userController.addRoute(req.body.userId, req.body.routeId, function(user){
+    res.send(user);
+  });
+});
+
 app.post('/login', function(req, res){
 
 });
@@ -46,6 +58,7 @@ app.post('/createRoute', function(req, res){
     res.send(route);
   });
 });
+
 
 app.post('/createEvent', function(req, res){
 
@@ -70,6 +83,7 @@ app.post('/createEvent', function(req, res){
   });
   res.send("ok");
 });
+
 
 app.post('/joinGroup', function(req, res){
 

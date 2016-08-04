@@ -7,24 +7,35 @@ module.exports = {
     });
   },
   getUser: function(userId, cb){
-    User.where({id: userId})
-    .fetch()
-    .then(function(user){
+    // User.where({id: userId})
+    // .fetch()
+    // .then(function(user){
+    //   cb(user);
+    // });
+    new User({id: userId}).fetch().then(function(user){
       cb(user);
     });
   },
-  // not tested
   updateUser: function(userId, data, cb){
     new User({id: userId}).save(data).then(function(user){
       cb(user);
     });
   },
-  getEvents: function(id, cb){
-    new User({id: id}).fetch().then(function(user){
+  getEvents: function(userId, cb){
+    new User({id: userId}).fetch().then(function(user){
       Promise.all(JSON.parse(user.get('events')).map(function(groupId){
         return new Group({id: groupId}).fetch()
       })).then(function(groups){
         cb(groups);
+      });
+    });
+  },
+  addRoute: function(userId, routeId, cb){
+    new User({id: userId}).fetch().then(function(user){
+      var routes = JSON.parse(user.get('routes'));
+      routes.push(+routeId);
+      new User({id: userId}).save({routes: JSON.stringify(routes)}).then(function(user){
+        cb(user);
       });
     });
   }
