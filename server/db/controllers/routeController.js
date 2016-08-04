@@ -1,8 +1,8 @@
 var Route = require('../models/route.js');
 
 module.exports = {
-  createRoute: function(data, cb){
-    new Route(data).save().then(function(route){
+  createRoute: (data, cb)=>{
+    new Route(data).save().then((route)=>{
       cb(route);
     });
   }

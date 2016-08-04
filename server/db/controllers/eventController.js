@@ -1,8 +1,8 @@
 var Event = require('../models/event')
 
 module.exports = {
-  createEvent: function(data, cb){
-    new Event(data).save().then(function(event){
+  createEvent: (data, cb)=>{
+    new Event(data).save().then((event)=>{
       cb(event);
     });
   },
