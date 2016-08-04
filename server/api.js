@@ -10,7 +10,6 @@ var userController = require('./db/controllers/userController');
 var eventController = require('./db/controllers/eventController');
 var routeController = require('./db/controllers/routeController');
 
-var searchUtil = require('./utils/searchUtil')
 var app = express();
 
 app.use(bodyParser.json());
@@ -49,7 +48,7 @@ app.post('/logout', (req, res)=>{
 });
 
 app.post('/searchRoutes', (req, res)=>{
-  searchUtil.searchRoutes(req.body.keywords, (results)=>{
+  routeController.searchRoutes(req.body.keywords, (results)=>{
     res.send(results);
   });
 });

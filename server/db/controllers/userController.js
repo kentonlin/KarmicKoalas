@@ -22,7 +22,7 @@ module.exports = {
     });
   },
   addEvent: (userId, eventId, cb)=>{
-    new User({id: userId}).fetch().then((user))=>{
+    new User({id: userId}).fetch().then((user)=>{
       var events = JSON.parse(user.get('events'));
       events.push(+eventId);
       new User({id: userId}).save({events: JSON.stringify(events)}).then((user)=>{
