@@ -14,7 +14,7 @@ class Chat extends Component {
     super(props);
     this.socket = props.socket
     this.state = {
-      groupId: '1',//groupId: props.groupId,   //this will come from group list view and pass to server
+      eventId: '1',//eventId: props.eventId,   //this will come from group list view and pass to server
       message: props.message,
       socket:props.socket,
       incomingMessage: props.incomingMessage
@@ -25,7 +25,7 @@ class Chat extends Component {
     console.log('mounted',this.state.socket)
     //this.state.socket = props.socket
 
-    this.socket.emit('intitialize',{groupId:this.state.groupId})
+    this.socket.emit('intitialize',{eventId:this.state.eventId})
     console.log('intialaze client side')
 
 
