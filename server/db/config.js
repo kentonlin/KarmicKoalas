@@ -27,10 +27,15 @@ db.schema.hasTable('routes').then(function(exists){
     return db.schema.createTable('routes', function(route){
       route.increments('id').primary();
       route.string('title', 100);
-      route.json('start');
-      route.json('end');
+      route.json('start',100);
+      route.json('end',100);
       route.json('points_of_interest');
-      route.json('keywords');
+      route.json('route');
+      route.json('keyword1',100);
+      route.json('keyword2',100);
+      route.json('keyword3',100);
+      route.json('keyword4',100);
+      route.json('keyword5',100);
       route.timestamps();
     });
   }

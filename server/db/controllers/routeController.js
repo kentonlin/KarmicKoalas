@@ -6,8 +6,8 @@ module.exports = {
       cb(route);
     });
   },
-    searchRoutes: (body, cb)=>{
-    new Route({id: id}).fetch().then((user)=>{
+  searchRoutes: (body, cb)=>{
+    new Route.where('keyword1','<>',body.keyword1 ||  ).then((keyword)=>{
       Promise.all(JSON.parse(user.get('routes')).map((groupId)=>{
         return new Route({id: routeId}).fetch()
       })).then((routes)=>{
@@ -17,3 +17,6 @@ module.exports = {
   }
 }
 
+//search by keyword
+
+//search by proximity to start & end

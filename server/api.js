@@ -48,6 +48,7 @@ app.post('/logout', (req, res)=>{
 });
 
 app.post('/searchRoutes', (req, res)=>{
+  //keywords is an object {keyword1:foo,keyword2:foo... keyword5:foo}
   routeController.searchRoutes(req.body.keywords, (results)=>{
     res.send(results);
   });
