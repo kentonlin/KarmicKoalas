@@ -36,12 +36,6 @@ class Chat extends Component {
     });
    }
 
-  sendChatMessage(){
-    console.log('sending tweet')
-    this.socket.emit('tweet', {text:this.state.message})
-    this.state.message = ' ';
-  }
-
   handleKeyDown(e) {
     if(e.nativeEvent.key == "Enter"){
       console.log('sending tweet', this.state.message)
@@ -73,13 +67,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-   button: {
-    padding: 10,
-    width:70,
-    left:320,
-    right: 10,
-    top: 0
   },
   chat: {
     height: 40,
