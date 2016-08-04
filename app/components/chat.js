@@ -2,7 +2,9 @@
 
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, TouchableHighlight } from 'react-native';
-
+if (window.navigator && Object.keys(window.navigator).length == 0) {
+  window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
+}
 const { width, height } = Dimensions.get('window')
 
 class Chat extends Component {
