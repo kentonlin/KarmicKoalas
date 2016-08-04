@@ -80,8 +80,9 @@ class MapComponent extends Component {
         <MapView
           style={styles.map}
           annotations={this.state.users}
+          annotations={this.state.users}
           showsUserLocation={true}
-          followUserLocation={true}
+          followUserLocation={false}
           overlays={[{
             coordinates: this.state.routeCoordinates,
             strokeColor: 'red',
