@@ -2,9 +2,10 @@
 
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, TouchableHighlight } from 'react-native';
-if (window.navigator && Object.keys(window.navigator).length == 0) {
-  window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
-}
+import userAgent from '../utils/userAgent'
+//import io from 'socket.io-client/socket.io'
+
+
 const { width, height } = Dimensions.get('window')
 
 class Chat extends Component {
