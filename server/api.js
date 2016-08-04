@@ -10,72 +10,80 @@ var userController = require('./db/controllers/userController');
 var eventController = require('./db/controllers/eventController');
 var routeController = require('./db/controllers/routeController');
 
+var searchUtil = require('./utils/searchUtil')
 var app = express();
 
 app.use(bodyParser.json());
 
 
-app.post('/signup', function(req, res){
+app.post('/signup', (req, res)=>{
   userController.createUser({
     name: req.body.name,
     username: req.body.username,
     email: req.body.email,
     routes: req.body.routes,
     events: req.body.events
-  }, function(user){
+  }, (user)=>{
     res.send(user);
   });
 });
 
-app.post('/updateUser', function(req, res){
-  userController.updateUser(req.body.userId, req.body.data, function(user){
+app.post('/updateUser', (req, res)=>{
+  userController.updateUser(req.body.userId, req.body.data, (user)=>{
     res.send(user);
   });
 });
 
-app.post('/addRoute', function(req, res){
-  userController.addRoute(req.body.userId, req.body.routeId, function(user){
+app.post('/addRoute', (req, res)=>{
+  userController.addRoute(req.body.userId, req.body.routeId, (user)=>{
     res.send(user);
   });
 });
 
-app.post('/login', function(req, res){
+app.post('/login', (req, res)=>{
 
 });
 
-app.post('/logout', function(req, res){
+app.post('/logout', (req, res)=>{
 
 });
 
-app.post('/createRoute', function(req, res){
+app.post('/searchRoutes', (req, res)=>{
+  searchUtil.searchRoutes(req.body.keywords, (results)=>{
+    res.send(results);
+  });
+});
+
+app.post('/createRoute', (req, res)=>{
+  //var addWords = helpers.generateKeywords(req.body)
   routeController.createRoute({
     title: req.body.title,
     start: req.body.start,
     end: req.body.end,
     points_of_interest: req.body.points_of_interest,
     keywords: req.body.keywords
-  }, function(route){
+  }, (route)=>{
     res.send(route);
   });
 });
 
 
-app.post('/createEvent', function(req, res){
+app.post('/createEvent', (req, res)=>{
 
   eventController.createEvent({
     hostId: req.body.hostId,
     routeId: req.body.routeId,
     invitees: req.body.invitees,
     acceptedInvitees: req.body.acceptedInvitees
-  }, function(event){
+  }, (event)=>{
     var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
-    JSON.parse(event.get('invitees')).forEach(function(invitee){
+    JSON.parse(event.get('invitees')).forEach((invitee)=>{
       var options = {
         to: invitee,
         subject: 'Karmic Koalas',
         html: '<b>Karmic Koalas</b>'
       };
-      transporter.sendMail(options, function(err, data){
+      transporter.sendMail(options, (err, data)=>{
         if(err) return console.error(err);
         console.log("Message sent:", data.response);
       });
@@ -85,12 +93,12 @@ app.post('/createEvent', function(req, res){
 });
 
 
-app.post('/joinGroup', function(req, res){
+app.post('/joinGroup', (req, res)=>{
 
 });
 
-app.post('/getEvents', function(req, res){
-  userController.getEvents(req.body.id, function(events){
+app.post('/getEvents', (req, res)=>{
+  userController.getEvents(req.body.id, (events)=>{
     res.send(events);
   });
 });
