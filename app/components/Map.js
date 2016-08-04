@@ -19,7 +19,7 @@ class MapComponent extends Component {
     super(props);
     this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
-      currentUser: 'Konstantin-desktop',
+      currentUser: 'Konstantin-mobile',
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
