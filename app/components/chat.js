@@ -2,10 +2,9 @@
 
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, TouchableHighlight } from 'react-native';
-import userAgent from '../utils/userAgent'
-//import io from 'socket.io-client/socket.io'
-
-
+if (window.navigator && Object.keys(window.navigator).length == 0) {
+  window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
+}
 const { width, height } = Dimensions.get('window')
 
 class Chat extends Component {
@@ -52,6 +51,7 @@ class Chat extends Component {
           <TextInput
              onKeyPress={this.handleKeyDown.bind(this)}
              placeholder="Send a Message to the Group"
+             autoFocus = {true}
              style={styles.chat}
              onChangeText={(message) => this.setState({message})}
              value={this.state.message}/>
@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     backgroundColor: 'white',
     top:20,
-    color: '#19B5FE'
+    color: '#19B5FE',
+    padding: 8
   },
   navBar: {
     backgroundColor: 'grey',
