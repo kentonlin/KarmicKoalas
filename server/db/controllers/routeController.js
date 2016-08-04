@@ -7,7 +7,7 @@ module.exports = {
     });
   },
   searchRoutes: (body, cb)=>{
-  //   new Route.where('keyword1','<>',body.keyword1 ||  ).then((keyword)=>{
+  //   new Route.where('keyword1','<>',body.keyword[0]).then((keyword)=>{
   //     Promise.all(JSON.parse(user.get('routes')).map((groupId)=>{
   //       return new Route({id: routeId}).fetch()
   //     })).then((routes)=>{
