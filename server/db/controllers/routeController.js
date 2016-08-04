@@ -25,3 +25,8 @@ module.exports = {
 
 //search by proximity to start & end
 //     search within some distance of start & end locs
+
+
+//make join table of keyId and routeId
+
+//what is index table 

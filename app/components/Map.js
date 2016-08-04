@@ -12,7 +12,7 @@ class MapComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: 'Konstantin-desktop',
+      currentUser: 'Rebecca-desktop',
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
