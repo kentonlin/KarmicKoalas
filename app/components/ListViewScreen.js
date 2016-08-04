@@ -7,28 +7,28 @@ class ListViewScreen extends Component {
 	constructor(props) {
     super(props);
 
-    // let friends = [
-    //   {name: 'Tom One'},
-    //   {name: 'Sue Two'},
-    //   {name: 'Lee Three'},
-    //   {name: 'Rob Four'},
-    //   {name: 'Bob Five'},
-    //   {name: 'Lou Six'},
-    // ];
-
-    let listarray = [
-      "source: 08:30:00 CP Central Park",
-      "source: 08:30:00 LP Lincoln Park",
-      "source: 08:30:00 BP Borough Park",
-      "source: 08:30:00 CP Chastain Park",
-      "source: 08:30:00 BP Battery Park",
-      "source: 08:30:00 RP Riverside Park",
+    let listArray = [
+      {name: 'Tom One'},
+      {name: 'Sue Two'},
+      {name: 'Lee Three'},
+      {name: 'Rob Four'},
+      {name: 'Bob Five'},
+      {name: 'Lou Six'},
     ];
+
+    // let listarray = [
+    //   "source: 08:30:00 CP Central Park",
+    //   "source: 08:30:00 LP Lincoln Park",
+    //   "source: 08:30:00 BP Borough Park",
+    //   "source: 08:30:00 CP Chastain Park",
+    //   "source: 08:30:00 BP Battery Park",
+    //   "source: 08:30:00 RP Riverside Park",
+    // ];
     
     let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     this.state = {
-      dataSource: dataSource.cloneWithRows(listarray),
+      dataSource: dataSource.cloneWithRows(listArray),
       highlightedRow: {},
     };
   }
