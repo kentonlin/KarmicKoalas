@@ -25,7 +25,6 @@ class MapComponent extends Component {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           console.log("CURRENT POSITION", position);
-      //    this.props.socket.emit('location', {'title': 'Konstantin-desktop', 'latitude': position.coords.latitude, 'longitude': position.coords.longitude});
         },
         (error) => alert(error.message),
         {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
