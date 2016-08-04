@@ -23,25 +23,39 @@ class SignUp extends Component {
 				<Text style={styles.textHeader}>
 					Sign Up
 				</Text>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Enter your name: "
+        <TextInput 
+          style = {styles.inputText}
+          returnKeyType = {"next"}
+          autoFocus = {true}
+          placeholder = "Name: "
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({name: text})}
+          onSubmitEditing={(event) => { 
+            this.refs.SecondInput.focus(); 
+          }}
         />
         <TextInput
-          style={styles.inputText}
+          ref='SecondInput'
+          style = {styles.inputText}          
           placeholder="Email Address: "
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({email: text})}
+          onSubmitEditing={(event) => { 
+            this.refs.ThirdInput.focus(); 
+          }}
         />
 				<TextInput
+          ref='ThirdInput'
           style={styles.inputText}
           placeholder="Username: "
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({username: text})}
+          onSubmitEditing={(event) => { 
+            this.refs.FourthInput.focus(); 
+          }}
         />
         <TextInput
+          ref='FourthInput'
           style={styles.inputText}
           placeholder="Password: "
           placeholderTextColor="white"
@@ -62,6 +76,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'cornflowerblue'
+    },
+    text: {
+      color: 'blue',
+      backgroundColor: 'lightblue',
+      fontSize: 30,
+      margin: 80
     },
     navBar: {
       backgroundColor: 'cornflowerblue',
