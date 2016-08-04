@@ -19,12 +19,22 @@ module.exports = {
       cb(user);
     });
   },
-  getEvents: function(id, cb){
-    new User({id: id}).fetch().then(function(user){
+  getEvents: function(userId, cb){
+    new User({id: userId}).fetch().then(function(user){
       Promise.all(JSON.parse(user.get('events')).map(function(groupId){
         return new Group({id: groupId}).fetch()
       })).then(function(groups){
         cb(groups);
+      });
+    });
+  },
+  // not tested
+  addRoute: function(userId, routeId, cb){
+    new User({id: userId}).fetch().then(function(user){
+      var routes = JSON.parse(user.get('routes'));
+      routes.push(+routeId);
+      new User({id: userId}).save({routes: JSON.stringify(routes)}).then(function(user){
+        cb(user);
       });
     });
   }
