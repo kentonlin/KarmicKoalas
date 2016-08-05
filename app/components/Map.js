@@ -22,7 +22,8 @@ class MapComponent extends Component {
         longitude: 0,
       },
       users: [],
-      route: [{title: "firstRoute", latitude: 37.55992988, longitude: -122.3826562}, {title: "firstRoute", latitude: 37.56068828, longitude: -122.38341593}],
+      test: [{title: "TEST", latitude: 37.55992988, longitude: -122.3826562}],
+      route: [{latitude: 37.33756603, longitude: -122.02681114}],
       groupOfUsers: {},
      }
      this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
@@ -52,7 +53,7 @@ class MapComponent extends Component {
             distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
             prevLatLng: newLatLngs
          })
-        this.props.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
+        this.props.socket.emit('location', {'tintColor': MapView.PinColors.PURPLE,'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
         this.props.socket.on('groupUpdate',(data) =>  {
           console.log("Group Data from server", data);
         //  if(data.title !== this.state.currentUser)
@@ -102,7 +103,6 @@ class MapComponent extends Component {
         <MapView
           style={styles.map}
           region={this.state.region}
-          onRegionChangeComplete={this.onRegionChangeComplete}
           annotations={this.state.users}
           showsUserLocation={true}
           followUserLocation={false}
@@ -113,8 +113,8 @@ class MapComponent extends Component {
           },
           {
             coordinates: this.state.route,
-            strokeColor: 'black',
-            lineWidth: 5,
+            strokeColor: '#f007',
+            lineWidth: 10,
           }]}
 
         />
