@@ -10,6 +10,7 @@ if (window.navigator && Object.keys(window.navigator).length == 0) {
 }
 const io = require('socket.io-client/socket.io');
 import userAgent from '../utils/userAgent'
+
 // import io from 'socket.io-client/socket.io'
 
 const { width, height } = Dimensions.get('window')
