@@ -56,6 +56,7 @@ class Main extends Component {
     });
   }
 
+// no view yet
   navToEvents(){
     this.props.navigator.push({
       component: Events,
