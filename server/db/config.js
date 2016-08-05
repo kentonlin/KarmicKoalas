@@ -49,14 +49,14 @@ db.schema.hasTable('routes').then((exists)=>{
 //add to this table each time you add a route.
 //on insert to routes, .get() route_id. on insert to keywords,
 // .get() each keword_id and insert pairs into this join table
-// db.schema.hasTable('keyword_routes').then((exists)=>{
-//   if(!exists){
-//   return db.schema.createTable('keyword_routes', (table)=>{
-//     table.integer('routes_id').references('routes.id');
-//     table.integer('keywords_id').references('keywords.id');
-//   });
-//  }
-// });
+db.schema.hasTable('keyword_routes').then((exists)=>{
+  if(!exists){
+  return db.schema.createTable('keyword_routes', (table)=>{
+    table.integer('routes_id').references('routes.id');
+    table.integer('keywords_id').references('keywords.id');
+  });
+ }
+});
 
 
 db.schema.hasTable('events').then((exists)=>{
