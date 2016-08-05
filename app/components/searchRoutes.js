@@ -16,11 +16,12 @@ class SearchRoutes extends Component {
   render() {
     return (
       <View style={styles.container}>
-       
         <TextInput
           style={{height: 40}}
+          autoFocus = {true}
           value={this.state.search}
           placeholder="Enter keywords: "
+          onChangeText={(text) => this.setState({search: text})}
         />
          <View style={styles.button}>
           <Text>
@@ -65,4 +66,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports =  SearchRoutes;  
+module.exports =  SearchRoutes;

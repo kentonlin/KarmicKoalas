@@ -55,7 +55,7 @@ class Chat extends Component {
              style={styles.chat}
              onChangeText={(message) => this.setState({message})}
              value={this.state.message}/>
-           <Text style={styles.chat}>
+           <Text style={styles.chatIn}>
                {this.state.incomingMessage}
            </Text>
         </View>
@@ -70,6 +70,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+    chatIn: {
+    height: 40,
+    padding:10,
+    backgroundColor: 'white',
+    top:20,
+    color: '#19B5FE',
+    padding: 8
   },
   chat: {
     height: 40,
@@ -86,7 +94,7 @@ const styles = StyleSheet.create({
     height: 64,
     width: width,
     position: 'absolute',
-    top: 0,
+    top: 40,
     bottom: 0,
     left: 0,
     right: 0
