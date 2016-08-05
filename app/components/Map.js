@@ -11,20 +11,30 @@ class MapComponent extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       currentUser: 'Konstantin-desktop',
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
+      region: {
+        latitude: 0,
+        longitude: 0,
+      },
       users: [],
+      route: [{title: "firstRoute", latitude: 37.55992988, longitude: -122.3826562}, {title: "firstRoute", latitude: 37.56068828, longitude: -122.38341593}],
       groupOfUsers: {},
      }
+     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
   }
 
   componentDidMount() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           console.log("CURRENT POSITION", position);
+          this.setState({
+              region: { latitude: position.coords.latitude, longitude: position.coords.longitude, latitudeDelta: 0.020300188024080512, longitudeDelta: 0.016093256407543777 }
+           })
         },
         (error) => alert(error.message),
         {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -36,6 +46,7 @@ class MapComponent extends Component {
         const { routeCoordinates, distanceTravelled } = this.state
         const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude }
         const positionLatLngs = pick(position.coords, ['latitude', 'longitude'])
+        //console.log('target', positionLatLngs);
         this.setState({
             routeCoordinates: routeCoordinates.concat(positionLatLngs),
             distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
@@ -54,6 +65,8 @@ class MapComponent extends Component {
 
         //this.state.users = this.updateUsersLocations(this.state.groupOfUsers);
         console.log('Users!!!', this.state.users);
+        console.log('ROUT', this.state.routeCoordinates);
+          console.log('region', this.state.region);
       },
       (error) => alert(error.message),
       {maximumAge: 1000, timeout: 3000, enableHighAccuracy: true}
@@ -76,12 +89,20 @@ class MapComponent extends Component {
     }
     return newUsersArray
   }
+  onRegionChangeComplete(e) {
+    console.log(e);
+    this.setState({
+        region: e
+     })
+  }
 
   render() {
     return (
         <View style={styles.container}>
         <MapView
           style={styles.map}
+          region={this.state.region}
+          onRegionChangeComplete={this.onRegionChangeComplete}
           annotations={this.state.users}
           showsUserLocation={true}
           followUserLocation={false}
@@ -89,7 +110,13 @@ class MapComponent extends Component {
             coordinates: this.state.routeCoordinates,
             strokeColor: 'red',
             lineWidth: 3,
+          },
+          {
+            coordinates: this.state.route,
+            strokeColor: 'black',
+            lineWidth: 5,
           }]}
+
         />
         <TouchableHighlight
           style={styles.button}
