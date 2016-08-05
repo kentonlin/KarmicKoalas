@@ -10,18 +10,3 @@ var Keyword = db.Model.extend({
 });
 
 module.exports = Keyword;
-
-
-// var Book = bookshelf.Model.extend({
-//   tableName: 'books',
-//   routes: function() {
-//     return this.belongsToMany(Route);
-//   }
-// });
-
-// var Author = bookshelf.Model.extend({
-//   tableName: 'authors',
-//   books: function() {
-//     return this.belongsToMany(Book);
-//   }
-// });
