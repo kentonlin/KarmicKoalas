@@ -22,6 +22,7 @@ class MapComponent extends Component {
         longitude: 0,
       },
       users: [],
+      toggle: false,
       test: [{title: "TEST", latitude: 37.55992988, longitude: -122.3826562}],
       route: [{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}],
       groupOfUsers: {},
@@ -48,8 +49,12 @@ class MapComponent extends Component {
         const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude }
         const positionLatLngs = pick(position.coords, ['latitude', 'longitude'])
         //console.log('target', positionLatLngs);
+        if(this.state.toggle){
+          this.setState({
+              routeCoordinates: routeCoordinates.concat(positionLatLngs)
+           })
+        }
         this.setState({
-            routeCoordinates: routeCoordinates.concat(positionLatLngs),
             distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
             prevLatLng: newLatLngs
          })
@@ -119,8 +124,13 @@ class MapComponent extends Component {
         />
         <TouchableHighlight
           style={styles.button}
-          onPress={() => {alert('Hello')}}>
-          <Text>Create new pin</Text>
+          onPress={() => {this.setState({routeCoordinates: [], toggle: true})}}>
+          <Text>Route</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.buttonStop}
+          onPress={() => {this.setState({routeCoordinates: [], toggle: false})}}>
+          <Text>Clear</Text>
         </TouchableHighlight>
       </View>
     )
@@ -139,6 +149,16 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     bottom:100,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+  },
+  buttonStop: {
+    flex: 1,
+    bottom:100,
+    left: 150,
     position: 'absolute',
     backgroundColor: '#fff',
     paddingHorizontal: 18,
