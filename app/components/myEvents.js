@@ -4,12 +4,12 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ListView, TextInput, AlertIOS } from 'react-native';
 
 let listarray = [
-  {time: '08:30:00', name: 'LP', location: 'Lincoln Park'},
-  {time: '08:30:00', name: 'BP', location: 'Borough Park'},
-  {time: '08:30:00', name: 'CP', location: 'Chastain Park'},
-  {time: '08:30:00', name: 'BP', location: 'Battery Park'},
-  {time: '08:30:00', name: 'CP', location: 'Central Park'},
-  {time: '08:30:00', name: 'RP', location: 'Riverside Park'}
+  {name: 'On the town', description: 'Hanging out with your besties and bros in Manhattan', location: 'Central Park'},
+  {name: 'By the bay', description: 'A funtime picnic on the Hudson', location: 'Riverside Park'},
+  {name: 'Sun Down Town', description: 'At sundown, getting together for happy hour', location: 'TriBeCa'},
+  {name: 'On the Pier', description: 'A lazy boat ride cause we can!', location: 'Brooklyn Heights'},
+  {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square'},
+  {name: 'A Quick Trip', description: 'Treasure hunt at the Empire State Building', location: 'Empire State Building'},
 ]
 
 class ListViewScreen extends Component {
