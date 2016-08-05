@@ -22,7 +22,8 @@ class MapComponent extends Component {
         longitude: 0,
       },
       users: [],
-      route: [{title: "firstRoute", latitude: 37.55992988, longitude: -122.3826562}, {title: "firstRoute", latitude: 37.56068828, longitude: -122.38341593}],
+      test: [{title: "TEST", latitude: 37.55992988, longitude: -122.3826562}],
+      route: [{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}],
       groupOfUsers: {},
      }
      this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
@@ -52,21 +53,14 @@ class MapComponent extends Component {
             distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
             prevLatLng: newLatLngs
          })
-        this.props.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
+        this.props.socket.emit('location', {'tintColor': MapView.PinColors.PURPLE,'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
         this.props.socket.on('groupUpdate',(data) =>  {
-          console.log("Group Data from server", data);
-        //  if(data.title !== this.state.currentUser)
-           this.state.groupOfUsers[data.title] = data;
-           this.setState({
-               users: this.updateUsersLocations(this.state.groupOfUsers)
-            })
+          console.log("Data from server", data);
+          this.updateUsersArray(data)
         } );
-        console.log('groupOfUsers', this.state.groupOfUsers);
 
-        //this.state.users = this.updateUsersLocations(this.state.groupOfUsers);
         console.log('Users!!!', this.state.users);
-        console.log('ROUT', this.state.routeCoordinates);
-          console.log('region', this.state.region);
+        console.log('region', this.state.region);
       },
       (error) => alert(error.message),
       {maximumAge: 1000, timeout: 3000, enableHighAccuracy: true}
@@ -82,12 +76,23 @@ class MapComponent extends Component {
      return (haversine(prevLatLng, newLatLng) || 0)
   }
   //function update user array for annotations
-  updateUsersLocations(object){
-    var newUsersArray = [];
-    for(var key in object){
-      newUsersArray.push(object[key]);
+  updateUsersArray(object){
+    var exist = false;
+    if(this.state.users.length){
+      for(var x = 0; x < this.state.users.length; x++){
+        if(this.state.users[x].title === object.title){
+          this.state.users[x].latitude = object.latitude;
+          this.state.users[x].longitude = object.longitude;
+          exist = true;
+        }
+      }
+      if(!exist) this.state.users.push(object);
+    } else {
+      this.state.users.push(object);
     }
-    return newUsersArray
+    this.setState({
+        users: this.state.users
+     })
   }
   onRegionChangeComplete(e) {
     console.log(e);
@@ -102,7 +107,6 @@ class MapComponent extends Component {
         <MapView
           style={styles.map}
           region={this.state.region}
-          onRegionChangeComplete={this.onRegionChangeComplete}
           annotations={this.state.users}
           showsUserLocation={true}
           followUserLocation={false}
@@ -110,11 +114,6 @@ class MapComponent extends Component {
             coordinates: this.state.routeCoordinates,
             strokeColor: 'red',
             lineWidth: 3,
-          },
-          {
-            coordinates: this.state.route,
-            strokeColor: 'black',
-            lineWidth: 5,
           }]}
 
         />
