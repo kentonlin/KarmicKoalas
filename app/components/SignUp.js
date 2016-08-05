@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS } from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
 
 class SignUp extends Component {
 	constructor(props) {
@@ -15,33 +15,39 @@ class SignUp extends Component {
   }
   getData(){
     console.log('name: '+ this.state.name + '\nemail: '+ this.state.email + '\nusername: '+ this.state.username + '\npassword: '+ this.state.password);
-  } 
-	
+  }
+
+  signUp(){
+    // TODO: Signup logic
+    AsyncStorage.setItem("signedUp", "true");
+    this.props.navigator.pop();
+  }
+
   render() {
 		return (
       <View style={styles.container}>
 				<Text style={styles.textHeader}>
 					Sign Up
 				</Text>
-        <TextInput 
+        <TextInput
           style = {styles.inputText}
           returnKeyType = {"next"}
           autoFocus = {true}
           placeholder = "Name: "
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({name: text})}
-          onSubmitEditing={(event) => { 
-            this.refs.SecondInput.focus(); 
+          onSubmitEditing={(event) => {
+            this.refs.SecondInput.focus();
           }}
         />
         <TextInput
           ref='SecondInput'
-          style = {styles.inputText}          
+          style = {styles.inputText}
           placeholder="Email Address: "
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({email: text})}
-          onSubmitEditing={(event) => { 
-            this.refs.ThirdInput.focus(); 
+          onSubmitEditing={(event) => {
+            this.refs.ThirdInput.focus();
           }}
         />
 				<TextInput
@@ -50,8 +56,8 @@ class SignUp extends Component {
           placeholder="Username: "
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({username: text})}
-          onSubmitEditing={(event) => { 
-            this.refs.FourthInput.focus(); 
+          onSubmitEditing={(event) => {
+            this.refs.FourthInput.focus();
           }}
         />
         <TextInput
@@ -62,7 +68,7 @@ class SignUp extends Component {
           password={true}
           onChangeText={(text) => this.setState({password: text})}
         />
-        <TouchableHighlight onPress={() => this.getData()} style={styles.button}>
+        <TouchableHighlight onPress={() => this.signUp()} style={styles.button}>
             <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
 			</View>
@@ -126,4 +132,4 @@ const styles = StyleSheet.create({
     }
 });
 
-module.exports =  SignUp;	
+module.exports =  SignUp;

@@ -1,9 +1,12 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, TouchableHighlight, AsyncStorage } from 'react-native';
 import Chat from './chat'
 import MapComponent from './Map.js'
+import SignUp from './SignUp'
+import searchRoutes from './searchRoutes'
+import createRoute from './createRoute'
 
 if (window.navigator && Object.keys(window.navigator).length == 0) {
   window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
@@ -19,11 +22,52 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
+
+    this.navToSignUp = this.navToSignUp.bind(this);
+    this.navToSearchRoutes = this.navToSearchRoutes.bind(this);
+    this.navToEvents = this.navToEvents.bind(this);
+    this.navToCreateRoute = this.navToCreateRoute.bind(this);
+
     this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
       eventId: '1',//eventId: props.eventId,   //this will come from group list view and pass to server
       socket:this.socket
-     }
+    }
+    AsyncStorage.setItem("signedUp", "false");
+    AsyncStorage.getItem("signedUp").then((value) => {
+      if(value !== "true"){
+        this.navToSignUp();
+      console.log("signedUp:", value)
+      }
+    });
+  }
+
+  navToSignUp(){
+    this.props.navigator.push({
+      component: SignUp,
+      title: "Sign Up"
+    });
+  }
+
+  navToSearchRoutes(){
+    this.props.navigator.push({
+      component: searchRoutes,
+      title: "Search Routes"
+    });
+  }
+
+  navToEvents(){
+    this.props.navigator.push({
+      component: Events,
+      title: "Events"
+    });
+  }
+
+  navToCreateRoute(){
+    this.props.navigator.push({
+      component: createRoute,
+      title: "Create Route"
+    });
   }
 
    componentDidMount() {
@@ -36,6 +80,21 @@ class Main extends Component {
       <View style={styles.container}>
         <MapComponent socket={this.state.socket}/>
         <Chat socket={this.socket}/>
+        <TouchableHighlight
+          style={styles.searchRoutesBtn}
+          onPress={this.navToSearchRoutes}>
+          <Text>Search</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.eventsBtn}
+          onPress={this.navToEvents}>
+          <Text>Events</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.createRouteBtn}
+          onPress={this.navToCreateRoute}>
+          <Text>Create Route</Text>
+        </TouchableHighlight>
       </View>
     )
   }
@@ -46,7 +105,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  searchRoutesBtn: {
+    flex: 1,
+    bottom:0,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+  },
+  eventsBtn: {
+    flex: 1,
+    bottom: 0,
+    left: 75,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    paddingVertical: 12
+  },
+  createRouteBtn: {
+    flex: 1,
+    bottom: 0,
+    left: 150,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    paddingVertical: 12
   }
-})
+});
 
 module.exports = Main;
