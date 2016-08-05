@@ -23,60 +23,13 @@ class KarmicKoalas extends Component {
 
   render() {
     return (
-      <TabBarIOS selectedTab={this.state.selectedTab}>
-      <TabBarIOS.Item
-        selected={this.state.selectedTab === 'welcome'}
-        title='Welcome'
-        onPress={() => {
-            this.setState({
-              selectedTab: 'welcome',
-            });
-        }}>
-        <Welcome />
-      </TabBarIOS.Item>
-
-      <TabBarIOS.Item
-        selected={this.state.selectedTab === 'SignUp'}
-        title='SignUp'
-        onPress={() => {
-            this.setState({
-              selectedTab: 'SignUp',
-            });
-        }}>
-        <SignUp />
-      </TabBarIOS.Item>
-
-      <TabBarIOS.Item
-        selected={this.state.selectedTab === 'TopNavigation'}
-        title='TopNav'
-        onPress={() => {
-            this.setState({
-              selectedTab: 'TopNavigation',
-            });
-        }}>
-        <TopNavigation />
-      </TabBarIOS.Item>
-      <TabBarIOS.Item
-        selected={this.state.selectedTab === 'ListViewScreen'}
-        title='ListViewScreen'
-        onPress={() => {
-            this.setState({
-              selectedTab: 'ListViewScreen',
-            });
-        }}>
-        <ListViewScreen />
-      </TabBarIOS.Item>
-      <TabBarIOS.Item
-        selected={this.state.selectedTab === 'Main'}
-        title='Main'
-        onPress={() => {
-            this.setState({
-              selectedTab: 'Main',
-            });
-        }}>
-        <Main />
-      </TabBarIOS.Item>
-      </TabBarIOS>
+      <NavigatorIOS
+        initialRoute={{
+          component: Main,
+          title: "Main"
+        }}
+        style={{flex: 1}}
+      />
     );
   }
 }
