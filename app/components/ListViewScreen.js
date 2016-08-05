@@ -1,54 +1,45 @@
 'use strict'
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, ListView, TextInput, AlertIOS } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ListView, TextInput, AlertIOS } from 'react-native';
+
+let listarray = [
+  {time: '08:30:00', name: 'LP', location: 'Lincoln Park'},
+  {time: '08:30:00', name: 'BP', location: 'Borough Park'},
+  {time: '08:30:00', name: 'CP', location: 'Chastain Park'},
+  {time: '08:30:00', name: 'BP', location: 'Battery Park'},
+  {time: '08:30:00', name: 'CP', location: 'Central Park'},
+  {time: '08:30:00', name: 'RP', location: 'Riverside Park'}
+]
 
 class ListViewScreen extends Component {
   constructor(props) {
     super(props);
 
-    // let friends = [
-    //   {name: 'Tom One'},
-    //   {name: 'Sue Two'},
-    //   {name: 'Lee Three'},
-    //   {name: 'Rob Four'},
-    //   {name: 'Bob Five'},
-    //   {name: 'Lou Six'},
-    // ];
-
-    let listarray = [
-      "source: 08:30:00 CP Central Park",
-      "source: 08:30:00 LP Lincoln Park",
-      "source: 08:30:00 BP Borough Park",
-      "source: 08:30:00 CP Chastain Park",
-      "source: 08:30:00 BP Battery Park",
-      "source: 08:30:00 RP Riverside Park",
-    ];
-    
     let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     this.state = {
-      dataSource: dataSource.cloneWithRows(listarray),
-      highlightedRow: {},
+      objectdataSource: dataSource.cloneWithRows(listarray),
+      highlightedRow: {}
     };
   }
 
-  goMap() {
-    console.log("Hello");
+  goMap(item) {
+    console.log("Hello: ", item);
   }
-  
+
   getData(){
     console.log('name: '+ this.state.name + '\nemail: '+ this.state.email + '\nusername: '+ this.state.username + '\npassword: '+ this.state.password);
-  } 
-  
-  renderRow(rowData, sectionID, rowID, highlightedRow) {
+  }
+
+  renderRow(item) {
     return (
-      <TouchableHighlight underlayColor='#dddddd' style={{height: 44}}>
+      <TouchableOpacity style={styles.routeRow} onPress={(event) => this.goMap(item) }>
       <View>
-        <Text numberOfLines={1}>{rowData}</Text>
+        <Text numberOfLines={1}>{item.time} {item.name} {item.location}</Text>
         <View style={{height: 1, backgroundColor: '#dddddd'}} />
       </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 
@@ -56,12 +47,12 @@ class ListViewScreen extends Component {
     return (
       <View style={styles.container}>
         <ListView
-          style={{width: 300, height: 40}}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
-          renderSeparator={this.renderSeparator} />
+          style={{marginTop: 100, }}
+          initialListSize={10}
+          dataSource={this.state.objectdataSource}
+          renderRow={(item) => { return this.renderRow(item) }} />
         <View style={styles.navBar}>
-          <Text style={styles.navText}>Group Route</Text>
+          <Text style={styles.navText}>Group Routes</Text>
         </View>
       </View>
     );
@@ -90,7 +81,13 @@ const styles = StyleSheet.create({
       fontWeight: "700",
       textAlign: 'center',
       paddingTop: 30
-    }
+    },
+    routeRow: {
+      flexDirection: "row",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      height: 50
+    },
 });
 
 module.exports =  ListViewScreen;
