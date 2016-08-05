@@ -5,21 +5,14 @@ import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, T
 import haversine from 'haversine'
 import pick from 'lodash/pick'
 
-if (window.navigator && Object.keys(window.navigator).length == 0) {
-  window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
-}
-
-const io = require('socket.io-client/socket.io');
-
 const { width, height } = Dimensions.get('window')
 
 class MapComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
-      currentUser: 'Konstantin-mobile',
+      currentUser: 'Konstantin-desktop',
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
@@ -48,20 +41,23 @@ class MapComponent extends Component {
             distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
             prevLatLng: newLatLngs
          })
-        this.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
-        this.socket.on('groupUpdate',(data) =>  {
+        this.props.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
+        this.props.socket.on('groupUpdate',(data) =>  {
           console.log("Group Data from server", data);
-          //if(data.title !== this.state.currentUser)
+        //  if(data.title !== this.state.currentUser)
            this.state.groupOfUsers[data.title] = data;
+           this.setState({
+               users: this.updateUsersLocations(this.state.groupOfUsers)
+            })
         } );
         console.log('groupOfUsers', this.state.groupOfUsers);
 
-        this.state.users = this.updateUsersLocations(this.state.groupOfUsers);
+        //this.state.users = this.updateUsersLocations(this.state.groupOfUsers);
         console.log('Users!!!', this.state.users);
       },
       (error) => alert(error.message),
       {maximumAge: 1000, timeout: 3000, enableHighAccuracy: true}
-    );3
+    );
   }
 
   componentWillUnmount() {
