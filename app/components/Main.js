@@ -5,6 +5,8 @@ import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, T
 import Chat from './chat'
 import MapComponent from './Map.js'
 import SignUp from './SignUp'
+import searchRoutes from './searchRoutes'
+import createRoute from './createRoute'
 
 if (window.navigator && Object.keys(window.navigator).length == 0) {
   window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
@@ -20,6 +22,12 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
+
+    this.navToSignUp = this.navToSignUp.bind(this);
+    this.navToSearchRoutes = this.navToSearchRoutes.bind(this);
+    this.navToEvents = this.navToEvents.bind(this);
+    this.navToCreateRoute = this.navToCreateRoute.bind(this);
+
     this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
       eventId: '1',//eventId: props.eventId,   //this will come from group list view and pass to server
@@ -28,16 +36,37 @@ class Main extends Component {
     AsyncStorage.setItem("signedUp", "false");
     AsyncStorage.getItem("signedUp").then((value) => {
       if(value !== "true"){
-        this.renderSignUp();
+        this.navToSignUp();
       console.log("signedUp:", value)
       }
     });
   }
 
-  renderSignUp(){
+  navToSignUp(){
     this.props.navigator.push({
       component: SignUp,
       title: "Sign Up"
+    });
+  }
+
+  navToSearchRoutes(){
+    this.props.navigator.push({
+      component: searchRoutes,
+      title: "Search Routes"
+    });
+  }
+
+  navToEvents(){
+    this.props.navigator.push({
+      component: Events,
+      title: "Events"
+    });
+  }
+
+  navToCreateRoute(){
+    this.props.navigator.push({
+      component: createRoute,
+      title: "Create Route"
     });
   }
 
@@ -52,14 +81,19 @@ class Main extends Component {
         <MapComponent socket={this.state.socket}/>
         <Chat socket={this.socket}/>
         <TouchableHighlight
-          style={styles.button1}
-          onPress={() => {alert('Hello1')}}>
-          <Text>Create new pin</Text>
+          style={styles.searchRoutesBtn}
+          onPress={this.navToSearchRoutes}>
+          <Text>Search</Text>
         </TouchableHighlight>
         <TouchableHighlight
-          style={styles.button2}
-          onPress={() => {alert('Hello2')}}>
-          <Text>Create new pin</Text>
+          style={styles.eventsBtn}
+          onPress={this.navToEvents}>
+          <Text>Events</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.createRouteBtn}
+          onPress={this.navToCreateRoute}>
+          <Text>Create Route</Text>
         </TouchableHighlight>
       </View>
     )
@@ -72,7 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  button1: {
+  searchRoutesBtn: {
     flex: 1,
     bottom:0,
     position: 'absolute',
@@ -80,15 +114,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 12,
   },
-  button2: {
+  eventsBtn: {
     flex: 1,
     bottom: 0,
-    left: 120,
+    left: 75,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    paddingVertical: 12
+  },
+  createRouteBtn: {
+    flex: 1,
+    bottom: 0,
+    left: 150,
     position: 'absolute',
     backgroundColor: '#fff',
     paddingHorizontal: 10,
     paddingVertical: 12
   }
-})
+});
 
 module.exports = Main;
