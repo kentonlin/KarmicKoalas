@@ -17,12 +17,6 @@ module.exports = {
    }
 }
 
-//search by keyword:
-//   5 keyword fields in schema. push to results [] if any matches to user submitted array of search terms ['foo','bar','foot','head'...]
-// activityGroupCollection
-//   .query('where', {performer_id: [..., ...]})
-//   .fetch({withRelated: ['performer']})
-
 //search by proximity to start & end
 //     search within some distance of start & end locs
 

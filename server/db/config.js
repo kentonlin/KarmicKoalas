@@ -22,30 +22,19 @@ db.schema.hasTable('users').then(function(exists){
   }
 });
 
-db.schema.hasTable('keyword').then(function(exists){
+db.schema.hasTable('keywords').then((exists)=>{
   if(!exists){
-    return db.schema.createTable('keyword', function(keyword){
+    return db.schema.createTable('keywords', (keyword)=>{
       keyword.increments('id').primary();
       keyword.string('word', 100);
       keyword.timestamps();
     });
   }
 });
-exports.up = function(knex, Promise) {
-  return knex.schema.createTable('books', function(table) {
-    table.increments('id').primary();
-    table.string('name');
-  }).createTable('authors', function(table) {
-    table.increments('id').primary();
-    table.string('name');
-  }).createTable('authors_books', function(table) {
-    table.integer('author_id').references('authors.id');
-    table.integer('book_id').references('books.id');
-  });
-};
-db.schema.hasTable('routes').then(function(exists){
+
+db.schema.hasTable('routes').then((exists)=>{
   if(!exists){
-    return db.schema.createTable('routes', function(route){
+    return db.schema.createTable('routes', (route)=>{
       route.increments('id').primary();
       route.string('title', 100);
       route.json('start',100);
@@ -56,15 +45,37 @@ db.schema.hasTable('routes').then(function(exists){
     });
   }
 });
-
-db.schema.hasTable('events').then(function(exists){
+//use this table for keyword search
+//add to this table each time you add a route.
+//on insert to routes, .get() route_id. on insert to keywords,
+// .get() each keword_id and insert pairs into this join table
+db.schema.hasTable('keyword_routes').then((exists)=>{
   if(!exists){
-    return db.schema.createTable('events', function(event){
+  return db.schema.createTable('keywords_routes', (table)=>{
+    table.integer('routes_id').references('routes.id');
+    table.integer('keywords_id').references('keywords.id');
+  });
+ }
+});
+//use this table to generate room access permissions for sockets in server.js
+//add to this table when invite accepted and add host on event creation 
+db.schema.hasTable('event_participant').then((exists)=>{
+  if(!exists){
+  return db.schema.createTable('event_participant', (table)=>{
+    table.integer('events_id').references('events.id');
+    table.integer('participant').references('users.id');
+  });
+ }
+});
+
+db.schema.hasTable('events').then((exists)=>{
+  if(!exists){
+    return db.schema.createTable('events', (event)=>{
       event.increments('id').primary();
-      event.integer('hostId').unsigned().references('users.id');
-      event.integer('routeId').unsigned().references('routes.id');
-      event.json('invitees');
-      event.json('acceptedInvitees');
+      event.string('name',100);
+      event.integer('hostId',100).unsigned().references('users.id');
+      event.integer('routeId',100).unsigned().references('routes.id');
+      event.json('invitees',400); //this is a list of contacts from user phonebook
       event.timestamps();
     });
   }

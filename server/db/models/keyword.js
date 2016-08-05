@@ -1,7 +1,11 @@
 var db = require('../config');
+var Route = require('./route');
 
 var Keyword = db.Model.extend({
   tableName: 'keyword',
+     routes: ()=> {
+     return this.belongsToMany(Route);
+   },
   hasTimestamps: true
 });
 
@@ -10,8 +14,8 @@ module.exports = Keyword;
 
 // var Book = bookshelf.Model.extend({
 //   tableName: 'books',
-//   authors: function() {
-//     return this.belongsToMany(Author);
+//   routes: function() {
+//     return this.belongsToMany(Route);
 //   }
 // });
 
