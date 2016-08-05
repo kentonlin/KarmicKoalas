@@ -55,19 +55,12 @@ class MapComponent extends Component {
          })
         this.props.socket.emit('location', {'tintColor': MapView.PinColors.PURPLE,'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
         this.props.socket.on('groupUpdate',(data) =>  {
-          console.log("Group Data from server", data);
-        //  if(data.title !== this.state.currentUser)
-           this.state.groupOfUsers[data.title] = data;
-           this.setState({
-               users: this.updateUsersLocations(this.state.groupOfUsers)
-            })
+          console.log("Data from server", data);
+          this.updateUsersArray(data)
         } );
-        console.log('groupOfUsers', this.state.groupOfUsers);
 
-        //this.state.users = this.updateUsersLocations(this.state.groupOfUsers);
         console.log('Users!!!', this.state.users);
-        console.log('ROUT', this.state.routeCoordinates);
-          console.log('region', this.state.region);
+        console.log('region', this.state.region);
       },
       (error) => alert(error.message),
       {maximumAge: 1000, timeout: 3000, enableHighAccuracy: true}
@@ -83,12 +76,23 @@ class MapComponent extends Component {
      return (haversine(prevLatLng, newLatLng) || 0)
   }
   //function update user array for annotations
-  updateUsersLocations(object){
-    var newUsersArray = [];
-    for(var key in object){
-      newUsersArray.push(object[key]);
+  updateUsersArray(object){
+    var exist = false;
+    if(this.state.users.length){
+      for(var x = 0; x < this.state.users.length; x++){
+        if(this.state.users[x].title === object.title){
+          this.state.users[x].latitude = object.latitude;
+          this.state.users[x].longitude = object.longitude;
+          exist = true;
+        }
+      }
+      if(!exist) this.state.users.push(object);
+    } else {
+      this.state.users.push(object);
     }
-    return newUsersArray
+    this.setState({
+        users: this.state.users
+     })
   }
   onRegionChangeComplete(e) {
     console.log(e);
@@ -110,11 +114,6 @@ class MapComponent extends Component {
             coordinates: this.state.routeCoordinates,
             strokeColor: 'red',
             lineWidth: 3,
-          },
-          {
-            coordinates: this.state.route,
-            strokeColor: '#f007',
-            lineWidth: 10,
           }]}
 
         />
