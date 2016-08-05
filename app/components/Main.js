@@ -7,6 +7,7 @@ import MapComponent from './Map.js'
 import SignUp from './SignUp'
 import searchRoutes from './searchRoutes'
 import createRoute from './createRoute'
+import myEvents from './myEvents'
 
 if (window.navigator && Object.keys(window.navigator).length == 0) {
   window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
@@ -59,7 +60,7 @@ class Main extends Component {
 // no view yet
   navToEvents(){
     this.props.navigator.push({
-      component: Events,
+      component: myEvents,
       title: "Events"
     });
   }
