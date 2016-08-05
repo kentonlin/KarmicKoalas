@@ -12,7 +12,7 @@ class MapComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: 'Rebecca-desktop',
+      currentUser: 'Konstantin-desktop',
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
@@ -44,16 +44,20 @@ class MapComponent extends Component {
         this.props.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
         this.props.socket.on('groupUpdate',(data) =>  {
           console.log("Group Data from server", data);
-          if(data.title !== this.state.currentUser) this.state.groupOfUsers[data.title] = data;
+        //  if(data.title !== this.state.currentUser)
+           this.state.groupOfUsers[data.title] = data;
+           this.setState({
+               users: this.updateUsersLocations(this.state.groupOfUsers)
+            })
         } );
         console.log('groupOfUsers', this.state.groupOfUsers);
 
-        this.state.users = this.updateUsersLocations(this.state.groupOfUsers);
+        //this.state.users = this.updateUsersLocations(this.state.groupOfUsers);
         console.log('Users!!!', this.state.users);
       },
       (error) => alert(error.message),
       {maximumAge: 1000, timeout: 3000, enableHighAccuracy: true}
-    );3
+    );
   }
 
   componentWillUnmount() {
@@ -81,12 +85,6 @@ class MapComponent extends Component {
           annotations={this.state.users}
           showsUserLocation={true}
           followUserLocation={false}
-          annotations={[{
-            latitude: 37.788,
-            longitude: -122.43,
-            title: 'Sunset Cafe',
-            subtitle: '4230 Sunset Blvd'
-          }]}
           overlays={[{
             coordinates: this.state.routeCoordinates,
             strokeColor: 'red',
