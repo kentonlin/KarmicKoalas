@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   }
 });
 
-class createGroup extends Component {
+class createEvent extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -33,7 +33,7 @@ class createGroup extends Component {
     return (
       <View style={styles.container}>
         <Text>
-          Create a Group
+          Create an Event
         </Text>
      
       </View>
@@ -43,4 +43,4 @@ class createGroup extends Component {
  
 }
 
-module.exports =  createGroup;  
+module.exports =  createEvent;  

@@ -31,7 +31,18 @@ db.schema.hasTable('keyword').then(function(exists){
     });
   }
 });
-
+exports.up = function(knex, Promise) {
+  return knex.schema.createTable('books', function(table) {
+    table.increments('id').primary();
+    table.string('name');
+  }).createTable('authors', function(table) {
+    table.increments('id').primary();
+    table.string('name');
+  }).createTable('authors_books', function(table) {
+    table.integer('author_id').references('authors.id');
+    table.integer('book_id').references('books.id');
+  });
+};
 db.schema.hasTable('routes').then(function(exists){
   if(!exists){
     return db.schema.createTable('routes', function(route){

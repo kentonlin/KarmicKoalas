@@ -6,3 +6,5 @@ var Event = db.Model.extend({
 });
 
 module.exports = Event;
+
+
