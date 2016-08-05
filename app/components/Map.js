@@ -23,7 +23,7 @@ class MapComponent extends Component {
       },
       users: [],
       test: [{title: "TEST", latitude: 37.55992988, longitude: -122.3826562}],
-      route: [{latitude: 37.33756603, longitude: -122.02681114}],
+      route: [{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}],
       groupOfUsers: {},
      }
      this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
