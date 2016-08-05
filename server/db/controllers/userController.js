@@ -32,10 +32,10 @@ module.exports = {
   },
   getEvents: (userId, cb)=>{
     new User({id: userId}).fetch().then((user)=>{
-      Promise.all(JSON.parse(user.get('events')).map((groupId)=>{
-        return new Group({id: groupId}).fetch()
-      })).then((groups)=>{
-        cb(groups);
+      Promise.all(JSON.parse(user.get('events')).map((eventId)=>{
+        return new Event({id: eventId}).fetch()
+      })).then((events)=>{
+        cb(events);
       });
     });
   },
@@ -50,7 +50,7 @@ module.exports = {
   },
   getRoutes: (id, cb)=>{
     new User({id: id}).fetch().then((user)=>{
-      Promise.all(JSON.parse(user.get('routes')).map((groupId)=>{
+      Promise.all(JSON.parse(user.get('routes')).map((eventId)=>{
         return new Route({id: routeId}).fetch()
       })).then((routes)=>{
         cb(routes);
