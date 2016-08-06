@@ -1,7 +1,8 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { View, StyleSheet, NavigatorIOS, MapView, Dimensions, Text, AlertIOS, TextInput, TouchableHighlight } from 'react-native';
+import { View, StyleSheet, NavigatorIOS, Dimensions, Text, AlertIOS, TextInput, TouchableOpacity } from 'react-native';
+import MapView from 'react-native-maps';
 
 const { width, height } = Dimensions.get('window')
 
@@ -12,8 +13,10 @@ var regionText = {
 
 class createRoute extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
     this.state = {
+      init: { latitude: 40.8534229, longitude: -73.9793236 },
       routeCoordinates: [ { latitude: 40.8534229, longitude: -73.9793236 },
                            { latitude: 40.85231599999999, longitude: -73.98040999999999 },
                            { latitude: 40.850477, longitude: -73.977189 },
@@ -58,29 +61,18 @@ class createRoute extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          region={this.state.region}
-          annotations={this.state.pins}
-          showsUserLocation={true}
-          followUserLocation={false}
-          onRegionChangeComplete={this.onRegionChangeComplete}
-          overlays={[{
-            coordinates: this.state.routeCoordinates,
-            strokeColor: 'red',
-            lineWidth: 3,
-          }]}
-        />
-        <TouchableHighlight
-          style={styles.buttonStart}
-          onPress={() => {this.createNewPin()}}>
-          <Text>Start</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.buttonEnd}
-          onPress={() => {this.createNewPin()}}>
-          <Text>End</Text>
-        </TouchableHighlight>
+          <MapView style={styles.map}>
+            <MapView.Marker
+              coordinate={this.state.init}
+               onDragEnd={(e) => this.setState({ init: e.nativeEvent.coordinate })}
+               draggable
+            />
+         </MapView>
+         <View>
+         <TouchableOpacity onPress={() => console.log("NEW LOCATION", this.state.init)}>
+             <Text>Info</Text>
+        </TouchableOpacity>
+        </View>
       </View>
       );
    }
