@@ -100,17 +100,17 @@ class Main extends Component {
         <Chat socket={this.socket}/>
         <TouchableHighlight
           style={styles.searchRoutesBtn}
-          onPress={this.navToSearchRoutes}>
+          onPress={() => this.navToSearchRoutes()}>
           <Text>Search</Text>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.eventsBtn}
-          onPress={this.navToEvents}>
+          onPress={() => this.navToEvents()}>
           <Text>Events</Text>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.createRouteBtn}
-          onPress={this.navToCreateRoute}>
+          onPress={() => this.navToCreateRoute()}>
           <Text>Create Route</Text>
         </TouchableHighlight>
         <Text style={styles.welcome}>
