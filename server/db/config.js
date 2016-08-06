@@ -54,11 +54,11 @@ db.schema.hasTable('keyword_routes').then((exists)=>{
   return db.schema.createTable('keyword_routes', (table)=>{
     table.integer('routes_id').references('routes.id');
     table.integer('keywords_id').references('keywords.id');
-  });
+  }).then((table)=>{table.index('keywords_id')})
  }
 });
 
-
+//select * from keyword_routes where({keywords_id: 'New York' } )
 db.schema.hasTable('events').then((exists)=>{
   if(!exists){
     return db.schema.createTable('events', (event)=>{
