@@ -15,6 +15,11 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.post('/getRouteFromGoogle', (req,res)=>{
+  googleApiDirections.getRoute(req.body.start,req.body.end), (data)=>{
+    res.send(data);
+  }
+});
 
 app.post('/signup', (req, res)=>{
   //check if existing user.. 
