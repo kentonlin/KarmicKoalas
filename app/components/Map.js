@@ -120,7 +120,6 @@ class MapComponent extends Component {
             strokeColor: 'red',
             lineWidth: 3,
           }]}
-
         />
         <TouchableHighlight
           style={styles.button}

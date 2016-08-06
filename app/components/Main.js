@@ -113,6 +113,21 @@ class Main extends Component {
           onPress={this.navToCreateRoute}>
           <Text>Create Route</Text>
         </TouchableHighlight>
+        <Text style={styles.welcome}>
+          Our first component!!! :)
+        </Text>
+        <MapView
+          style={styles.map}
+          annotations={this.state.users}
+          showsUserLocation={true}
+          followUserLocation={true}
+          overlays={[{
+            coordinates: this.state.routeCoordinates,
+            strokeColor: 'blue',
+            lineWidth: 8,
+          }]}
+        />
+        <View style={styles.navBar}><Text style={styles.navBarText}>Karmic Koalas</Text></View>
       </View>
     )
   }
