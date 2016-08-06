@@ -19,10 +19,10 @@ app.use(bodyParser.json());
 app.post('/getRouteFromGoogle', (req, res) => {
     // req.body.start = 40.8534229,-73.9793236
     // req.body.end = 40.7466059,-73.9885128
+    // req.body.waypoints = latlon | latlon | ...NOT USED
     googleApiDirections(req.body.start, req.body.end, (data) => {
         res.send(data);
     });
-
 });
 
 app.post('/signup', (req, res) => {
@@ -60,10 +60,10 @@ app.post('/signup', (req, res) => {
                                     //send resp with error, wrong password
                                     res.send(401, 'wrong password!')
                                 }
-                            })
-                        }
-                    })
-                });
+                        })
+                  }
+            })
+ });
 
         // app.post('/updateUser', (req, res)=>{
         //   userController.updateUser(req.body.userId, req.body.data, (user)=>{
@@ -77,66 +77,75 @@ app.post('/signup', (req, res) => {
         //   });
         // });
 
-        // app.post('/login', (req, res)=>{
+// exports.getFileId = (fileName) => {
+//  return new Promise((resolve,reject) => {
+//    new File().fetch({csvTitle: fileName.csvTitle}).then((data) => {
+//      resolve(data.attributes)
+//    })
+//  });
 
-        // });
+//  // new File().query('where','csvTitle','=',fileName).fetch().then((data) => callback(data.attributes))
+// };
 
-        // app.post('/logout', (req, res)=>{
+app.post('/searchRoutes', (req, res) => {
+    //keywords is an object {keyword1:foo,keyword2:foo... keyword5:foo}
+    
+  });
 
-        // });
+app.post('/createRoute', (req, res) => {
+    //var addWords = helpers.generateKeywords(req.body)
+    //keywords: req.body.keywords
+    routeController.createRoute({
+        title: req.body.title,
+        start: req.body.start,
+        end: req.body.end,
+        routeObject: req.routeObject,
+    }, (route) => {
+        res.send(route);
+    });
+});
 
-        app.post('/searchRoutes', (req, res) => {
-            //keywords is an object {keyword1:foo,keyword2:foo... keyword5:foo}
 
-        });
+app.post('/createEvent', (req, res) => {
 
-        app.post('/createRoute', (req, res) => {
-            //var addWords = helpers.generateKeywords(req.body)
-            routeController.createRoute({
-                title: req.body.title,
-                start: req.body.start,
-                end: req.body.end,
-                points_of_interest: req.body.points_of_interest,
-                keywords: req.body.keywords
-            }, (route) => {
-                res.send(route);
+    eventController.createEvent({
+        hostId: req.body.hostId,
+        routeId: req.body.routeId,
+        invitees: req.body.invitees,
+        acceptedInvitees: req.body.acceptedInvitees
+    }, (event) => {
+        var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
+        JSON.parse(event.get('invitees')).forEach((invitee) => {
+            var options = {
+                to: invitee,
+                subject: 'Karmic Koalas',
+                html: '<b>Karmic Koalas</b>'
+            };
+            transporter.sendMail(options, (err, data) => {
+                if (err) return console.error(err);
+                console.log("Message sent:", data.response);
             });
         });
+    });
+    res.send("ok");
+});
 
 
-        app.post('/createEvent', (req, res) => {
+app.post('/joinGroup', (req, res) => {
 
-            eventController.createEvent({
-                hostId: req.body.hostId,
-                routeId: req.body.routeId,
-                invitees: req.body.invitees,
-                acceptedInvitees: req.body.acceptedInvitees
-            }, (event) => {
-                var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
-                JSON.parse(event.get('invitees')).forEach((invitee) => {
-                    var options = {
-                        to: invitee,
-                        subject: 'Karmic Koalas',
-                        html: '<b>Karmic Koalas</b>'
-                    };
-                    transporter.sendMail(options, (err, data) => {
-                        if (err) return console.error(err);
-                        console.log("Message sent:", data.response);
-                    });
-                });
-            });
-            res.send("ok");
-        });
+});
 
+app.post('/getEvents', (req, res) => {
+    userController.getEvents(req.body.id, (events) => {
+        res.send(events);
+    });
+});
 
-        app.post('/joinGroup', (req, res) => {
+// app.post('/login', (req, res)=>{
 
-        });
+// });
 
-        app.post('/getEvents', (req, res) => {
-            userController.getEvents(req.body.id, (events) => {
-                res.send(events);
-            });
-        });
+// app.post('/logout', (req, res)=>{
 
-        module.exports = app;
+// });
+module.exports = app;
