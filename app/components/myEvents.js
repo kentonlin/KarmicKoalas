@@ -17,6 +17,11 @@ let listarray = [
   {name: 'A Quick Trip', description: 'Treasure hunt at the Empire State Building', location: 'Empire State Building'},
   {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square'},
   {name: 'A Quick Trip', description: 'Treasure hunt at the Empire State Building', location: 'Empire State Building'},
+  {name: 'On the town', description: 'Hanging out with your besties and bros in Manhattan', location: 'Central Park'},
+  {name: 'By the bay', description: 'A funtime picnic on the Hudson', location: 'Riverside Park'},
+  {name: 'Sun Down Town', description: 'At sundown, getting together for happy hour', location: 'TriBeCa'},
+  {name: 'On the Pier', description: 'A lazy boat ride cause we can!', location: 'Brooklyn Heights'},
+  {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square'}
 ]
 
 class myEvents extends Component {

@@ -114,7 +114,6 @@ class Main extends Component {
           <Text>Create Route</Text>
         </TouchableHighlight>
         <Text style={styles.welcome}>
-          Our first component!!! :)
         </Text>
         <MapView
           style={styles.map}
