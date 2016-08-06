@@ -5,33 +5,10 @@ import { View, StyleSheet, NavigatorIOS, MapView, Dimensions, Text, AlertIOS, Te
 
 const { width, height } = Dimensions.get('window')
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
-  },
-  map: {
-    flex: 1,
-    width: width,
-    height: height
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'green',
-    alignSelf: 'center'
-  },
-  button: {
-    flex: 1,
-    bottom:10,
-    position: 'absolute',
-    backgroundColor: '#fff',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
-  },
-});
+var regionText = {
+  latitude: '0',
+  longitude: '0'
+};
 
 class createRoute extends Component {
   constructor(props) {
@@ -62,21 +39,35 @@ class createRoute extends Component {
     this.createNewPin = this.createNewPin.bind(this);
   }
 
-  createNewPin() {
-     navigator.geolocation.getCurrentPosition(
-       (position) => {
-         var pin = { latitude: position.coords.latitude, longitude: position.coords.longitude };
-         this.state.pins.push(pin);
-        // console.log('find pins',this.state.pins);
-         this.setState({
+  onRegionChangeComplete(e) {
+    console.log('yo', e);
+    regionText.latitude = e.latitude;
+    regionText.longitude = e.longitude
+    // this.setState({
+    //     region: e
+    //  })
+  }
 
-          })
-      //   this.state.pins.push(pin);
-         console.log('find pins',this.state.pins);
-       },
-       (error) => alert(error.message),
-       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-     )
+  createNewPin() {
+     console.log('TEST', regionText.latitude, regionText.longitude);
+     var pin = { latitude: regionText.latitude, longitude: regionText.longitude , draggable: true};
+     this.state.pins.push(pin);
+        // console.log('find pins',this.state.pins);
+     this.setState({  });
+    //  navigator.geolocation.getCurrentPosition(
+    //    (position) => {
+    //      var pin = { latitude: position.coords.latitude, longitude: position.coords.longitude };
+    //      this.state.pins.push(pin);
+    //     // console.log('find pins',this.state.pins);
+    //      this.setState({
+     //
+    //       })
+    //   //   this.state.pins.push(pin);
+    //      console.log('find pins',this.state.pins);
+    //    },
+    //    (error) => alert(error.message),
+    //    {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    //  )
   }
 
   render() {
@@ -87,7 +78,8 @@ class createRoute extends Component {
           region={this.state.region}
           annotations={this.state.pins}
           showsUserLocation={true}
-          followUserLocation={true}
+          followUserLocation={false}
+          onRegionChangeComplete={this.onRegionChangeComplete}
           overlays={[{
             coordinates: this.state.routeCoordinates,
             strokeColor: 'red',
@@ -103,5 +95,33 @@ class createRoute extends Component {
       );
    }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF'
+  },
+  map: {
+    flex: 1,
+    width: width,
+    height: height
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'green',
+    alignSelf: 'center'
+  },
+  button: {
+    flex: 1,
+    bottom:10,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+  },
+});
 
 module.exports =  createRoute;
