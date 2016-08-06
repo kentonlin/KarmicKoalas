@@ -34,40 +34,22 @@ class createRoute extends Component {
                            { latitude: 40.7491863, longitude: -73.9881872 },
                            { latitude: 40.7489953, longitude: -73.9880316 },
                            { latitude: 40.7466059, longitude: -73.9885128 } ],
-      pins: [ { latitude: 40.7466059, longitude: -73.9885128 }]
+      pins: []
     }
     this.createNewPin = this.createNewPin.bind(this);
   }
 
   onRegionChangeComplete(e) {
-    console.log('yo', e);
     regionText.latitude = e.latitude;
     regionText.longitude = e.longitude
-    // this.setState({
-    //     region: e
-    //  })
   }
 
   createNewPin() {
-     console.log('TEST', regionText.latitude, regionText.longitude);
+
      var pin = { latitude: regionText.latitude, longitude: regionText.longitude , draggable: true};
      this.state.pins.push(pin);
-        // console.log('find pins',this.state.pins);
      this.setState({  });
-    //  navigator.geolocation.getCurrentPosition(
-    //    (position) => {
-    //      var pin = { latitude: position.coords.latitude, longitude: position.coords.longitude };
-    //      this.state.pins.push(pin);
-    //     // console.log('find pins',this.state.pins);
-    //      this.setState({
-     //
-    //       })
-    //   //   this.state.pins.push(pin);
-    //      console.log('find pins',this.state.pins);
-    //    },
-    //    (error) => alert(error.message),
-    //    {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    //  )
+     console.log('TEST', this.state.pins);
   }
 
   render() {
@@ -87,9 +69,14 @@ class createRoute extends Component {
           }]}
         />
         <TouchableHighlight
-          style={styles.button}
+          style={styles.buttonStart}
           onPress={() => {this.createNewPin()}}>
-          <Text>Create Pin</Text>
+          <Text>Start</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.buttonEnd}
+          onPress={() => {this.createNewPin()}}>
+          <Text>End</Text>
         </TouchableHighlight>
       </View>
       );
@@ -113,9 +100,19 @@ const styles = StyleSheet.create({
     color: 'green',
     alignSelf: 'center'
   },
-  button: {
+  buttonStart: {
     flex: 1,
     bottom:10,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+  },
+  buttonEnd: {
+    flex: 1,
+    bottom:10,
+    left:75,
     position: 'absolute',
     backgroundColor: '#fff',
     paddingHorizontal: 18,
