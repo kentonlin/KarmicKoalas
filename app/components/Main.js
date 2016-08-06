@@ -24,11 +24,11 @@ class Main extends Component {
   constructor(props) {
     super(props);
 
-    this.setUserId = this.setUserId.bind(this);
-    this.navToSignUp = this.navToSignUp.bind(this);
-    this.navToSearchRoutes = this.navToSearchRoutes.bind(this);
-    this.navToEvents = this.navToEvents.bind(this);
-    this.navToCreateRoute = this.navToCreateRoute.bind(this);
+    // this.setUserId = this.setUserId.bind(this);
+    // this.navToSignUp = this.navToSignUp.bind(this);
+    // this.navToSearchRoutes = this.navToSearchRoutes.bind(this);
+    // this.navToEvents = this.navToEvents.bind(this);
+    // this.navToCreateRoute = this.navToCreateRoute.bind(this);
 
     this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
@@ -100,17 +100,17 @@ class Main extends Component {
         <Chat socket={this.socket}/>
         <TouchableHighlight
           style={styles.searchRoutesBtn}
-          onPress={this.navToSearchRoutes}>
+          onPress={() => this.navToSearchRoutes()}>
           <Text>Search</Text>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.eventsBtn}
-          onPress={this.navToEvents}>
+          onPress={() => this.navToEvents()}>
           <Text>Events</Text>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.createRouteBtn}
-          onPress={this.navToCreateRoute}>
+          onPress={() => this.navToCreateRoute()}>
           <Text>Create Route</Text>
         </TouchableHighlight>
         <Text style={styles.welcome}>
