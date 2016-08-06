@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const User = require('./db/models/user');
 var Event = require('./db/models/event');
 var Route = require('./db/models/route');
+var Keyword = require('./db/models/Keyword');
 
 const userController = require('./db/controllers/userController');
 const eventController = require('./db/controllers/eventController');
@@ -87,14 +88,21 @@ app.post('/searchRoutes', (req, res) => {
 app.post('/createRoute', (req, res) => {
     //var addWords = helpers.generateKeywords(req.body)
     //keywords: req.body.keywords
-    //{title:'foo',start:{'lat:lon'},end:{lat:lon},keywords:[key,key],routeObject:{sdfasf}}
-    routeController.createRoute({
-        title: req.body.title,
-        start: req.body.start,
-        end: req.body.end,
-        route_object: req.routeObject,
-    }, (route) => {
-        res.send(route);
+    //"{title:'foo',start:{'lat:lon'},end:{lat:lon},keywords:'[key,key]',routeObject:'{sdfasf}''}"
+    //on insert to routes, .get() route_id. on insert to keywords,
+    // .get() each keword_id and insert pairs into this join table
+    routeController.createRoute(req.body,(route) => {
+      var route_id = route['id'];
+      var keywords = JSON.parse(req.body.keywords);
+      keywords.forEach((input) => {
+           new keyword({word:input}).fetch()
+               .then ((result) => {
+                   if(!result){
+                     keywordController.createKeyword(input).then()
+                   }
+               })
+      })
+
     });
 });
 
