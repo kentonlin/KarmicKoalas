@@ -4,7 +4,7 @@ var http = require("https");
 
 // var start = 40.8534229,-73.9793236
 // var end = 40.7466059,-73.9885128
-const getRoute = (start,end)=>{
+const getRoute = (start,end, cb)=>{
       start.toString();
       end.toString();
       var options = {
@@ -42,10 +42,12 @@ const getRoute = (start,end)=>{
             })
           })
           // console.log(json.routes[0].legs[0]);
-          console.log(result);
+          //console.log(result);
+          cb(result);
         });
       });
 
-    req.write("{\n    \"userId\": 1,\n    \"data\": {\n        \"routes\": \"[1,2,3]\"\n    }\n}");
+  //  req.write("{\n    \"userId\": 1,\n    \"data\": {\n        \"routes\": \"[1,2,3]\"\n    }\n}");
     req.end();
 }
+module.exports = getRoute;

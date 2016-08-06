@@ -15,8 +15,7 @@ db.schema.hasTable('users').then(function(exists){
       user.string('name', 100);
       user.string('username', 100).unique();
       user.string('email', 100).unique();
-      user.json('routes');
-      user.json('events');
+      user.string('password', 100);
       user.timestamps();
     });
   }
