@@ -8,7 +8,7 @@ import SignUp from './SignUp'
 import searchRoutes from './searchRoutes'
 import createRoute from './createRoute'
 import myEvents from './myEvents'
-
+import permissions from 'react-native-permissions'
 if (window.navigator && Object.keys(window.navigator).length == 0) {
   window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
 }
