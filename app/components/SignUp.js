@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
       height: 40,
       color: 'white'
     },
-    placeholder: {
+    TextInput: {
+      borderWidth: 2,
       color: 'white'
     },
     textHeader: {
@@ -124,6 +125,10 @@ const styles = StyleSheet.create({
     },
     buttonText: {
       fontSize: 20,
+      color: 'white'
+    },
+    buttonText: {
+      fontSize: 18,
       color: 'white',
       alignSelf: 'center'
     },
@@ -133,7 +138,6 @@ const styles = StyleSheet.create({
       alignSelf: 'stretch',
       justifyContent: 'center',
       backgroundColor: 'skyblue'
-      // color: 'white'
     }
 });
 

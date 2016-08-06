@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, NavigatorIOS, Text, ListView, TextInput, TouchableHighlight } from 'react-native';
 
-
 class SearchRoutes extends Component {
    constructor(props) {
     super(props);

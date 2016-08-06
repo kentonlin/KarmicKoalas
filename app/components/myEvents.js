@@ -37,7 +37,7 @@ class myEvents extends Component {
 
   renderRow(item) {
     return (
-      <TouchableOpacity style={styles.roRow} onPress={(event) => this.goMap(item) }>
+      <TouchableOpacity style={styles.eventRow} onPress={(event) => this.goMap(item) }>
       <View>
         <Text>{'\n'}{item.name}{'\n'}{item.description}{'\n'}{item.location}{'\n'}</Text>
         <View style={{height: 1, backgroundColor: '#dddddd' }} />
@@ -67,11 +67,10 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
       backgroundColor: 'white'
     },
-    routeRow: {
+    eventRow: {
       flex: 1,
       flexDirection: "row",
       justifyContent: "flex-start",
-      // alignItems: "center",
       height: 50,
       paddingTop: 5,
       padding: 10,
