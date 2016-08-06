@@ -77,29 +77,22 @@ app.post('/signup', (req, res) => {
         //   });
         // });
 
-// exports.getFileId = (fileName) => {
-//  return new Promise((resolve,reject) => {
-//    new File().fetch({csvTitle: fileName.csvTitle}).then((data) => {
-//      resolve(data.attributes)
-//    })
-//  });
 
-//  // new File().query('where','csvTitle','=',fileName).fetch().then((data) => callback(data.attributes))
-// };
 
 app.post('/searchRoutes', (req, res) => {
-    //keywords is an object {keyword1:foo,keyword2:foo... keyword5:foo}
+    //keywords is an array 
     
   });
 
 app.post('/createRoute', (req, res) => {
     //var addWords = helpers.generateKeywords(req.body)
     //keywords: req.body.keywords
+    //{title:'foo',start:{'lat:lon'},end:{lat:lon},keywords:[key,key],routeObject:{sdfasf}}
     routeController.createRoute({
         title: req.body.title,
         start: req.body.start,
         end: req.body.end,
-        routeObject: req.routeObject,
+        route_object: req.routeObject,
     }, (route) => {
         res.send(route);
     });

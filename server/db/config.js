@@ -39,7 +39,7 @@ db.schema.hasTable('routes').then((exists)=>{
       route.json('start',100);
       route.json('end',100);
       route.json('points_of_interest');
-      route.json('route');
+      route.json('route_object');
       route.timestamps();
     });
   }
