@@ -1,4 +1,5 @@
 'use strict'
+// My Events Template to render views of user created views.
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, ListView, TextInput, AlertIOS } from 'react-native';
