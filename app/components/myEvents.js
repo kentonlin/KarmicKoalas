@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ListView, TextInput, AlertIOS } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, ListView, TextInput, AlertIOS } from 'react-native';
 
 let listarray = [
   {name: 'On the town', description: 'Hanging out with your besties and bros in Manhattan', location: 'Central Park'},
@@ -10,9 +10,15 @@ let listarray = [
   {name: 'On the Pier', description: 'A lazy boat ride cause we can!', location: 'Brooklyn Heights'},
   {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square'},
   {name: 'A Quick Trip', description: 'Treasure hunt at the Empire State Building', location: 'Empire State Building'},
+  {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square'},
+  {name: 'A Quick Trip', description: 'Treasure hunt at the Empire State Building', location: 'Empire State Building'},
+  {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square'},
+  {name: 'A Quick Trip', description: 'Treasure hunt at the Empire State Building', location: 'Empire State Building'},
+  {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square'},
+  {name: 'A Quick Trip', description: 'Treasure hunt at the Empire State Building', location: 'Empire State Building'},
 ]
 
-class ListViewScreen extends Component {
+class myEvents extends Component {
   constructor(props) {
     super(props);
 
@@ -28,16 +34,12 @@ class ListViewScreen extends Component {
     console.log("Hello: ", item);
   }
 
-  getData(){
-    console.log('name: '+ this.state.name + '\nemail: '+ this.state.email + '\nusername: '+ this.state.username + '\npassword: '+ this.state.password);
-  }
-
   renderRow(item) {
     return (
-      <TouchableOpacity style={styles.routeRow} onPress={(event) => this.goMap(item) }>
+      <TouchableOpacity style={styles.roRow} onPress={(event) => this.goMap(item) }>
       <View>
-        <Text numberOfLines={1}>{item.time} {item.name} {item.location}</Text>
-        <View style={{height: 1, backgroundColor: '#dddddd'}} />
+        <Text>{'\n'}{item.name}{'\n'}{item.description}{'\n'}{item.location}{'\n'}</Text>
+        <View style={{height: 1, backgroundColor: '#dddddd' }} />
       </View>
       </TouchableOpacity>
     );
@@ -46,14 +48,13 @@ class ListViewScreen extends Component {
    render() {
     return (
       <View style={styles.container}>
+      <ScrollView>
         <ListView
-          style={{marginTop: 100, }}
+          style={{marginTop: 2}}
           initialListSize={10}
           dataSource={this.state.objectdataSource}
           renderRow={(item) => { return this.renderRow(item) }} />
-        <View style={styles.navBar}>
-          <Text style={styles.navText}>Group Routes</Text>
-        </View>
+      </ScrollView>
       </View>
     );
   }
@@ -62,32 +63,23 @@ class ListViewScreen extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'cornflowerblue'
-    },
-    navBar: {
-      backgroundColor: 'cornflowerblue',
-      height: 64,
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0
-    },
-    navText: {
-      color: 'white',
-      fontSize: 16,
-      fontWeight: "700",
-      textAlign: 'center',
-      paddingTop: 30
+      justifyContent: 'flex-start',
+      backgroundColor: 'white'
     },
     routeRow: {
+      flex: 1,
       flexDirection: "row",
       justifyContent: "flex-start",
-      alignItems: "center",
-      height: 50
+      // alignItems: "center",
+      height: 50,
+      paddingTop: 5,
+      padding: 10,
+      paddingBottom: 10,
+      alignSelf: 'stretch'
     },
+    text: {
+      flex: 1
+    }
 });
 
-module.exports =  ListViewScreen;
+module.exports =  myEvents;

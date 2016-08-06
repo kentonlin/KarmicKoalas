@@ -23,8 +23,8 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    
-    this.setUserId = this.setUserId.bind(this); 
+
+    this.setUserId = this.setUserId.bind(this);
     this.navToSignUp = this.navToSignUp.bind(this);
     this.navToSearchRoutes = this.navToSearchRoutes.bind(this);
     this.navToEvents = this.navToEvents.bind(this);
