@@ -25,7 +25,7 @@ class SearchRoutes extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.navBar}>
         <TextInput
           style={{height: 40}}
           autoFocus = {true}
@@ -33,18 +33,13 @@ class SearchRoutes extends Component {
           placeholder="Enter keywords: "
           onChangeText={(text) => this.setState({search: text})}
         />
-         <View style={styles.button}>
-          <Text>
-          Search
-        </Text>
-        </View>
-        <View style={styles.button}/>
+
         <View style={{paddingTop: 22}}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text>{rowData}</Text>}
-        />
-      </View>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={(rowData) => <Text>{rowData}</Text>}
+          />
+          </View>
          <View style={styles.button}>
           <Text>
           Add To My Routes
@@ -53,14 +48,22 @@ class SearchRoutes extends Component {
       </View>
       );
    }
-
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: 'white'
+  },
+  navBar: {
+    backgroundColor: 'grey',
+    height: 64,
+    top: 40,
+    paddingTop: 50,
+    bottom: 0,
+    left: 0,
+    right: 0
   },
   buttonText: {
     fontSize: 18,
@@ -68,7 +71,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 44,
+    height: 20,
     flexDirection: 'row',
     backgroundColor: '#48BBEC',
     alignSelf: 'stretch',
