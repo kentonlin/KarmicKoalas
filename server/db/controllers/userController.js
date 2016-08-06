@@ -7,11 +7,6 @@ module.exports = {
     });
   },
   getUser: (userId, cb)=>{
-    // User.where({id: userId})
-    // .fetch()
-    // .then(function(user){
-    //   cb(user);
-    // });
     new User({id: userId}).fetch().then((user)=>{
       cb(user);
     });
