@@ -1,21 +1,25 @@
-var nodemailer = require('nodemailer');
-var express = require('express');
-var bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-var User = require('./db/models/user');
-var Event = require('./db/models/event');
-var Route = require('./db/models/route');
+// var User = require('./db/models/user');
+// var Event = require('./db/models/event');
+// var Route = require('./db/models/route');
 
-var userController = require('./db/controllers/userController');
-var eventController = require('./db/controllers/eventController');
-var routeController = require('./db/controllers/routeController');
+const userController = require('./db/controllers/userController');
+const eventController = require('./db/controllers/eventController');
+const routeController = require('./db/controllers/routeController');
 
-var app = express();
+const googleApiDirections = require('./googleApiDirections');
+const app = express();
 
 app.use(bodyParser.json());
 
 
 app.post('/signup', (req, res)=>{
+  //check if existing user.. 
+  //add or update..
+  //reurn userID from db
   userController.createUser({
     name: req.body.name,
     username: req.body.username,

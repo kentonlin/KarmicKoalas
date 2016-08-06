@@ -36,7 +36,7 @@ var req = http.request(options, function (res) {
       })
     })
     // console.log(json.routes[0].legs[0]);
-    console.log(result);
+   // console.log(result);
   });
 });
 
