@@ -54,13 +54,11 @@ class myEvents extends Component {
    render() {
     return (
       <View style={styles.container}>
-      <ScrollView>
         <ListView
           style={{marginTop: 2}}
           initialListSize={10}
           dataSource={this.state.objectdataSource}
           renderRow={(item) => { return this.renderRow(item) }} />
-      </ScrollView>
       </View>
     );
   }
