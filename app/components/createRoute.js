@@ -48,7 +48,7 @@ class createRoute extends Component {
 
      var pin = { latitude: regionText.latitude, longitude: regionText.longitude , draggable: true, onDragStateChange: (event) => {
         //  console.log(this.coordinate);
-        console.log(event.nativeEvent.coordinate);
+      //  console.log(event.nativeEvent.coordinate);
         }};
      this.state.pins.push(pin);
      this.setState({  });
