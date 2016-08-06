@@ -16,6 +16,8 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/getRouteFromGoogle', (req,res)=>{
+ // req.body.start = 40.8534229,-73.9793236
+ // req.body.end = 40.7466059,-73.9885128
   googleApiDirections.getRoute(req.body.start,req.body.end), (data)=>{
     res.send(data);
   }
@@ -29,32 +31,31 @@ app.post('/signup', (req, res)=>{
     name: req.body.name,
     username: req.body.username,
     email: req.body.email,
-    routes: req.body.routes,
-    events: req.body.events
-  }, (user)=>{
-    res.send(user);
+    password: req.body.password
+  }, (user_Id)=>{
+    res.send(user_Id);
   });
 });
 
-app.post('/updateUser', (req, res)=>{
-  userController.updateUser(req.body.userId, req.body.data, (user)=>{
-    res.send(user);
-  });
-});
+// app.post('/updateUser', (req, res)=>{
+//   userController.updateUser(req.body.userId, req.body.data, (user)=>{
+//     res.send(user);
+//   });
+// });
 
-app.post('/addRoute', (req, res)=>{
-  userController.addRoute(req.body.userId, req.body.routeId, (user)=>{
-    res.send(user);
-  });
-});
+// app.post('/addRoute', (req, res)=>{
+//   userController.addRoute(req.body.userId, req.body.routeId, (user)=>{
+//     res.send(user);
+//   });
+// });
 
-app.post('/login', (req, res)=>{
+// app.post('/login', (req, res)=>{
 
-});
+// });
 
-app.post('/logout', (req, res)=>{
+// app.post('/logout', (req, res)=>{
 
-});
+// });
 
 app.post('/searchRoutes', (req, res)=>{
   //keywords is an object {keyword1:foo,keyword2:foo... keyword5:foo}
