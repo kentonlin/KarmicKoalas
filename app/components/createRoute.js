@@ -19,9 +19,16 @@ class createRoute extends Component {
     this.state = {
       init: { latitude: 40.8534229, longitude: -73.9793236 },
       routeCoordinates: [],
-      pins: []
+      pins: [],
+      title: '',
+      keywords: []
     }
     this.createNewPin = this.createNewPin.bind(this);
+  }
+
+  saveData() {
+    // TODO: API call to POST 'route title' and 'keywords array' to database
+    console.log('Route Title: ' + this.state.title + ' Key Words Array: ' + this.state.keyWords);
   }
 
   onRegionChangeComplete(e) {
@@ -55,8 +62,25 @@ class createRoute extends Component {
          </MapView>
          <View>
          <TouchableOpacity onPress={() => this.createNewPin()}>
-             <Text>Info</Text>
-        </TouchableOpacity>
+              <Text>Info</Text>
+         </TouchableOpacity>
+           <TextInput
+             style = {styles.inputText}
+             autoFocus = {true}
+             placeholder = " <Enter route title> "
+             placeholderTextColor='cornflowerblue'
+             onChangeText={(text) => this.setState({title: text})}
+             onSubmitEditing={(event) => {
+               this.refs.SecondInput.focus();
+             }}
+           />
+           <TextInput
+             ref='SecondInput'
+             style={styles.inputText}
+             placeholder=" <keywords> "
+             placeholderTextColor='cornflowerblue'
+             onChangeText={(text) => this.setState({keywords: text})}
+           />
         </View>
       </View>
       );
@@ -71,9 +95,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   },
   map: {
-    flex: 1,
+    flex: 3,
+    width: 500
+  },
+  inputText: {
+    height: 40,
     width: width,
-    height: height
+    padding: 5
   },
   buttonText: {
     fontSize: 18,
