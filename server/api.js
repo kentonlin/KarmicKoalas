@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const User = require('./db/models/user');
 var Event = require('./db/models/event');
 var Route = require('./db/models/route');
+var Keyword = require('./db/models/Keyword');
 
 const userController = require('./db/controllers/userController');
 const eventController = require('./db/controllers/eventController');
@@ -77,31 +78,40 @@ app.post('/signup', (req, res) => {
         //   });
         // });
 
-// exports.getFileId = (fileName) => {
-//  return new Promise((resolve,reject) => {
-//    new File().fetch({csvTitle: fileName.csvTitle}).then((data) => {
-//      resolve(data.attributes)
-//    })
-//  });
 
-//  // new File().query('where','csvTitle','=',fileName).fetch().then((data) => callback(data.attributes))
-// };
 
 app.post('/searchRoutes', (req, res) => {
-    //keywords is an object {keyword1:foo,keyword2:foo... keyword5:foo}
+    //keywords is an array 
     
   });
 
 app.post('/createRoute', (req, res) => {
     //var addWords = helpers.generateKeywords(req.body)
     //keywords: req.body.keywords
-    routeController.createRoute({
-        title: req.body.title,
-        start: req.body.start,
-        end: req.body.end,
-        routeObject: req.routeObject,
-    }, (route) => {
-        res.send(route);
+    //"{title:'foo',start:{'lat:lon'},end:{lat:lon},keywords:'[key,key]',routeObject:'{sdfasf}''}"
+    //on insert to routes, .get() route_id. on insert to keywords,
+    // .get() each keword_id and insert pairs into this join table
+    routeController.createRoute(req.body,(route) => {
+      const route_id = route['id'];
+      const keywords = JSON.parse(req.body.keywords);
+      keywords.forEach((input) => {
+           new keyword({word:input}).fetch()
+               .then ((result) => {
+                   if(!result){
+                     //new keyword.. make a new entry and get id
+                     //add keyword_id to join table with route_id
+                     keywordController.createKeyword(input)
+                        .then((keyword) => {
+                            const keyword_id = keyword['id']
+                            
+                        })
+                   }else {
+                       //existing keyword. get the keyword_id 
+                       //add keyword_id to join table with route_id
+                   }
+               })
+      })
+
     });
 });
 
