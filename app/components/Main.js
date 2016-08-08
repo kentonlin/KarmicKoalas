@@ -22,16 +22,18 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.navToSearchRoutes = this.navToSearchRoutes.bind(this);
-    this.navToEvents = this.navToEvents.bind(this);
-    this.navToCreateRoute = this.navToCreateRoute.bind(this);
+    // this.navToSearchRoutes = this.navToSearchRoutes.bind(this);
+    // this.navToMyEvents = this.navToMyEvents.bind(this);
+    // this.navToCreateRoute = this.navToCreateRoute.bind(this);
+
+    this.setEventId = this.setEventId.bind(this);
 
     this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
-      userId:'',
+      userId: '',
       username: '',
       eventId: '1',//eventId: props.eventId,   //this will come from group list view and pass to server
-      socket:this.socket
+      socket: this.socket
     }
     AsyncStorage.getItem("username").then((value) => {
       console.log("username:", value)
@@ -43,9 +45,9 @@ class Main extends Component {
       console.log("userId:", value)
       this.setState({
         userId : value
-      })
+      });
     });
-
+    console.log("event Id:", this.state.eventId);
   }
 
   setEventId(eventId){
@@ -61,10 +63,13 @@ class Main extends Component {
     });
   }
 
-  navToEvents(){
+  navToMyEvents(){
     this.props.navigator.push({
       component: myEvents,
-      title: "Events"
+      title: "Events",
+      passProps: {
+        setEventId: this.setEventId
+      }
     });
   }
 
@@ -75,11 +80,11 @@ class Main extends Component {
     });
   }
 
-   componentDidMount() {
-     console.log('open socket', this.state.userId, this.state.username)
-      this.state.socket = this.socket
-      this.socket.emit('intitialize',{eventId:this.state.eventId, userId:this.state.userId, username:this.state.username})
- }
+  componentDidMount() {
+    console.log('open socket', this.state.userId, this.state.username)
+    this.state.socket = this.socket
+    this.socket.emit('intitialize',{eventId: this.state.eventId, userId: this.state.userId, username: this.state.username})
+  }
 
   render() {
     return (
@@ -93,7 +98,7 @@ class Main extends Component {
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.eventsBtn}
-          onPress={() => this.navToEvents()}>
+          onPress={() => this.navToMyEvents()}>
           <Text>Events</Text>
         </TouchableHighlight>
         <TouchableHighlight

@@ -27,7 +27,7 @@ class SignUp extends Component {
 		console.log('in signup',this.state.username)
 		//update Asynch storage
     AsyncStorage.setItem("userId", "123");
-    AsyncStorage.setItem('username',this.state.username)
+    AsyncStorage.setItem('username', this.state.username)
     //update main
 		// this.props.setUserId("123");
 		// this.props.setUserName(this.state.username)
