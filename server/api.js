@@ -4,9 +4,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const User = require('./db/models/user');
-var Event = require('./db/models/event');
-var Route = require('./db/models/route');
-var Keyword = require('./db/models/Keyword');
+const Event = require('./db/models/event');
+const Route = require('./db/models/route');
+const Keyword = require('./db/models/Keyword');
+const keyword_route = require('./db/models/keyword_route');
 
 const userController = require('./db/controllers/userController');
 const eventController = require('./db/controllers/eventController');
@@ -81,20 +82,27 @@ app.post('/signup', (req, res) => {
 
 
 app.post('/searchRoutes', (req, res) => {
-    //keywords is an array 
-    
+    //keywords is an array
+
   });
 
 app.post('/createRoute', (req, res) => {
+  const keywordIdList = [];
+  var keyword_id;
+  var route_id;
+  var keywords = JSON.parse(req.body.keywords);
+  console.log(keywords)
     //var addWords = helpers.generateKeywords(req.body)
     //keywords: req.body.keywords
     //"{title:'foo',start:{'lat:lon'},end:{lat:lon},keywords:'[key,key]',routeObject:'{sdfasf}''}"
     //on insert to routes, .get() route_id. on insert to keywords,
     // .get() each keword_id and insert pairs into this join table
-    routeController.createRoute(req.body,(route) => {
-      const route_id = route['id'];
-      const keywords = JSON.parse(req.body.keywords);
-      keywords.forEach((input) => {
+    //add route object to route table
+    routeController.createRoute(req.body)
+      .then((input) => {
+        route_id = input['id']
+        //add each keyword to keywords table if new, else get id
+        keywords.forEach((input) => {
            new keyword({word:input}).fetch()
                .then ((result) => {
                    if(!result){
@@ -102,29 +110,35 @@ app.post('/createRoute', (req, res) => {
                      //add keyword_id to join table with route_id
                      keywordController.createKeyword(input)
                         .then((keyword) => {
-                            const keyword_id = keyword['id']
-                            
+                             keyword_id = keyword['id']
+                             keywordIdList.push(keyword_id)
                         })
-                   }else {
-                       //existing keyword. get the keyword_id 
-                       //add keyword_id to join table with route_id
+                   } else {
+                     //existing keyword. get the keyword_id
+                     keyword_id = result['id']
+                     keywordIdList.push(keyword_id)
                    }
-               })
+              })
+        })
       })
+      //add keyword_id to join table with route_id
+      keywordIdList.forEach((input) => {
+         const data = {
+            keyword_id: input,
+            route_id: route_id,
+          }
+        new keyword_route(data).save().then((resp)=>{
+          console.log('db updated')
+        });
+    })
 
-    });
 });
 
 
-app.post('/createEvent', (req, res) => {
 
-    eventController.createEvent({
-        hostId: req.body.hostId,
-        routeId: req.body.routeId,
-        invitees: req.body.invitees,
-        acceptedInvitees: req.body.acceptedInvitees
-    }, (event) => {
-        var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
+app.post('/createEvent', (req, res) => {
+    eventController.createEvent(req.body, (event) => {
+      //  var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
         JSON.parse(event.get('invitees')).forEach((invitee) => {
             var options = {
                 to: invitee,
@@ -141,7 +155,7 @@ app.post('/createEvent', (req, res) => {
 });
 
 
-app.post('/joinGroup', (req, res) => {
+app.post('/joinEvent', (req, res) => {
 
 });
 

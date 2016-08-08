@@ -9,7 +9,8 @@ module.exports = {
         route_object: body.routeObject
       }
     new Route(data).save().then((route)=>{
-      cb(route);
+    //  cb(route);
+    return(route)
     });
   }
 }
@@ -30,7 +31,7 @@ module.exports = {
 
 //make join table of keyId and routeId
 
-//what is index table 
+//what is index table
 // bookshelf.knex('Inv')
 //   .join('Comp', 'Comp.cId', '=', 'Inv.cId')
 //   .where('Inv.id', 2)

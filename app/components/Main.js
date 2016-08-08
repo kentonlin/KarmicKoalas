@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, MapView, TextInput, Dimensions, StatusBarIOS, TouchableHighlight, AsyncStorage } from 'react-native';
 import Chat from './chat'
 import MapComponent from './Map.js'
-import SignUp from './SignUp'
 import searchRoutes from './searchRoutes'
 import createRoute from './createRoute'
 import myEvents from './myEvents'
@@ -16,7 +15,6 @@ if (window.navigator && Object.keys(window.navigator).length == 0) {
 const io = require('socket.io-client/socket.io');
 import userAgent from '../utils/userAgent'
 
-// import io from 'socket.io-client/socket.io'
 
 const { width, height } = Dimensions.get('window')
 
@@ -24,9 +22,6 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.setUserName = this.setUserName.bind(this);
-    this.setUserId = this.setUserId.bind(this);
-    this.navToSignUp = this.navToSignUp.bind(this);
     this.navToSearchRoutes = this.navToSearchRoutes.bind(this);
     this.navToEvents = this.navToEvents.bind(this);
     this.navToCreateRoute = this.navToCreateRoute.bind(this);
@@ -38,50 +33,20 @@ class Main extends Component {
       eventId: '1',//eventId: props.eventId,   //this will come from group list view and pass to server
       socket:this.socket
     }
-    console.log('in main set asynch')
-    //AsyncStorage.setItem("userId", 'null');
-    AsyncStorage.getItem("userId").then((value) => {
-      console.log('in main set value',value)
-      if(value === 'null'){
-        this.navToSignUp();
-      console.log("userId:", value)
-      this.setState({
-        userId : value
-      })
-      } else {
-        this.setUserId(value);
-      }
-    });
     AsyncStorage.getItem("username").then((value) => {
       console.log("username:", value)
       this.setState({
         username : value
       })
-      this.setUserName(value);
     });
-  }
-
-  setUserId(userId){
-    this.setState({
-      userId: userId
-    })
-  }
-   setUserName(username){
-    this.setState({
-      username: username
-    })
-  }
-
-  navToSignUp(){
-    this.props.navigator.push({
-      component: SignUp,
-      title: "Sign Up",
-      passProps: {
-        setUserId: this.setUserId,
-        setUserName: this.setUserName
-      }
+    AsyncStorage.getItem("userId").then((value) => {
+      console.log("userId:", value)
+      this.setState({
+        userId : value
+      })
     });
-  }
+
+}
 
   navToSearchRoutes(){
     this.props.navigator.push({
@@ -90,7 +55,6 @@ class Main extends Component {
     });
   }
 
-// no view yet
   navToEvents(){
     this.props.navigator.push({
       component: myEvents,
@@ -106,6 +70,7 @@ class Main extends Component {
   }
 
    componentDidMount() {
+     console.log('open socket', this.state.userId, this.state.username)
       this.state.socket = this.socket
       this.socket.emit('intitialize',{eventId:this.state.eventId, userId:this.state.userId, username:this.state.username})
  }
