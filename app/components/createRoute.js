@@ -6,6 +6,7 @@ import MapView from 'react-native-maps';
 
 const { width, height } = Dimensions.get('window')
 
+var count = 0;
 var regionText = {
   latitude: '0',
   longitude: '0'
@@ -17,26 +18,7 @@ class createRoute extends Component {
 
     this.state = {
       init: { latitude: 40.8534229, longitude: -73.9793236 },
-      routeCoordinates: [ { latitude: 40.8534229, longitude: -73.9793236 },
-                           { latitude: 40.85231599999999, longitude: -73.98040999999999 },
-                           { latitude: 40.850477, longitude: -73.977189 },
-                           { latitude: 40.8261501, longitude: -73.98740600000001 },
-                           { latitude: 40.8072041, longitude: -73.99227619999999 },
-                           { latitude: 40.8042829, longitude: -73.9933009 },
-                           { latitude: 40.788616, longitude: -74.0004103 },
-                           { latitude: 40.7826662, longitude: -74.0081575 },
-                           { latitude: 40.78164, longitude: -74.00747609999999 },
-                           { latitude: 40.7771486, longitude: -74.01102 },
-                           { latitude: 40.7767594, longitude: -74.0109413 },
-                           { latitude: 40.7765525, longitude: -74.0105198 },
-                           { latitude: 40.7765499, longitude: -74.0099082 },
-                           { latitude: 40.7606329, longitude: -74.00324499999999 },
-                           { latitude: 40.7606707, longitude: -74.0029519 },
-                           { latitude: 40.760857, longitude: -74.00268179999999 },
-                           { latitude: 40.7543392, longitude: -73.9869051 },
-                           { latitude: 40.7491863, longitude: -73.9881872 },
-                           { latitude: 40.7489953, longitude: -73.9880316 },
-                           { latitude: 40.7466059, longitude: -73.9885128 } ],
+      routeCoordinates: [],
       pins: []
     }
     this.createNewPin = this.createNewPin.bind(this);
@@ -48,28 +30,31 @@ class createRoute extends Component {
   }
 
   createNewPin() {
-
-     var pin = { latitude: regionText.latitude, longitude: regionText.longitude , draggable: true, onDragStateChange: (event) => {
-        //  console.log(this.coordinate);
-      //  console.log(event.nativeEvent.coordinate);
-        }};
+     var pin = { latlng: {latitude: regionText.latitude, longitude: regionText.longitude }, key: count};
      this.state.pins.push(pin);
-     this.setState({  });
-     console.log('TEST', this.state.pins);
+     count++
+    // console.log('TEST', this.state.pins);
+     this.setState({})
+     console.log('id', count);
   }
 
   render() {
     return (
       <View style={styles.container}>
-          <MapView style={styles.map}>
-            <MapView.Marker
-              coordinate={this.state.init}
-               onDragEnd={(e) => this.setState({ init: e.nativeEvent.coordinate })}
-               draggable
-            />
+          <MapView
+            style={styles.map}
+            onRegionChangeComplete={this.onRegionChangeComplete}
+          >
+            {this.state.pins.map(pin => (
+              <MapView.Marker
+                coordinate={pin.latlng}
+                onDragEnd={(e) => this.setState({ init: e.nativeEvent.coordinate })}
+                draggable
+              />
+            ))}
          </MapView>
          <View>
-         <TouchableOpacity onPress={() => console.log("NEW LOCATION", this.state.init)}>
+         <TouchableOpacity onPress={() => this.createNewPin()}>
              <Text>Info</Text>
         </TouchableOpacity>
         </View>
