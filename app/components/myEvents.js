@@ -41,12 +41,14 @@ class myEvents extends Component {
 
   goMap(rowData) {
     console.log("Hello: ", rowData);
+    this.props.setEventId(rowData.id);
+    this.props.navigator.pop();
   }
 
   renderRow(rowData: string, sectionID: number, rowID: number,
     highlightedRow: (sectionID: nunber, rowID: number) => void)  {
     return (
-      <TouchableOpacity style={styles.eventRow} onPress={this.goMap(rowData)}>
+      <TouchableOpacity style={styles.eventRow} onPress={() => this.goMap(rowData)}>
       <View>
         <Text>{'\n'}{rowData.name}{'\n'}{rowData.description}{'\n'}{rowData.location}{'\n'}</Text>
         <View />

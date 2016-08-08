@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, NavigatorIOS, Text, ListView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
 
+import createEvent from './createEvent';
+
 let routes = [
   'New York Historic',
   'Metropolitan Boston',
@@ -22,8 +24,12 @@ class SearchRoutes extends Component {
     };
   }
 
-  showData(item) {
+  handleItemClick(item) {
     console.log("Route: ", item);
+    this.props.navigator.push({
+      component: createEvent,
+      title: "Create Event"
+    });
   }
 
   getRoutes(){
@@ -33,7 +39,7 @@ class SearchRoutes extends Component {
   renderRow(rowData: string, sectionID: number, rowID: number,
     highlightedRow: (sectionID: nunber, rowID: number) => void) {
     return (
-      <TouchableOpacity style={styles.routeRow} onPress={(event) => this.showData(rowData)}>
+      <TouchableOpacity style={styles.routeRow} onPress={(event) => this.handleItemClick(rowData)}>
       <View>
         <Text style={{alignItems: 'center', padding: 3}}>{'\n'}{rowData}{'\n'}</Text>
       </View>
