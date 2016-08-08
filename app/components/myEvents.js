@@ -73,7 +73,7 @@ class myEvents extends Component {
     return (
       <View style={styles.container}>
         <ListView
-          style={{marginTop: 2, alignSelf: 'center'}}
+          style={{marginTop: 2, alignSelf: 'center', padding: 7}}
           initialListSize={10}
           dataSource={this.state.objectdataSource}
           renderRow={(item) => { return this.renderRow(item) }}

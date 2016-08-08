@@ -12,6 +12,7 @@ import permissions from 'react-native-permissions'
 if (window.navigator && Object.keys(window.navigator).length == 0) {
   window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
 }
+
 const io = require('socket.io-client/socket.io');
 import userAgent from '../utils/userAgent'
 
