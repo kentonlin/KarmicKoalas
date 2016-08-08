@@ -56,6 +56,7 @@ class createRoute extends Component {
      .then((response) => response.json())
      .then((responseData) => {
        console.log('DATA FROM SERVER', responseData)
+       this.setState({routeCoordinates: responseData});
      })
      .done();
  }
@@ -75,6 +76,12 @@ class createRoute extends Component {
                 draggable
               />
             ))}
+            <MapView.Polyline
+             coordinates={this.state.routeCoordinates}
+             strokeColor="rgba(0,0,200,0.5)"
+             strokeWidth={3}
+             lineDashPattern={[5, 2, 3, 2]}
+           />
          </MapView>
          <View>
          <TouchableOpacity
