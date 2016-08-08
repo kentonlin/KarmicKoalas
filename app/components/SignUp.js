@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
+import Main from './Main';
 
 class SignUp extends Component {
 	constructor(props) {
@@ -24,12 +25,24 @@ class SignUp extends Component {
     // AsyncStorage.setItem("userId", userId.toString());
     //)
 		console.log('in signup',this.state.username)
-    this.props.setUserId("123");
+		//update Asynch storage
     AsyncStorage.setItem("userId", "123");
-    this.props.setUserName(this.state.username)
     AsyncStorage.setItem('username',this.state.username)
-    this.props.navigator.pop();
+    //update main
+		// this.props.setUserId("123");
+		// this.props.setUserName(this.state.username)
+		//navigate to main
+    //this.props.navigator.pop();
+		this.navToMain()
   }
+
+	navToMain(){
+		this.props.navigator.push({
+			navigationBarHidden: true,
+			component: Main,
+			title: "Main"
+		});
+	}
 
   render() {
 		return (

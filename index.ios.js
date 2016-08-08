@@ -3,8 +3,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, NavigatorIOS, View, Text, TouchableHighlight, TextInput, TabBarIOS, AlertIOS } from 'react-native';
 
-import Main from './app/components/Main'
-import SignUp from './app/components/SignUp'
+import Splash from './app/components/Splash'
 
 class KarmicKoalas extends Component {
 
@@ -19,8 +18,9 @@ class KarmicKoalas extends Component {
     return (
       <NavigatorIOS
         initialRoute={{
-          component: splash,
-          title: "splash"
+          navigationBarHidden: true,
+          component: Splash,
+          title: "Splash"
         }}
         style={{flex: 1}}
       />

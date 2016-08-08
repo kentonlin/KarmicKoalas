@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     height: 64,
     width: width,
     position: 'absolute',
-    top: 40,
+    top: 0,
     bottom: 0,
     left: 0,
     right: 0
