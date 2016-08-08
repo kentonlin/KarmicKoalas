@@ -1,5 +1,27 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, NavigatorIOS, Text, AlertIOS, TextInput, TouchableHighlight } from 'react-native';
+import { View, StyleSheet, NavigatorIOS, Dimensions, Text, AlertIOS, TextInput, TouchableHighlight } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+class createEvent extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+
+    }
+    console.log("TEST:", this.props.test);
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>
+          Create an Event
+        </Text>
+
+      </View>
+      );
+   }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -22,25 +44,4 @@ const styles = StyleSheet.create({
   }
 });
 
-class createEvent extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-
-    }
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>
-          Create an Event
-        </Text>
-     
-      </View>
-      );
-   }
-
- 
-}
-
-module.exports =  createEvent;  
+module.exports =  createEvent;

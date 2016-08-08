@@ -1,8 +1,10 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { View, StyleSheet, NavigatorIOS, Dimensions, Text, AlertIOS, TextInput, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, NavigatorIOS, Dimensions, Text, AlertIOS, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
 import MapView from 'react-native-maps';
+
+import createEvent from './createEvent';
 
 const { width, height } = Dimensions.get('window')
 
@@ -45,6 +47,18 @@ class createRoute extends Component {
      console.log('id', count);
   }
 
+  createEventView() {
+    this.props.navigator.push({
+      component: createEvent,
+      title: "Create Event",
+      passProps: {
+        id: 4,
+        route: ['Statue of Liberty', 'Water Street', 'Macys', 'Empire State Bldg'],
+        keyWords: ['NYC', 'Downtown', 'TriBeCa', 'Midtown']
+      }
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -54,6 +68,7 @@ class createRoute extends Component {
           >
             {this.state.pins.map(pin => (
               <MapView.Marker
+                key={pin.key}
                 coordinate={pin.latlng}
                 onDragEnd={(e) => this.setState({ init: e.nativeEvent.coordinate })}
                 draggable
@@ -61,14 +76,14 @@ class createRoute extends Component {
             ))}
          </MapView>
          <View>
-         <TouchableOpacity onPress={() => this.createNewPin()}>
-              <Text>Info</Text>
-         </TouchableOpacity>
+           <TouchableOpacity onPress={() => this.createNewPin()}>
+             <Text>Info</Text>
+           </TouchableOpacity>
            <TextInput
              style = {styles.inputText}
              autoFocus = {true}
-             placeholder = " <Enter route title> "
-             placeholderTextColor='cornflowerblue'
+             placeholder = "Enter route title"
+             placeholderTextColor='#000000'
              onChangeText={(text) => this.setState({title: text})}
              onSubmitEditing={(event) => {
                this.refs.SecondInput.focus();
@@ -77,10 +92,14 @@ class createRoute extends Component {
            <TextInput
              ref='SecondInput'
              style={styles.inputText}
-             placeholder=" <keywords> "
-             placeholderTextColor='cornflowerblue'
+             placeholder="keywords"
+             placeholderTextColor='#000000'
              onChangeText={(text) => this.setState({keywords: text})}
            />
+            <TouchableHighlight style={styles.createRouteBtn} onPress={() => this.createEventView()}>
+            <Text>Create Event</Text>
+            </TouchableHighlight>
+
         </View>
       </View>
       );
@@ -127,6 +146,15 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 20,
   },
+  createRouteBtn: {
+    flex: 1,
+    bottom: 0,
+    left: 150,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    paddingVertical: 12
+  }
 });
 
 module.exports =  createRoute;
