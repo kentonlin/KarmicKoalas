@@ -23,8 +23,11 @@ class SignUp extends Component {
     //.then(
     // AsyncStorage.setItem("userId", userId.toString());
     //)
+		console.log('in signup',this.state.username)
     this.props.setUserId("123");
     AsyncStorage.setItem("userId", "123");
+    this.props.setUserName(this.state.username)
+    AsyncStorage.setItem('username',this.state.username)
     this.props.navigator.pop();
   }
 

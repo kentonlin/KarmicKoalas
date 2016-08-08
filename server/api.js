@@ -92,13 +92,22 @@ app.post('/createRoute', (req, res) => {
     //on insert to routes, .get() route_id. on insert to keywords,
     // .get() each keword_id and insert pairs into this join table
     routeController.createRoute(req.body,(route) => {
-      var route_id = route['id'];
-      var keywords = JSON.parse(req.body.keywords);
+      const route_id = route['id'];
+      const keywords = JSON.parse(req.body.keywords);
       keywords.forEach((input) => {
            new keyword({word:input}).fetch()
                .then ((result) => {
                    if(!result){
-                     keywordController.createKeyword(input).then()
+                     //new keyword.. make a new entry and get id
+                     //add keyword_id to join table with route_id
+                     keywordController.createKeyword(input)
+                        .then((keyword) => {
+                            const keyword_id = keyword['id']
+                            
+                        })
+                   }else {
+                       //existing keyword. get the keyword_id 
+                       //add keyword_id to join table with route_id
                    }
                })
       })
