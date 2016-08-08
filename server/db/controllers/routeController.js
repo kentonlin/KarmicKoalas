@@ -8,10 +8,11 @@ module.exports = {
         end: body.end,
         route_object: body.routeObject
       }
-    new Route(data).save().then((route)=>{
-    //  cb(route);
-    return(route)
-    });
+     return new Route(data).save()
+     //.then((route)=>{
+    // //  cb(route);
+    // return(route)
+    // });
   }
 }
  // searchRoutes: (body, cb)=>{
