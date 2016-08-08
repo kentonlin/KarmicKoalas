@@ -19,8 +19,8 @@ class KarmicKoalas extends Component {
     return (
       <NavigatorIOS
         initialRoute={{
-          component: Main,
-          title: "Main"
+          component: splash,
+          title: "splash"
         }}
         style={{flex: 1}}
       />
