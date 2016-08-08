@@ -119,7 +119,7 @@ class Main extends Component {
             lineWidth: 8,
           }]}
         />
-        <View style={styles.navBar}><Text style={styles.navBarText}>Karmic Koalas</Text></View>
+        <View style={styles.navBar}><Text style={styles.navBarText}>WeGoToo</Text></View>
       </View>
     )
   }

@@ -91,7 +91,6 @@ app.post('/createRoute', (req, res) => {
   var keyword_id;
   var route_id;
   var keywords = JSON.parse(req.body.keywords);
-  console.log(keywords)
     //var addWords = helpers.generateKeywords(req.body)
     //keywords: req.body.keywords
     //"{title:'foo',start:{'lat:lon'},end:{lat:lon},keywords:'[key,key]',routeObject:'{sdfasf}''}"
@@ -103,12 +102,12 @@ app.post('/createRoute', (req, res) => {
         route_id = input['id']
         //add each keyword to keywords table if new, else get id
         keywords.forEach((input) => {
-           new keyword({word:input}).fetch()
+           new Keyword({word:input}).fetch()
                .then ((result) => {
                    if(!result){
                      //new keyword.. make a new entry and get id
                      //add keyword_id to join table with route_id
-                     keywordController.createKeyword(input)
+                     new Keyword({word:input}).save()
                         .then((keyword) => {
                              keyword_id = keyword['id']
                              keywordIdList.push(keyword_id)
@@ -127,11 +126,12 @@ app.post('/createRoute', (req, res) => {
             keyword_id: input,
             route_id: route_id,
           }
-        new keyword_route(data).save().then((resp)=>{
+        new keyword_route(data).save()
+           .then((resp)=>{
           console.log('db updated')
         });
     })
-
+ res.send('ok')
 });
 
 
