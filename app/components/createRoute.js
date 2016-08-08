@@ -57,6 +57,7 @@ class createRoute extends Component {
      .then((responseData) => {
        console.log('DATA FROM SERVER', responseData)
        this.setState({routeCoordinates: responseData});
+
      })
      .done();
  }
