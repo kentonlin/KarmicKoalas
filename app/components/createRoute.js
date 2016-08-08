@@ -24,6 +24,7 @@ class createRoute extends Component {
     this.createNewPin = this.createNewPin.bind(this);
     this.checkPinCoordinates = this.checkPinCoordinates.bind(this);
     this.changeCoordinatesAfterDrop = this.changeCoordinatesAfterDrop.bind(this);
+    this._onPressButtonPOST = this._onPressButtonPOST.bind(this);
   }
 
   onRegionChangeComplete(e) {
@@ -46,6 +47,22 @@ class createRoute extends Component {
   checkPinCoordinates() {
      console.log('PIN', this.state.pins[0]['0'], this.state.pins[0]['1']);
   }
+
+  _onPressButtonPOST(start, end){
+    var startCoord = start.latlng.latitude + ',' + start.latlng.longitude;
+    var endCoord = end.latlng.latitude + ',' + end.latlng.longitude;
+    console.log('send to back', startCoord, endCoord);
+     fetch("/getRouteFromGoogle", {method: "POST", body: JSON.stringify({start: startCoord, end: endCoord})})
+     .then((response) => response.json())
+     .then((responseData) => {
+       console.log('DATA FROM SERVER', responseData)
+        //  AlertIOS.alert(
+        //      "POST Response",
+        //      "Response Body -> " + JSON.stringify(responseData.body)
+        //  )
+     })
+     .done();
+ }
 
   render() {
     return (
@@ -72,7 +89,7 @@ class createRoute extends Component {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonCheck}
-          onPress={() => this.checkPinCoordinates()}
+          onPress={() => this._onPressButtonPOST(this.state.pins[0]['0'], this.state.pins[0]['1'])}
          >
         <Text>Check</Text>
        </TouchableOpacity>
