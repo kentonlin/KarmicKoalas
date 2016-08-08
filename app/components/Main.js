@@ -46,7 +46,13 @@ class Main extends Component {
       })
     });
 
-}
+  }
+
+  setEventId(eventId){
+    this.setState({
+      eventId: eventId
+    });
+  }
 
   navToSearchRoutes(){
     this.props.navigator.push({
