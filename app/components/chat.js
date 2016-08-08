@@ -33,7 +33,6 @@ class Chat extends Component {
        this.setState({
          incomingMessage: data.text
        });
-       //this.forceUpdate();
     });
    }
 
