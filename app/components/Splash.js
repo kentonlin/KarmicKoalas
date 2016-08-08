@@ -29,14 +29,18 @@ class Splash extends Component {
 					component: Main,
 					title: "Main"
 				});
-    }
-  });
+    	}
+  	});
   }
+
+	navToSignup(){
+
+	}
 
   render() {
 		return (
       <View style={styles.container}>
-				<Text style={styles.textHeader} onPress={() => this.navToSignup()}>
+				<Text style={styles.textHeader}>
 					WeGoToo>>>>>
 				</Text>
 			</View>
