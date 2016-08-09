@@ -11,11 +11,9 @@ class Splash extends Component {
     this.state = {
 
     }
-		console.log('in splash set asynch')
     //AsyncStorage.setItem("userId", 'null');
     AsyncStorage.getItem("userId").then((value) => {
-      console.log('in splash get value',value)
-      if(value === '123'){
+      if(value === null){
         //new user
 				this.props.navigator.push({
 					navigationBarHidden: true,
@@ -60,51 +58,6 @@ const styles = StyleSheet.create({
       backgroundColor: 'lightblue',
       fontSize: 30,
       margin: 80
-    },
-    navBar: {
-      backgroundColor: 'cornflowerblue',
-      height: 64,
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0
-    },
-    navText: {
-      color: 'white',
-      fontSize: 16,
-      fontWeight: "700",
-      textAlign: 'center',
-      paddingTop: 30
-    },
-    inputText: {
-      height: 40,
-      color: 'white'
-    },
-    TextInput: {
-      borderWidth: 2,
-      color: 'white'
-    },
-    textHeader: {
-      fontSize: 30,
-      color: 'white',
-      justifyContent: 'flex-start'
-    },
-    buttonText: {
-      fontSize: 20,
-      color: 'white'
-    },
-    buttonText: {
-      fontSize: 18,
-      color: 'white',
-      alignSelf: 'center'
-    },
-    button: {
-      height: 44,
-      flexDirection: 'row',
-      alignSelf: 'stretch',
-      justifyContent: 'center',
-      backgroundColor: 'skyblue'
     }
 });
 

@@ -24,8 +24,12 @@ class createRoute extends Component {
       pins: [],
       title: '',
       keywords: []
+      pins: [{}]
     }
     this.createNewPin = this.createNewPin.bind(this);
+    this.checkPinCoordinates = this.checkPinCoordinates.bind(this);
+    this.changeCoordinatesAfterDrop = this.changeCoordinatesAfterDrop.bind(this);
+    this._onPressButtonPOST = this._onPressButtonPOST.bind(this);
   }
 
   saveData() {
@@ -40,12 +44,33 @@ class createRoute extends Component {
 
   createNewPin() {
      var pin = { latlng: {latitude: regionText.latitude, longitude: regionText.longitude }, key: count};
-     this.state.pins.push(pin);
+     this.state.pins[0][pin.key] = pin;
      count++
     // console.log('TEST', this.state.pins);
      this.setState({})
      console.log('id', count);
   }
+  changeCoordinatesAfterDrop(e, key) {
+     this.state.pins[0][key]['latlng'] = e.nativeEvent.coordinate
+     this.setState({});
+  }
+  checkPinCoordinates() {
+     console.log('PIN', this.state.pins[0]['0'], this.state.pins[0]['1']);
+  }
+
+  _onPressButtonPOST(start, end){
+    var startCoord = start.latlng.latitude + ',' + start.latlng.longitude;
+    var endCoord = end.latlng.latitude + ',' + end.latlng.longitude;
+    console.log('send to back', startCoord, endCoord);
+     fetch("https://wegoios.herokuapp.com/getRouteFromGoogle", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({start: startCoord, end: endCoord})})
+     .then((response) => response.json())
+     .then((responseData) => {
+       console.log('DATA FROM SERVER', responseData)
+       this.setState({routeCoordinates: responseData});
+
+     })
+     .done();
+ }
 
   createEventView() {
     this.props.navigator.push({
@@ -66,14 +91,23 @@ class createRoute extends Component {
             style={styles.map}
             onRegionChangeComplete={this.onRegionChangeComplete}
           >
-            {this.state.pins.map(pin => (
+            {Object.keys(this.state.pins[0]).map(id => (
               <MapView.Marker
                 key={pin.key}
                 coordinate={pin.latlng}
                 onDragEnd={(e) => this.setState({ init: e.nativeEvent.coordinate })}
+                key={this.state.pins[0][id].key}
+                coordinate={this.state.pins[0][id].latlng}
+                onDragEnd={(e) => this.changeCoordinatesAfterDrop(e, this.state.pins[0][id].key)}
                 draggable
               />
             ))}
+            <MapView.Polyline
+             coordinates={this.state.routeCoordinates}
+             strokeColor="rgba(0,0,200,0.5)"
+             strokeWidth={3}
+             lineDashPattern={[5, 2, 3, 2]}
+           />
          </MapView>
          <View>
            <TouchableOpacity onPress={() => this.createNewPin()}>
@@ -100,6 +134,18 @@ class createRoute extends Component {
             <Text>Create Event</Text>
             </TouchableHighlight>
 
+         <TouchableOpacity
+           style={styles.buttonPin}
+           onPress={() => this.createNewPin()}
+          >
+          <Text>PIN</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonCheck}
+          onPress={() => this._onPressButtonPOST(this.state.pins[0]['0'], this.state.pins[0]['1'])}
+         >
+        <Text>Check</Text>
+       </TouchableOpacity>
         </View>
       </View>
       );
@@ -122,13 +168,7 @@ const styles = StyleSheet.create({
     width: width,
     padding: 5
   },
-  buttonText: {
-    fontSize: 18,
-    color: 'green',
-    alignSelf: 'center'
-  },
-  buttonStart: {
-    flex: 1,
+  buttonPin: {
     bottom:10,
     position: 'absolute',
     backgroundColor: '#fff',
@@ -136,10 +176,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 20,
   },
-  buttonEnd: {
+  buttonCheck: {
     flex: 1,
     bottom:10,
-    left:75,
+    left:70,
     position: 'absolute',
     backgroundColor: '#fff',
     paddingHorizontal: 18,
@@ -154,6 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 10,
     paddingVertical: 12
+
   }
 });
 
