@@ -41,7 +41,7 @@ class Main extends Component {
 
     Contacts.getAll((err, contacts) => {
       if(err && err.type === 'permissionDenied'){
-        console.error(err);
+        console.error('Error',err);
       } else {
         console.log("Contacts:", contacts)
       }
