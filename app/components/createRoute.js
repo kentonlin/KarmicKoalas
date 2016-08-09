@@ -52,11 +52,12 @@ class createRoute extends Component {
     var startCoord = start.latlng.latitude + ',' + start.latlng.longitude;
     var endCoord = end.latlng.latitude + ',' + end.latlng.longitude;
     console.log('send to back', startCoord, endCoord);
-     fetch("http://localhost:8000/getRouteFromGoogle", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({start: startCoord, end: endCoord})})
+     fetch("https://wegoios.herokuapp.com/getRouteFromGoogle", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({start: startCoord, end: endCoord})})
      .then((response) => response.json())
      .then((responseData) => {
        console.log('DATA FROM SERVER', responseData)
        this.setState({routeCoordinates: responseData});
+
      })
      .done();
  }
