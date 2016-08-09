@@ -7,17 +7,20 @@ class createEvent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      id: this.props.id,
+      title: this.props.title,
+      route: this.props.route,
+      keyWords: this.props.keyWords
     }
-    console.log("TEST:", this.props.test);
+    //  console.log("TEST:" + this.props.id + " " + this props.title + " " + this.props.route + " " + this.props.keyWords);
   }
+
   render() {
     return (
       <View style={styles.container}>
         <Text>
           Create an Event
         </Text>
-
       </View>
       );
    }

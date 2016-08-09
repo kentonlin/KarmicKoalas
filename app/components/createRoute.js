@@ -21,8 +21,8 @@ class createRoute extends Component {
     this.state = {
       init: { latitude: 40.8534229, longitude: -73.9793236 },
       routeCoordinates: [],
-      pins: [],
       title: '',
+      text: '',
       keywords: [],
       pins: [{}]
     }
@@ -38,7 +38,7 @@ class createRoute extends Component {
   }
 
   onRegionChangeComplete(e) {
-    regionText.latitude = e.latitude;
+    regionText.latitude = e.latitude
     regionText.longitude = e.longitude
   }
 
@@ -67,7 +67,6 @@ class createRoute extends Component {
      .then((responseData) => {
        console.log('DATA FROM SERVER', responseData)
        this.setState({routeCoordinates: responseData});
-
      })
      .done();
  }
@@ -77,9 +76,11 @@ class createRoute extends Component {
       component: createEvent,
       title: "Create Event",
       passProps: {
-        id: 4,
-        route: ['Statue of Liberty', 'Water Street', 'Macys', 'Empire State Bldg'],
-        keyWords: ['NYC', 'Downtown', 'TriBeCa', 'Midtown']
+        title: 'Night On The Town',
+        keyWords: ['NYC', 'Downtown', 'TriBeCa', 'Midtown'],
+        start: {},
+        end: {},
+        routeObj: {}
       }
     });
   }
@@ -91,11 +92,24 @@ class createRoute extends Component {
             style={styles.map}
             onRegionChangeComplete={this.onRegionChangeComplete}
           >
+          <TextInput
+            style={styles.inputText}
+            autoFocus = {true}
+            placeholder = "Enter route title"
+            placeholderTextColor='#000000'
+            // onChangeText={(text) => this.setState({title: text})}
+            onSubmitEditing={(event) => {
+              this.refs.SecondInput.focus();
+            }}
+          />
+          <TextInput
+            ref='SecondInput'
+            style={styles.inputOne}
+            placeholder="keywords"
+            placeholderTextColor='#000000'
+          />
             {Object.keys(this.state.pins[0]).map(id => (
               <MapView.Marker
-                key={pin.key}
-                coordinate={pin.latlng}
-                onDragEnd={(e) => this.setState({ init: e.nativeEvent.coordinate })}
                 key={this.state.pins[0][id].key}
                 coordinate={this.state.pins[0][id].latlng}
                 onDragEnd={(e) => this.changeCoordinatesAfterDrop(e, this.state.pins[0][id].key)}
@@ -110,30 +124,6 @@ class createRoute extends Component {
            />
          </MapView>
          <View>
-           <TouchableOpacity onPress={() => this.createNewPin()}>
-             <Text>Info</Text>
-           </TouchableOpacity>
-           <TextInput
-             style = {styles.inputText}
-             autoFocus = {true}
-             placeholder = "Enter route title"
-             placeholderTextColor='#000000'
-             onChangeText={(text) => this.setState({title: text})}
-             onSubmitEditing={(event) => {
-               this.refs.SecondInput.focus();
-             }}
-           />
-           <TextInput
-             ref='SecondInput'
-             style={styles.inputText}
-             placeholder="keywords"
-             placeholderTextColor='#000000'
-             onChangeText={(text) => this.setState({keywords: text})}
-           />
-            <TouchableHighlight style={styles.createRouteBtn} onPress={() => this.createEventView()}>
-            <Text>Create Event</Text>
-            </TouchableHighlight>
-
          <TouchableOpacity
            style={styles.buttonPin}
            onPress={() => this.createNewPin()}
@@ -145,7 +135,10 @@ class createRoute extends Component {
           onPress={() => this._onPressButtonPOST(this.state.pins[0]['0'], this.state.pins[0]['1'])}
          >
         <Text>Check</Text>
-       </TouchableOpacity>
+          </TouchableOpacity>
+          <TouchableHighlight style={styles.createRouteBtn} onPress={() => this.createEventView()}>
+            <Text>Create Event</Text>
+          </TouchableHighlight>
         </View>
       </View>
       );
@@ -161,12 +154,26 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 3,
-    width: 500
+    width: width
   },
   inputText: {
     height: 40,
     width: width,
-    padding: 5
+    padding: 5,
+    backgroundColor: '#fff',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+    marginTop: 80
+  },
+  inputOne: {
+    height: 40,
+    width: width,
+    backgroundColor: '#fff',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+    marginTop: 10
   },
   buttonPin: {
     bottom:10,
@@ -174,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 18,
     paddingVertical: 12,
-    borderRadius: 20,
+    borderRadius: 20
   },
   buttonCheck: {
     flex: 1,
@@ -184,7 +191,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 18,
     paddingVertical: 12,
-    borderRadius: 20,
+    borderRadius: 20
   },
   createRouteBtn: {
     flex: 1,
