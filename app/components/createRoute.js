@@ -23,7 +23,7 @@ class createRoute extends Component {
       routeCoordinates: [],
       pins: [],
       title: '',
-      keywords: []
+      keywords: [],
       pins: [{}]
     }
     this.createNewPin = this.createNewPin.bind(this);

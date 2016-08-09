@@ -9,6 +9,8 @@ import createRoute from './createRoute'
 import myEvents from './myEvents'
 import permissions from 'react-native-permissions'
 
+import Contacts from 'react-native-contacts';
+
 if (window.navigator && Object.keys(window.navigator).length == 0) {
   window = Object.assign(window, { navigator: { userAgent: 'ReactNative' }});
 }
@@ -36,6 +38,14 @@ class Main extends Component {
       eventId: '1',//eventId: props.eventId,   //this will come from group list view and pass to server
       socket: this.socket
     }
+
+    Contacts.getAll((err, contacts) => {
+      if(err && err.type === 'permissionDenied'){
+        console.error(err);
+      } else {
+        console.log("Contacts:", contacts)
+      }
+    })
     AsyncStorage.getItem("username").then((value) => {
       console.log("username:", value)
       this.setState({
