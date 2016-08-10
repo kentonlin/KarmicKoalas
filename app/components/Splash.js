@@ -11,10 +11,12 @@ class Splash extends Component {
     this.state = {
 
     }
-		
+  }
+
+	componentDidMount(){
     //AsyncStorage.setItem("userId", 'null');
-    AsyncStorage.getItem("userId").then((value) => {
-      if(value === null){
+    AsyncStorage.getItem("username").then((username) => {
+      if(username === null){
         //new user
 				this.props.navigator.push({
 					navigationBarHidden: true,
@@ -30,7 +32,7 @@ class Splash extends Component {
 				});
     	}
   	});
-  }
+	}
 
 	navToSignup(){
 
