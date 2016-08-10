@@ -14,7 +14,6 @@ class MapComponent extends Component {
     super(props);
 
     this.state = {
-      currentUser: 'Konstantin',
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
@@ -61,7 +60,8 @@ class MapComponent extends Component {
             distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
             prevLatLng: newLatLngs
          })
-        this.props.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude})
+         console.log(this.props.username);
+        this.props.socket.emit('location', {'title': this.props.username, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude})
         this.props.socket.on('groupUpdate',(data) =>  {
           console.log("Server Data", data);
           this.updateUsersArray(data)

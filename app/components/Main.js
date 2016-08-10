@@ -82,17 +82,18 @@ class Main extends Component {
   componentDidMount() {
     AsyncStorage.multiGet(["username", "userId"]).then((data) => {
       console.log("Multi Get from Async:", data)
+      this.setState({
+        username : data[0][1]
+      })
       this.socket.emit('initialize',{eventId: this.state.eventId, userId: data[1][1], username: data[0][1]})
-      // this.setState({
-      //   username : value
-      // })
+
     });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <MapComponent socket={this.state.socket}/>
+        <MapComponent socket={this.state.socket} username={this.state.username}/>
         <Chat socket={this.socket}/>
         <TouchableHighlight
           style={styles.searchRoutesBtn}
