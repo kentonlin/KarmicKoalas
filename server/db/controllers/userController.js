@@ -9,7 +9,7 @@ var createUser = (body) =>{
         email: body.email,
         password: body.password
     }
-    data.password = hashPassword(body.password)
+    //data.password = hashPassword(body.password)
     return new User(data).save()
   }
 

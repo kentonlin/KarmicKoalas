@@ -43,18 +43,19 @@ app.post('/signup', (req, res) => {
                         });
                     } else {
                         //  existing user
-                        userController.comparePassword(user.password, (matches) => {
-                                if (matches) {
-                                    //log in
+                        var newPassword = req.body.password
+                        // userController.comparePassword(user.password, newPassword, (matches) => {
+                        //         if (matches) {
+                        //             //log in
                                     var data = {
                                         'userId': user['id']
                                     };
-                                    res.status(200).send(JSON.stringify(user))
-                                } else {
-                                    //send resp with error, wrong password
-                                    res.send(401, 'wrong password!')
-                                }
-                       })
+                                    res.status(200).send(JSON.stringify(data))
+                                // } else {
+                                //     //send resp with error, wrong password
+                                //     res.send(401, 'wrong password!')
+                                // }
+                       //})
                   }
             })
  });
