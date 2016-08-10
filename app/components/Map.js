@@ -18,11 +18,11 @@ class MapComponent extends Component {
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
+      users: [{}],
       region: {
         latitude: 0,
         longitude: 0,
       },
-      users: [{}],
       toggle: false,
       test: [{title: "TEST", latitude: 37.55992988, longitude: -122.3826562}],
       route: [{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}],
