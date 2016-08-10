@@ -13,15 +13,15 @@ var createUser = (body) =>{
     return new User(data).save()
   }
 
-var comparePassword = function(attemptedPassword, password, callback) {
-  bcrypt.compare(attemptedPassword, password, function(err, isMatch) {
+var comparePassword = (attemptedPassword, password, callback)=> {
+  bcrypt.compare(attemptedPassword, password, (err, isMatch) =>{
     callback(isMatch);
   });
 }
-var hashPassword = function(password){
+var hashPassword = (password)=>{
   var cipher = Promise.promisify(bcrypt.hash);
   return cipher(password, null, null).bind(this)
-    .then(function(hash) {
+    .then((hash) => {
       return hash;
     });
 }

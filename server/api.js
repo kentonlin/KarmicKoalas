@@ -49,7 +49,6 @@ app.post('/signup', (req, res) => {
                                     var data = {
                                         'userId': user['id']
                                     };
-
                                     res.status(200).send(JSON.stringify(user))
                                 } else {
                                     //send resp with error, wrong password
@@ -158,11 +157,5 @@ app.post('/getEvents', (req, res) => {
     });
 });
 
-// app.post('/login', (req, res)=>{
 
-// });
-
-// app.post('/logout', (req, res)=>{
-
-// });
 module.exports = app;
