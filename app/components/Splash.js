@@ -11,28 +11,31 @@ class Splash extends Component {
     this.state = {
 
     }
-
+		
+    //AsyncStorage.setItem("userId", 'null');
+    AsyncStorage.getItem("userId").then((value) => {
+      if(value === null){
+        //new user
+				this.props.navigator.push({
+					navigationBarHidden: true,
+					component: SignUp,
+					title: "SignUp"
+				});
+      } else {
+        //existing user
+				this.props.navigator.push({
+					navigationBarHidden: true,
+					component: Main,
+					title: "Main"
+				});
+    	}
+  	});
   }
-componentDidMount()=>{
-	//AsyncStorage.setItem("userId", 'null');
-	AsyncStorage.getItem("userId").then((value) => {
-		if(value === null){
-			//new user
-			this.props.navigator.push({
-				navigationBarHidden: true,
-				component: SignUp,
-				title: "SignUp"
-			});
-		} else {
-			//existing user
-			this.props.navigator.push({
-				navigationBarHidden: true,
-				component: Main,
-				title: "Main"
-			});
-		}
-	});
-}
+
+	navToSignup(){
+
+	}
+
   render() {
 		return (
       <View style={styles.container}>
