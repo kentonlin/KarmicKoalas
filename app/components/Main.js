@@ -87,21 +87,6 @@ class Main extends Component {
       //   username : value
       // })
     });
-    // AsyncStorage.getItem("username").then((value) => {
-    //   console.log("username from Async:", value)
-    //   this.setState({
-    //     username : value
-    //   })
-    // });
-    // AsyncStorage.getItem("userId").then((value) => {
-    //   console.log("userId from Async:", value)
-    //   this.setState({
-    //     userId : value
-    //   });
-    // });
-    //console.log('open socket', this.state.userId, this.state.username)
-    //this.state.socket = this.socket
-    //this.socket.emit('intitialize',{eventId: this.state.eventId, userId: this.state.userId, username: this.state.username})
   }
 
   render() {
