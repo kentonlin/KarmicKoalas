@@ -121,7 +121,7 @@ class MapComponent extends Component {
           >
           {Object.keys(this.state.users[0]).map(user => (
             <MapView.Marker
-              title={user.title}
+              title={this.state.users[0][user]["title"]}
               coordinate={this.state.users[0][user]}
             />
           ))}
