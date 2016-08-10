@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const User = require('./db/models/user');
 const Keyword = require('./db/models/keyword');
 const Route = require('./db/models/route');
-const keyword_route = require('./db/models/keyword_route');
 const Event = require('./db/models/event');
 
 const userController = require('./db/controllers/userController');
@@ -29,29 +28,26 @@ app.post('/getRouteFromGoogle', (req, res) => {
 
 app.post('/signup', (req, res) => {
             //check if existing user..
-            //login or add..
+            //req.body  = {username, email, password}
             //reurn userID from db
-            var userEmail = req.body.email
-            new User({ email: userEmail}).fetch()
+            new User({ email: req.body.email}).fetch()
                 .then((user) => {
                     if (!user) {
                         //add new user
                         userController.createUser(req.body)
                            .then((user) => {
                             var data = {
-                                'userId': user['id'],
-                                'username': user['username']
+                                'userId': user['id']
                             };
                             res.status(200).send(data)
                         });
                     } else {
                         //  existing user
-                        User.comparePassword(user.password, (matches) => {
+                        userController.comparePassword(user.password, (matches) => {
                                 if (matches) {
                                     //log in
                                     var data = {
-                                        'userId': user['id'],
-                                        'username': user['username']
+                                        'userId': user['id']
                                     };
 
                                     res.status(200).send(JSON.stringify(user))
