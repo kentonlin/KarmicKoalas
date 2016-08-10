@@ -18,11 +18,11 @@ class MapComponent extends Component {
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
+      users: [{}],
       region: {
         latitude: 0,
         longitude: 0,
       },
-      users: [{}],
       toggle: false,
       test: [{title: "TEST", latitude: 37.55992988, longitude: -122.3826562}],
       route: [{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}],
@@ -59,15 +59,14 @@ class MapComponent extends Component {
             distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
             prevLatLng: newLatLngs
          })
-        this.props.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
+        this.props.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude})
         this.props.socket.on('groupUpdate',(data) =>  {
-          console.log("Data from server", data);
+          console.log("Server Data", data);
         //  this.updateUsersArray(data)
-          this.state.users[0][data.title] = {latitude: data.latitude, longitude: data.longitude}
+          this.state.users[0][data.title] = data;
+          this.setState({})
         } );
-
         console.log('Users!!!', this.state.users);
-        console.log('region', this.state.region);
       },
       (error) => alert(error.message),
       {maximumAge: 1000, timeout: 3000, enableHighAccuracy: true}
@@ -118,9 +117,10 @@ class MapComponent extends Component {
             followUserLocation={false}
             onRegionChangeComplete={this.onRegionChangeComplete}
           >
-          {Object.keys(this.state.users[0]).map(title => (
+          {Object.keys(this.state.users[0]).map(user => (
             <MapView.Marker
-              coordinate={this.state.users[0][title]}
+              title={this.state.users[0][user]["title"]}
+              coordinate={this.state.users[0][user]}
             />
           ))}
           <MapView.Polyline
