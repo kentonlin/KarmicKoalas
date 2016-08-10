@@ -18,10 +18,12 @@ class MapComponent extends Component {
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
-      users: [{}],
+      users: [],
       region: {
         latitude: 0,
         longitude: 0,
+        latitudeDelta: 0.020300188024080512,
+        longitudeDelta: 0.016093256407543777
       },
       toggle: false,
       test: [{title: "TEST", latitude: 37.55992988, longitude: -122.3826562}],
@@ -62,9 +64,9 @@ class MapComponent extends Component {
         this.props.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude})
         this.props.socket.on('groupUpdate',(data) =>  {
           console.log("Server Data", data);
-        //  this.updateUsersArray(data)
-          this.state.users[0][data.title] = data;
-          this.setState({})
+          this.updateUsersArray(data)
+          // this.state.users[0][data.title] = data;
+          // this.setState({})
         } );
         console.log('Users!!!', this.state.users);
       },
@@ -117,10 +119,11 @@ class MapComponent extends Component {
             followUserLocation={false}
             onRegionChangeComplete={this.onRegionChangeComplete}
           >
-          {Object.keys(this.state.users[0]).map(user => (
+          {this.state.users.map(user => (
             <MapView.Marker
-              title={this.state.users[0][user]["title"]}
-              coordinate={this.state.users[0][user]}
+              key={user.title}
+              title={user.title}
+              coordinate={{latitude: user.latitude, longitude:user.longitude}}
             />
           ))}
           <MapView.Polyline
