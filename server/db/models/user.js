@@ -2,8 +2,7 @@ var db = require('../config');
 var bcrypt = require('bcrypt');
 
 var User = db.Model.extend({
-  tableName: 'users',
-  hasTimestamps: true,
+  tableName: 'Users',
   intitialize: ()=>{
     this.on('creating', this.hashPassword);
   },

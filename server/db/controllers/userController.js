@@ -3,7 +3,6 @@ var User = require('../models/user.js');
   module.exports = {
   createUser: (body) =>{
     const data = {
-        name: body.name,
         username: body.username,
         email: body.email,
         password: body.password

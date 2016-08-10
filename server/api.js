@@ -31,36 +31,35 @@ app.post('/signup', (req, res) => {
             //check if existing user..
             //login or add..
             //reurn userID from db
-            const userEmail = req.body.email
+            var userEmail = req.body.email
             new User({ email: userEmail}).fetch()
                 .then((user) => {
                     if (!user) {
                         //add new user
                         userController.createUser(req.body)
                            .then((user) => {
-                            // const data = {
-                            //     'userId': user['id'],
-                            //     'username': user['username']
-                            // };
-                            res.status(200).send(user)
+                            var data = {
+                                'userId': user['id'],
+                                'username': user['username']
+                            };
+                            res.status(200).send(data)
                         });
                     } else {
-                        //const userPassword = user.password
-                        //existing user
-                        // User.comparePassword(userPassword, (matches) => {
-                        //         if (matches) {
-                        //             //log in
-                                    // var data = {
-                                    //     'userId': user['id'],
-                                    //     'username': user['username']
-                                    // };
+                        //  existing user
+                        User.comparePassword(user.password, (matches) => {
+                                if (matches) {
+                                    //log in
+                                    var data = {
+                                        'userId': user['id'],
+                                        'username': user['username']
+                                    };
 
                                     res.status(200).send(JSON.stringify(user))
-                                // } else {
-                                //     //send resp with error, wrong password
-                                //     res.send(401, 'wrong password!')
-                                // }
-                      //  })
+                                } else {
+                                    //send resp with error, wrong password
+                                    res.send(401, 'wrong password!')
+                                }
+                       })
                   }
             })
  });
