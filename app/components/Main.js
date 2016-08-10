@@ -46,18 +46,6 @@ class Main extends Component {
         console.log("Contacts:", contacts)
       }
     })
-    AsyncStorage.getItem("username").then((value) => {
-      console.log("username:", value)
-      this.setState({
-        username : value
-      })
-    });
-    AsyncStorage.getItem("userId").then((value) => {
-      console.log("userId:", value)
-      this.setState({
-        userId : value
-      });
-    });
     console.log("event Id:", this.state.eventId);
   }
 
@@ -92,9 +80,13 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    console.log('open socket', this.state.userId, this.state.username)
-    this.state.socket = this.socket
-    this.socket.emit('intitialize',{eventId: this.state.eventId, userId: this.state.userId, username: this.state.username})
+    AsyncStorage.multiGet(["username", "userId"]).then((data) => {
+      console.log("Multi Get from Async:", data)
+      this.socket.emit('initialize',{eventId: this.state.eventId, userId: data[1][1], username: data[0][1]})
+      // this.setState({
+      //   username : value
+      // })
+    });
   }
 
   render() {
