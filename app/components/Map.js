@@ -14,15 +14,16 @@ class MapComponent extends Component {
     super(props);
 
     this.state = {
-      currentUser: 'Konstantin',
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
+      users: [],
       region: {
         latitude: 0,
         longitude: 0,
+        latitudeDelta: 0.020300188024080512,
+        longitudeDelta: 0.016093256407543777
       },
-      users: [{}],
       toggle: false,
       test: [{title: "TEST", latitude: 37.55992988, longitude: -122.3826562}],
       route: [{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}],
@@ -59,15 +60,15 @@ class MapComponent extends Component {
             distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
             prevLatLng: newLatLngs
          })
-        this.props.socket.emit('location', {'title': this.state.currentUser, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude});
+         console.log(this.props.username);
+        this.props.socket.emit('location', {'title': this.props.username, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude})
         this.props.socket.on('groupUpdate',(data) =>  {
-          console.log("Data from server", data);
-        //  this.updateUsersArray(data)
-          this.state.users[0][data.title] = {latitude: data.latitude, longitude: data.longitude}
+          console.log("Server Data", data);
+          this.updateUsersArray(data)
+          // this.state.users[0][data.title] = data;
+          // this.setState({})
         } );
-
         console.log('Users!!!', this.state.users);
-        console.log('region', this.state.region);
       },
       (error) => alert(error.message),
       {maximumAge: 1000, timeout: 3000, enableHighAccuracy: true}
@@ -118,9 +119,11 @@ class MapComponent extends Component {
             followUserLocation={false}
             onRegionChangeComplete={this.onRegionChangeComplete}
           >
-          {Object.keys(this.state.users[0]).map(title => (
+          {this.state.users.map(user => (
             <MapView.Marker
-              coordinate={this.state.users[0][title]}
+              key={user.title}
+              title={user.title}
+              coordinate={{latitude: user.latitude, longitude:user.longitude}}
             />
           ))}
           <MapView.Polyline

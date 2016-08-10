@@ -4,9 +4,9 @@ module.exports = {
   createRoute: (body, cb)=>{
      const data = {
         title: body.title,
-        start: body.start,
-        end: body.end,
-        route_object: body.routeObject
+        start: JSON.stringify(body.start),
+        end: JSON.stringify(body.end),
+        route_object: JSON.stringify(body.routeObject)
       }
      return new Route(data).save()
   }
