@@ -1,13 +1,10 @@
 var db = require('../config');
 
 var Event = db.Model.extend({
-  tableName: 'events',
+  tableName: 'Events',
   events: ()=> {
      return this.belongsToMany(Event);
-   },
-  hasTimestamps: true
+   }
 });
 
 module.exports = Event;
-
-

@@ -1,17 +1,35 @@
-var User = require('../models/user.js');
+var User = require('../models/user');
+var bcrypt = require('bcrypt-nodejs');
+var Promise = require('bluebird');
 
-  module.exports = {
-  createUser: (body) =>{
-    const data = {
-        name: body.name,
+
+var createUser = (body) =>{
+    var data = {
         username: body.username,
         email: body.email,
         password: body.password
     }
+    data.password = hashPassword(body.password)
     return new User(data).save()
   }
-}
 
+var comparePassword = function(attemptedPassword, password, callback) {
+  bcrypt.compare(attemptedPassword, password, function(err, isMatch) {
+    callback(isMatch);
+  });
+}
+var hashPassword = function(password){
+  var cipher = Promise.promisify(bcrypt.hash);
+  return cipher(password, null, null).bind(this)
+    .then(function(hash) {
+      return hash;
+    });
+}
+  module.exports = {
+    hashPassword:hashPassword,
+    comparePassword:comparePassword,
+    createUser:createUser
+  }
   //,
   // getUser: (userId, cb)=>{
   //   new User({id: userId}).fetch().then((user)=>{
