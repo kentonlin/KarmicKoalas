@@ -8,9 +8,10 @@ let db = require('knex')({
     charset   : 'utf8'
   }
 });
-//let Bookshelf = require('bookshelf')(knex);
-//
-//
+var bookshelf = require('bookshelf')(db);
+module.exports = bookshelf;
+
+
 // db.schema.hasTable('users').then(function(exists) {
 //   if (!exists) {
 //     db.schema.createTable('users', function(user) {
@@ -19,12 +20,10 @@ let db = require('knex')({
 //         user.string('username', 100).unique();
 //         user.string('email', 100).unique();
 //         user.string('password', 100);
-//         user.timestamps();
 //       })
 //       .createTable('keywords', function(keyword) {
 //         keyword.increments('id').primary();
 //         keyword.string('word', 100);
-//         keyword.timestamps();
 //       })
 //       .createTable('routes', function(route) {
 //         route.increments('id').primary();
@@ -33,7 +32,6 @@ let db = require('knex')({
 //         route.json('end', 100);
 //         route.json('points_of_interest');
 //         route.json('route_object');
-//         route.timestamps();
 //       })
 //       .createTable('events', function(event) {
 //         event.increments('id').primary();
@@ -41,7 +39,6 @@ let db = require('knex')({
 //         event.integer('host_Id', 100).references('users.id');
 //         event.integer('route_Id', 100).references('routes.id');
 //         event.json('invitees', 400); //this is a list of contacts from user phonebook
-//         event.timestamps();
 //       });
       // .createTable('events_participants', function(eptable) {
       //   eptable.integer('events_id',11).unsigned().references('id').inTable('events');
@@ -56,6 +53,3 @@ let db = require('knex')({
       // });
 //   }
 // });
-
-var bookshelf = require('bookshelf')(db);
-module.exports = bookshelf;
