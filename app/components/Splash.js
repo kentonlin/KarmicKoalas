@@ -15,8 +15,14 @@ class Splash extends Component {
 
 	componentDidMount(){
     //AsyncStorage.setItem("userId", 'null');
+<<<<<<< cb3f3343d29a8628c78adf3b6f356dcde316f3b6
     AsyncStorage.getItem("username").then((username) => {
       if(username === null){
+=======
+    AsyncStorage.getItem("userId").then((value) => {
+			console.log('Async Issue', value);
+      if(value === null){
+>>>>>>> splash
         //new user
 				this.props.navigator.push({
 					navigationBarHidden: true,
