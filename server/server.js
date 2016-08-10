@@ -13,18 +13,17 @@ server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const io = require('socket.io')(server);
 const rooms = {};
-const userId = 'foo';
-const username = 'bar';
-const myRoom = 'baz';
-
+// const userId = 'foo';
+// const username = 'bar';
+// const myRoom = 'baz';
 
 io.on('connection', (socket) => {
             console.log('Client connected');
 
             socket.on('intitialize', (data) => {
-                myRoom = toString(data.eventId);
-                userId = toString(data.userId);
-                username = toString(data.username);
+                var myRoom = toString(data.eventId);
+                var userId = toString(data.userId);
+                var username = toString(data.username);
                 console.log('intialaze client side', myRoom, userId, username)
                 socket.join(myRoom);
             });

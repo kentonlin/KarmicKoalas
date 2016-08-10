@@ -78,12 +78,27 @@ app.post('/searchRoutes', (req, res) => {
     //keywords is an array
 
   });
+  // var a = JSON.stringify({
+  // 	title: 'bike in Central Park',
+  // 	keywords: ['New York', 'Central Park', 'bike', 'bicycle'],
+  // 	start: {latitude: 37.33756603, longitude: -122.02681114},
+  // 	end: {
+  // 		latitude: 37.34756603,
+  // 		longitude: -122.02581114
+  // 	},
+  // 	routeObject: [{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}]
+  // })
 
+  //console.log(a )
 app.post('/createRoute', (req, res) => {
+  // {title:string, keywords:[],start:{}, end:{}, routeObject:[]}
+  //{title:'bike in Central Park', keywords:['New York', 'Central Park', 'bike', 'bicycle'],start:'{latitude: 37.33756603, longitude: -122.02681114}', end:{latitude: 37.34756603, longitude: -122.02581114}, routeObject: '[{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}]'}
+
   const keywordIdList = [];
   var keyword_id;
   var route_id;
-  var keywords = JSON.parse(req.body.keywords);
+  //var body = JSON.parse(req.body);
+  var keywords = req.body.keywords
     //var addWords = helpers.generateKeywords(req.body)
     //keywords: req.body.keywords
     //"{title:'foo',start:{'lat:lon'},end:{lat:lon},keywords:'[key,key]',routeObject:'{sdfasf}''}"
