@@ -1,4 +1,5 @@
-let knex = require('knex')({
+var knex = require('knex')({
+
   client: 'mysql',
   connection: {
     host      : 'mysqlcluster11.registeredsite.com',

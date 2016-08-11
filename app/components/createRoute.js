@@ -21,8 +21,11 @@ class createRoute extends Component {
     this.state = {
       init: { latitude: 40.8534229, longitude: -73.9793236 },
       routeCoordinates: [],
+      start: {},
+      end: {},
       title: '',
       text: '',
+      keywordsToTrace:'',
       keywords: [],
       pins: [{}]
     }
@@ -57,10 +60,17 @@ class createRoute extends Component {
   checkPinCoordinates() {
      console.log('PIN', this.state.pins[0]['0'], this.state.pins[0]['1']);
   }
+  traceKeywordsString(string) {
+    return string.split(',')
+  }
 
   _onPressButtonPOST(start, end){
     var startCoord = start.latlng.latitude + ',' + start.latlng.longitude;
     var endCoord = end.latlng.latitude + ',' + end.latlng.longitude;
+    this.setState({
+      start: start.latlng,
+      end: end.latlng
+    });
     console.log('send to back', startCoord, endCoord);
      fetch("https://wegoios.herokuapp.com/getRouteFromGoogle", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({start: startCoord, end: endCoord})})
      .then((response) => response.json())
@@ -71,33 +81,48 @@ class createRoute extends Component {
      .done();
  }
 
+  handleCreateRoute(title, keywords, start, end, routeObject) {
+    // {title:string, keywords:[],start:{}, end:{}, routeObject:[]}
+     var keywordsArr = this.traceKeywordsString(keywords);
+     console.log('Array of keys', keywordsArr, this.state.title, this.state.start, this.state.end, this.state.routeCoordinates);
+      if(this.state.title && keywordsArr.length && this.state.routeCoordinates.length) {
+      fetch("http://localhost:8000/createRoute", {method: "POST" , headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title:title, keywords:keywordsArr,start:start, end:end, routeObject:routeObject})})
+      //.then((response) => response.json())
+      .then((responseData) => {
+        console.log('createRoute -- SERVER', responseData)
+        //this.setState({routeCoordinates: responseData});
+      })
+      .done();
+    } else {
+      console.log('Title, keywords, route is Required');
+    }
+
+   }
   createEventView() {
-    this.props.navigator.push({
-      component: createEvent,
-      title: "Create Event",
-      passProps: {
-        title: 'Night On The Town',
-        keyWords: ['NYC', 'Downtown', 'TriBeCa', 'Midtown'],
-        start: {},
-        end: {},
-        routeObj: {}
-      }
-    });
+    console.log('STATE', this.state.title);
+    this.handleCreateRoute(this.state.title, this.state.keywordsToTrace, this.state.start, this.state.end, this.state.routeCoordinates);
+    // this.props.navigator.push({
+    //   component: createEvent,
+    //   title: "Create Event",
+    //   passProps: {
+    //     title: 'Night On The Town',
+    //     keyWords: ['NYC', 'Downtown', 'TriBeCa', 'Midtown'],
+    //     start: {},
+    //     end: {},
+    //     routeObj: {}
+    //   }
+    // });
   }
 
   render() {
     return (
       <View style={styles.container}>
-          <MapView
-            style={styles.map}
-            onRegionChangeComplete={this.onRegionChangeComplete}
-          >
           <TextInput
             style={styles.inputText}
             autoFocus = {true}
             placeholder = "Enter route title"
             placeholderTextColor='#CDCDC9'
-            // onChangeText={(text) => this.setState({title: text})}
+            onChangeText={(text) => this.setState({title: text})}
             onSubmitEditing={(event) => {
               this.refs.SecondInput.focus();
             }}
@@ -107,7 +132,12 @@ class createRoute extends Component {
             style={styles.inputOne}
             placeholder="keywords"
             placeholderTextColor='#CDCDC9'
+            onChangeText={(text) => this.setState({keywordsToTrace: text})}
           />
+          <MapView
+            style={styles.map}
+            onRegionChangeComplete={this.onRegionChangeComplete}
+          >
             {Object.keys(this.state.pins[0]).map(id => (
               <MapView.Marker
                 key={this.state.pins[0][id].key}
@@ -134,7 +164,7 @@ class createRoute extends Component {
           style={styles.buttonCheck}
           onPress={() => this._onPressButtonPOST(this.state.pins[0]['0'], this.state.pins[0]['1'])}
          >
-        <Text>Check</Text>
+        <Text>Build</Text>
           </TouchableOpacity>
           <TouchableHighlight style={styles.createRouteBtn} onPress={() => this.createEventView()}>
             <Text>Create Route</Text>
