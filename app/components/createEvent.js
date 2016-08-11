@@ -23,6 +23,8 @@ class createEvent extends Component {
       // date: this.props.date,
       // timeZoneOffsetInHours: this.props.timeZoneOffsetInHours
     }
+
+    this.onDateChange = this.onDateChange.bind(this);
     //  console.log("TEST:" + this.props.id + " " + this props.title + " " + this.props.route + " " + this.props.keyWords);
   }
 
@@ -102,6 +104,18 @@ class createEvent extends Component {
     });
   }
 
+  // render(){
+  //   return (
+  //     <View>
+  //       <DatePickerIOS
+  //         date={this.state.date}
+  //         mode="datetime"
+  //         timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+  //         onDateChange={this.onDateChange} />
+  //     </View>
+  //   )
+  // }
+
   render(){
     return (
       <View style={styles.container}>
@@ -126,6 +140,7 @@ class createEvent extends Component {
             </TouchableOpacity>
           ))
         }
+        <Text>DateTime</Text>
         <DatePickerIOS
           date={this.state.date}
           mode="datetime"
@@ -143,7 +158,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
   buttonText: {
