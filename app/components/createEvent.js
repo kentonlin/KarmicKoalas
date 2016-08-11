@@ -31,10 +31,10 @@ class createEvent extends Component {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
     }).then((responseData) => {
-      console.log('createEvent -- SERVER', responseData)
+      console.log('createEvent -- SERVER', JSON.parse(responseData._bodyText))
       //this.setState({routeCoordinates: responseData});
       this.setState({
-        contacts: responseData
+        contacts: JSON.parse(responseData._bodyText)
       });
     }).done();
     // Contacts.getAll((err, contacts) => {
@@ -97,9 +97,9 @@ class createEvent extends Component {
     });
     var body = {
       title: this.state.title,
-      //host: userId,
+      host: this.props.userId,
       invitees: this.state.invitees.split(", "),
-      // routeId: routeId,
+      routeId: this.props.routeId,
       time: this.state.date
     }
     fetch("http://localhost:8000/createEvent", {
