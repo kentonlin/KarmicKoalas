@@ -104,18 +104,6 @@ class createEvent extends Component {
     });
   }
 
-  // render(){
-  //   return (
-  //     <View>
-  //       <DatePickerIOS
-  //         date={this.state.date}
-  //         mode="datetime"
-  //         timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
-  //         onDateChange={this.onDateChange} />
-  //     </View>
-  //   )
-  // }
-
   render(){
     return (
       <View style={styles.container}>
