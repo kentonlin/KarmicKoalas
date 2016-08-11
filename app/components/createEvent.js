@@ -107,7 +107,7 @@ class createEvent extends Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text>Title</Text>
+        <Text style={styles.title}>Title</Text>
         <TextInput
           style={styles.inputText}
           autoFocus={true}
@@ -145,9 +145,12 @@ class createEvent extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     // alignItems: 'center',
     backgroundColor: '#F5FCFF'
+  },
+  title: {
+    marginTop: 80
   },
   buttonText: {
     fontSize: 18,
