@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { View, StyleSheet, NavigatorIOS, Dimensions, Text, AlertIOS, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { View, StyleSheet, NavigatorIOS, Dimensions, Text, AlertIOS, AsyncStorage, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
 import MapView from 'react-native-maps';
 
 import createEvent from './createEvent';
@@ -84,13 +84,23 @@ class createRoute extends Component {
   handleCreateRoute(title, keywords, start, end, routeObject) {
     // {title:string, keywords:[],start:{}, end:{}, routeObject:[]}
      var keywordsArr = this.traceKeywordsString(keywords);
-     console.log('Array of keys', keywordsArr, this.state.title, this.state.start, this.state.end, this.state.routeCoordinates);
       if(this.state.title && keywordsArr.length && this.state.routeCoordinates.length) {
       fetch("http://localhost:8000/createRoute", {method: "POST" , headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title:title, keywords:keywordsArr,start:start, end:end, routeObject:routeObject})})
-      //.then((response) => response.json())
+      .then((response) => response.json())
       .then((responseData) => {
         console.log('createRoute -- SERVER', responseData)
         //this.setState({routeCoordinates: responseData});
+        AsyncStorage.getItem("userId").then((userId) => {
+          console.log('to create event view', userId, responseData.route_id)
+          this.props.navigator.push({
+            component: createEvent,
+            title: "Create Event",
+            passProps: {
+              userID: userId,
+              routeID: responseData.route_id
+            }
+          })
+        })
       })
       .done();
     } else {
@@ -101,17 +111,6 @@ class createRoute extends Component {
   createEventView() {
     console.log('STATE', this.state.title);
     this.handleCreateRoute(this.state.title, this.state.keywordsToTrace, this.state.start, this.state.end, this.state.routeCoordinates);
-    // this.props.navigator.push({
-    //   component: createEvent,
-    //   title: "Create Event",
-    //   passProps: {
-    //     title: 'Night On The Town',
-    //     keyWords: ['NYC', 'Downtown', 'TriBeCa', 'Midtown'],
-    //     start: {},
-    //     end: {},
-    //     routeObj: {}
-    //   }
-    // });
   }
 
   render() {
