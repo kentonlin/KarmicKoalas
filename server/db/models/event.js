@@ -1,6 +1,6 @@
 var db = require('../config');
 
-var Event = db.Model.extend({
+var Event = db.bookshelf.Model.extend({
   tableName: 'Events',
   events: ()=> {
      return this.belongsToMany(Event);

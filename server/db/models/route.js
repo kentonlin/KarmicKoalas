@@ -1,6 +1,6 @@
 var db = require('../config');
 
-var Route = db.Model.extend({
+var Route = db.bookshelf.Model.extend({
   tableName: 'Routes'
 });
 
