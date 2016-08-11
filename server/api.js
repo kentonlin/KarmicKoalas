@@ -7,7 +7,7 @@ const User = require('./db/models/user');
 const Keyword = require('./db/models/keyword');
 const Route = require('./db/models/route');
 const Event = require('./db/models/event');
-
+const db = require('./db/config')
 const userController = require('./db/controllers/userController');
 const routeController = require('./db/controllers/routeController');
 const eventController = require('./db/controllers/eventController');
@@ -92,50 +92,66 @@ app.post('/createRoute', (req, res) => {
     //on insert to routes, .get() route_id. on insert to keywords,
     // .get() each keword_id and insert pairs into this join table
     //add route object to route table
-    routeController.createRoute(req.body)
+routeController.createRoute(req.body)
       .then((input) => {
         route_id = input.id
                 console.log('input',route_id)
         //add each keyword to keywords table if new, else get id
         keywords.forEach((input) => {
-           new Keyword({word:input}).fetch()
-               .then ((result) => {
-                   if (result !== null){
-                     //existing keyword. get the keyword_id
-                     keyword_id = result['id']
-                     keywordIdList.push(keyword_id)
-                     console.log('existing keyword',keywordIdList)
-
-                   } else if (!result){
+          // new Keyword({word:input}).fetch()
+//  knex.raw('INSERT INTO table (Keywords) values (?) ON DUPLICATE KEY UPDATE c=c+1', [1, 2, 3]);
+              // .then ((result) => {
+                  //  if (result !== null){
+                  //    //existing keyword. get the keyword_id
+                  //    keyword_id = result['id']
+                  //    keywordIdList.push(keyword_id)
+                  //    console.log('existing keyword',keywordIdList)
+                   //
+                  //  } else if (!result){
                      console.log('new keyword')
                      //new keyword.. make a new entry and get id
                      //add keyword_id to join table with route_id
                      new Keyword({word:input}).save()
                         .then((keyword) => {
                              keyword_id = keyword['id']
-                             keywordIdList.push(keyword_id)
-                             console.log('new keyword',keywordIdList)
+                             //add to join table
+                             var data = {
+                                keyword_id: keyword_id,
+                                route_id: route_id,
+                              }
+                              console.log(data)
+                              // Returns [1] in "mysql", "sqlite", "oracle"; [] in "postgresql" unless the 'returning' parameter is set.
+                        db.knex.raw('INSERT INTO `keywords_routes` (`keyword_id`, `route_id`) values ('+ toString(keyword_id) + ', ' + toString(route_id) + ' ) ');
+                            //  new keyword_route(data).save()
+                              //   .then((resp)=>{
+                            //    console.log('db updated')
+                          //    });
+                             //keywordIdList.push(keyword_id)
+                             //console.log('new keyword',keywordIdList)
+
                         })
-                   }
-              })
+                        console.log('output',route_id)
+                     res.send(JSON.stringify({'route_id':route_id}))
+                //   }
+            //  })
         })
-      }).then(()=>{
-      //add keyword_id to join table with route_id
-      console.log('route_id',route_id)
-      console.log('keywordIdList',keywordIdList)
-      keywordIdList.forEach((input) => {
-         var data = {
-            keyword_id: input,
-            route_id: route_id,
-          }
-            console.log('data',data)
-        new keyword_route(data).save()
-           .then((resp)=>{
-          console.log('db updated')
-        });
-     })
-  })
- res.send('ok')
+      })//.then(()=>{
+  //     //add keyword_id to join table with route_id
+  //     console.log('route_id',route_id)
+  //     console.log('keywordIdList',keywordIdList)
+  //     keywordIdList.forEach((input) => {
+  //        var data = {
+  //           keyword_id: input,
+  //           route_id: route_id,
+  //         }
+  //           console.log('data',data)
+  //       new keyword_route(data).save()
+  //          .then((resp)=>{
+  //         console.log('db updated')
+  //       });
+  //    })
+  // })
+
 });
 
 

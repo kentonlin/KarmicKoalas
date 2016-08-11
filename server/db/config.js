@@ -1,4 +1,4 @@
-let db = require('knex')({
+let knex = require('knex')({
   client: 'mysql',
   connection: {
     host      : 'mysqlcluster11.registeredsite.com',
@@ -8,8 +8,11 @@ let db = require('knex')({
     charset   : 'utf8'
   }
 });
-var bookshelf = require('bookshelf')(db);
-module.exports = bookshelf;
+var bookshelf = require('bookshelf')(knex);
+module.exports = {
+  bookshelf:bookshelf,
+  knex:knex
+};
 
 
 // db.schema.hasTable('users').then(function(exists) {
