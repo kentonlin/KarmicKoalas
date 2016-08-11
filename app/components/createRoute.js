@@ -90,14 +90,17 @@ class createRoute extends Component {
       .then((responseData) => {
         console.log('createRoute -- SERVER', responseData)
         //this.setState({routeCoordinates: responseData});
-        this.props.navigator.push({
-          component: createEvent,
-          title: "Create Event",
-          passProps: {
-            userID: this.props.userID,
-            routeID: responseData.route_id
-          }
-        });
+        AsyncStorage.getItem("userId").then((userId) => {
+          this.props.navigator.push({
+            component: createEvent,
+            title: "Create Event",
+            passProps: {
+              userID: userId,
+              routeID: responseData.route_id
+            }
+          });
+        }
+
       })
       .done();
     } else {
