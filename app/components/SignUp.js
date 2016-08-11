@@ -18,45 +18,43 @@ class SignUp extends Component {
     console.log('name: '+ this.state.name + '\nemail: '+ this.state.email + '\nusername: '+ this.state.username + '\npassword: '+ this.state.password);
   }
 
-  signUp(){
-		// fetch('/signup', {
-		// 		method: 'POST',
-	  // 		headers: {
-	  //   			'Accept': 'application/json',
-	  //   			'Content-Type': 'application/json',
-	  // 		},
-	  // 		body: JSON.stringify({
-		// 			name: this.state.username,
-		// 			email: this.state.email,
-		// 			username: this.state.username,
-		// 			password:  this.state.password
-		// 		})
-		// 	}).then((response) => response.json())
-		// 		.then((responseData) => {
-	  //   		AlertIOS.alert(
-	  //       "POST Response",
-	  //       "Response Body -> " + JSON.stringify(responseData.body)
-	  //   	  )
-		//    })
-		//.done();
-  //}
-    // TODO: Signup logic
-    //post request to server /signup response will be userId then store that value
-    //.then(
-    // AsyncStorage.setItem("userId", userId.toString());
-    //)
+	signUp(){
+		console.log('name: '+ this.state.name + '\nemail: '+ this.state.email + '\nusername: '+ this.state.username + '\npassword: '+ this.state.password);
 
-	//	update Asynch storage
-    AsyncStorage.setItem("userId", "123");
-    AsyncStorage.setItem('username',this.state.username)
-		this.navToMain()
+				fetch("http://localhost:8000/signup", {
+				method: 'POST',
+				headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					name: this.state.name,
+					email: this.state.email,
+					username: this.state.username,
+					password:  this.state.password,
+				})
+			}).then((response) => response.json())
+				.then((responseData) => {
+					console.log('DATA FROM SERVER', responseData)
+					//update Asynch storage
+					var id = '' + responseData.userId;
+					AsyncStorage.setItem("userId", id);
+				//	AsyncStorage.setItem('username',responseData.username)
+					this.navToMain(responseData.userId)
+			 })
+			 .done();
   }
 
-	navToMain(){
+	navToMain(id){
+		console.log('Username: ' + this.state.username + ' ID: ' + id);
 		this.props.navigator.push({
 			navigationBarHidden: true,
 			component: Main,
-			title: "Main"
+			title: "Main",
+			passProps: {
+        name: this.state.username,
+				userID: id
+      }
 		});
 	}
 
