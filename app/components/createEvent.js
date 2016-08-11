@@ -38,10 +38,12 @@ class createEvent extends Component {
     this.setState({
       invitees: text
     });
-    if(text.length){
+    var invitees = text.split(", ");
+    var invitee = invitees[invitees.length - 1];
+    if(invitee.length){
       var suggestions = [];
       this.state.contacts.forEach((contact) => {
-        if(text === contact.givenName.slice(0, text.length)){
+        if(invitee.toLowerCase() === contact.givenName.slice(0, invitee.length).toLowerCase()){
           suggestions.push(contact.givenName);
         }
       });
@@ -57,10 +59,11 @@ class createEvent extends Component {
 
 
   addContact(contact){
-    // add to state and clear suggestions
-    // var invitees = this.state.invitees.split(', ').slice(0, -1).push(contact).join(", ") + ", ";
+    var invitees = this.state.invitees.split(", ").slice(0, -1);
+    invitees.push(contact);
     this.setState({
-      invitees: contact + ", "
+      invitees: invitees.join(", ") + ", ",
+      contact_suggestions: ds.cloneWithRows([])
     });
   }
 
@@ -84,12 +87,14 @@ class createEvent extends Component {
           autoFocus = {true}
           placeholder = "Invitees"
           placeholderTextColor='#CDCDC9'
+          value={this.state.invitees}
           onChangeText={(text) => this.searchContacts(text)}
         />
         <ListView
-          initialListSize={10}
+          initialListSize={1}
           dataSource={this.state.contact_suggestions}
           renderRow={(contact) => { return this.renderRow(contact) }}/>
+        <Text>asdf</Text>
         <TouchableHighlight onPress={() => this.handleSubmit()} style={styles.button}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
