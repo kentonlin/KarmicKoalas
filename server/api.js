@@ -146,11 +146,9 @@ app.post('/createRoute', (req, res) => {
                              //console.log('new keyword',keywordIdList)
 
                         })
-                        console.log('output',route_id)
-                     res.status(200).send(JSON.stringify({'route_id':route_id}))
-                //   }
-            //  })
-        })
+               console.log('output',route_id)
+               res.status(200).send(JSON.stringify({'route_id':route_id}))
+
       })//.then(()=>{
   //     //add keyword_id to join table with route_id
   //     console.log('route_id',route_id)
@@ -167,7 +165,6 @@ app.post('/createRoute', (req, res) => {
   //       });
   //    })
   // })
->>>>>>> user id and route id to create event
 
 });
 

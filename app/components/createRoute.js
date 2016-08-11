@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { View, StyleSheet, NavigatorIOS, Dimensions, Text, AlertIOS, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { View, StyleSheet, NavigatorIOS, Dimensions, Text, AlertIOS, AsyncStorage, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
 import MapView from 'react-native-maps';
 
 import createEvent from './createEvent';
@@ -91,6 +91,7 @@ class createRoute extends Component {
         console.log('createRoute -- SERVER', responseData)
         //this.setState({routeCoordinates: responseData});
         AsyncStorage.getItem("userId").then((userId) => {
+          console.log('to create event view', userId, responseData.route_id)
           this.props.navigator.push({
             component: createEvent,
             title: "Create Event",
@@ -98,9 +99,8 @@ class createRoute extends Component {
               userID: userId,
               routeID: responseData.route_id
             }
-          });
-        }
-
+          })
+        })
       })
       .done();
     } else {
