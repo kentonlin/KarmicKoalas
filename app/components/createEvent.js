@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { View, ListView, StyleSheet, NavigatorIOS, Dimensions, Text, AlertIOS, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { View, ListView, StyleSheet, NavigatorIOS, Dimensions, Text, AlertIOS, TextInput, TouchableHighlight, TouchableOpacity, DatePickerIOS } from 'react-native';
 
 import Contacts from 'react-native-contacts';
 
+import myEvents from './myEvents';
+
 const { width, height } = Dimensions.get('window');
 
-const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 class createEvent extends Component {
   constructor(props) {
     super(props)
@@ -15,18 +16,37 @@ class createEvent extends Component {
       route: this.props.route,
       keyWords: this.props.keyWords,
       invitees: "",
-      contact_suggestions: ds.cloneWithRows([]),
-      contacts: []
+      contact_suggestions: [],
+      contacts: [],
+      date: new Date(),
+      timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
+      // date: this.props.date,
+      // timeZoneOffsetInHours: this.props.timeZoneOffsetInHours
     }
+
+    this.onDateChange = this.onDateChange.bind(this);
     //  console.log("TEST:" + this.props.id + " " + this props.title + " " + this.props.route + " " + this.props.keyWords);
   }
+
+  // getDefaultProps(){
+  //   return {
+  //     date: new Date(),
+  //     timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
+  //   };
+  // }
+
+  // getInitialState(){
+  //   return {
+  //     date: this.props.date,
+  //     timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
+  //   };
+  // }
 
   componentDidMount(){
     Contacts.getAll((err, contacts) => {
       if(err && err.type === 'permissionDenied'){
         return console.error(err);
       } else {
-        console.log(contacts);
         this.setState({
           contacts: contacts
         });
@@ -38,71 +58,95 @@ class createEvent extends Component {
     this.setState({
       invitees: text
     });
-    if(text.length){
+    var invitees = text.split(", ");
+    var search = invitees[invitees.length - 1].toLowerCase();
+    if(search.length){
       var suggestions = [];
       this.state.contacts.forEach((contact) => {
-        if(text === contact.givenName.slice(0, text.length)){
-          suggestions.push(contact.givenName);
+        if(search === contact.givenName.slice(0, search.length).toLowerCase()){
+          suggestions.push(contact.givenName + " " + contact.familyName);
+        }
+      });
+      this.state.contacts.forEach((contact) => {
+        if(search === contact.familyName.slice(0, search.length).toLowerCase()){
+          suggestions.push(contact.givenName + " " + contact.familyName);
         }
       });
       this.setState({
-        contact_suggestions: ds.cloneWithRows(suggestions)
+        contact_suggestions: suggestions
       });
     } else {
       this.setState({
-        contact_suggestions: ds.cloneWithRows([])
+        contact_suggestions: []
       });
     }
   }
 
-
   addContact(contact){
-    // add to state and clear suggestions
-    // var invitees = this.state.invitees.split(', ').slice(0, -1).push(contact).join(", ") + ", ";
+    var invitees = this.state.invitees.split(", ").slice(0, -1);
+    invitees.push(contact);
     this.setState({
-      invitees: contact + ", "
+      invitees: invitees.join(", ") + ", ",
+      contact_suggestions: []
+    });
+  }
+
+  onDateChange(date){
+    this.setState({
+      date: date
     });
   }
 
   handleSubmit(){
-
+    this.props.navigator.push({
+      component: myEvents,
+      title: "Events"
+    });
   }
 
-  renderRow(contact) {
-    return (
-      <TouchableOpacity onPress={(event) => this.addContact(contact)}>
-        <Text style={{alignItems: 'center', padding: 3}}>{'\n'}{contact}{'\n'}</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  render() {
+  render(){
     return (
       <View style={styles.container}>
+        <Text>Title</Text>
         <TextInput
           style={styles.inputText}
-          autoFocus = {true}
-          placeholder = "Invitees"
-          placeholderTextColor='#CDCDC9'
-          onChangeText={(text) => this.searchContacts(text)}
-        />
-        <ListView
-          initialListSize={10}
-          dataSource={this.state.contact_suggestions}
-          renderRow={(contact) => { return this.renderRow(contact) }}/>
+          autoFocus={true}
+          placeholder="title"
+          placeholderTextColor="#CDCDC9"
+          value={this.state.title}
+          onChangeText={(txt) => this.setState({title: txt})} />
+        <Text>Invite your friends</Text>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Add Contact"
+          value={this.state.invitees}
+          onChangeText={(txt) => this.searchContacts(txt)} />
+        {
+          this.state.contact_suggestions.map((contact, idx) => (
+            <TouchableOpacity key={idx} onPress={(event) => this.addContact(contact)}>
+              <Text>{contact}</Text>
+            </TouchableOpacity>
+          ))
+        }
+        <Text>DateTime</Text>
+        <DatePickerIOS
+          date={this.state.date}
+          mode="datetime"
+          timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+          onDateChange={this.onDateChange} />
         <TouchableHighlight onPress={() => this.handleSubmit()} style={styles.button}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
       </View>
-      );
-   }
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
   buttonText: {
@@ -120,12 +164,9 @@ const styles = StyleSheet.create({
   inputText: {
     height: 40,
     width: width,
-    padding: 5,
     backgroundColor: '#fff',
     paddingHorizontal: 18,
-    paddingVertical: 12,
     borderRadius: 20,
-    marginTop: 80
   },
 });
 
