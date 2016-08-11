@@ -31,21 +31,10 @@ class createEvent extends Component {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
     }).then((responseData) => {
-      console.log('createEvent -- SERVER', JSON.parse(responseData._bodyText))
-      //this.setState({routeCoordinates: responseData});
       this.setState({
         contacts: JSON.parse(responseData._bodyText)
       });
     }).done();
-    // Contacts.getAll((err, contacts) => {
-    //   if(err && err.type === 'permissionDenied'){
-    //     return console.error(err);
-    //   } else {
-    //     this.setState({
-    //       contacts: contacts
-    //     });
-    //   }
-    // });
   }
 
   searchContacts(text){
@@ -97,9 +86,9 @@ class createEvent extends Component {
     });
     var body = {
       title: this.state.title,
-      host: this.props.userId,
+      host: this.props.userID,
       invitees: this.state.invitees.split(", "),
-      routeId: this.props.routeId,
+      routeID: this.props.routeID,
       time: this.state.date
     }
     fetch("http://localhost:8000/createEvent", {
