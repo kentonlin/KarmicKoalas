@@ -85,7 +85,6 @@ class createEvent extends Component {
     invitees.push(contact);
     this.setState({
       invitees: invitees.join(", ") + ", ",
-      // contact_suggestions: ds.cloneWithRows([])
       contact_suggestions: []
     });
   }
