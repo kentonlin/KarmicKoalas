@@ -27,11 +27,17 @@ app.post('/getRouteFromGoogle', (req, res) => {
 });
 
 app.get('/getAllUsers', (req, res) => {
+  var allUsers = []
   // Get request to /getallusers
-  // returns [ { name : name,user_ id: user_id},{ name : name,user_ id: user_id}….]
-  var allUsers = db.knex.raw('SELECT `name`, `id` FROM `Users`')
-  console.log("allUsers",allUsers)
-  res.status(200).send(allUsers)
+  // returns [ { name : name,user_id: user_id},{ name : name,user_id: user_id}….]
+  return  db.knex.raw('SELECT `name`, `id` FROM `Users`')
+       .then((results) =>{
+          results[0].forEach((item) => {
+            var obj = {name:item.name, user_id:item.id}
+            allUsers.push(obj);
+          })
+       res.status(200).send(allUsers)
+    })
 })
 
 app.post('/signup', (req, res) => {
