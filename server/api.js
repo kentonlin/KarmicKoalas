@@ -78,24 +78,11 @@ app.post('/searchRoutes', (req, res) => {
     //keywords is an array
 
   });
-  // var a = JSON.stringify({
-  // 	title: 'bike in Central Park',
-  // 	keywords: ['New York', 'Central Park', 'bike', 'bicycle'],
-  // 	start: {latitude: 37.33756603, longitude: -122.02681114},
-  // 	end: {
-  // 		latitude: 37.34756603,
-  // 		longitude: -122.02581114
-  // 	},
-  // 	routeObject: [{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}]
-  // })
 
-  //console.log(a )
 app.post('/createRoute', (req, res) => {
   // {title:string, keywords:[],start:{}, end:{}, routeObject:[]}
   //{title:'bike in Central Park', keywords:['New York', 'Central Park', 'bike', 'bicycle'],start:'{latitude: 37.33756603, longitude: -122.02681114}', end:{latitude: 37.34756603, longitude: -122.02581114}, routeObject: '[{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}]'}
-
-  const keywordIdList = [];
-  var keyword_id;
+  var keywordIdList = [];
   var route_id;
   //var body = JSON.parse(req.body);
   var keywords = req.body.keywords
@@ -107,38 +94,47 @@ app.post('/createRoute', (req, res) => {
     //add route object to route table
     routeController.createRoute(req.body)
       .then((input) => {
-        route_id = input['id']
+        route_id = input.id
+                console.log('input',route_id)
         //add each keyword to keywords table if new, else get id
         keywords.forEach((input) => {
            new Keyword({word:input}).fetch()
                .then ((result) => {
-                   if(!result){
+                   if (result !== null){
+                     //existing keyword. get the keyword_id
+                     keyword_id = result['id']
+                     keywordIdList.push(keyword_id)
+                     console.log('existing keyword',keywordIdList)
+
+                   } else if (!result){
+                     console.log('new keyword')
                      //new keyword.. make a new entry and get id
                      //add keyword_id to join table with route_id
                      new Keyword({word:input}).save()
                         .then((keyword) => {
                              keyword_id = keyword['id']
                              keywordIdList.push(keyword_id)
+                             console.log('new keyword',keywordIdList)
                         })
-                   } else {
-                     //existing keyword. get the keyword_id
-                     keyword_id = result['id']
-                     keywordIdList.push(keyword_id)
                    }
               })
         })
-      })
+      }).then(()=>{
       //add keyword_id to join table with route_id
+      console.log('route_id',route_id)
+      console.log('keywordIdList',keywordIdList)
       keywordIdList.forEach((input) => {
-         const data = {
+         var data = {
             keyword_id: input,
             route_id: route_id,
           }
+            console.log('data',data)
         new keyword_route(data).save()
            .then((resp)=>{
           console.log('db updated')
         });
-    })
+     })
+  })
  res.send('ok')
 });
 
