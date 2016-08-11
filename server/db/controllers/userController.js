@@ -5,6 +5,7 @@ var Promise = require('bluebird');
 
 var createUser = (body) =>{
     var data = {
+        name: body.name,
         username: body.username,
         email: body.email,
         password: body.password

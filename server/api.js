@@ -30,7 +30,7 @@ app.post('/signup', (req, res) => {
             //check if existing user..
             //req.body  = {username, email, password}
             //reurn userID from db
-            new User({ email: req.body.email}).fetch()
+            new User({ name: req.body.name}).fetch()
                 .then((user) => {
                     if (!user) {
                         //add new user
@@ -157,20 +157,26 @@ routeController.createRoute(req.body)
 
 
 app.post('/createEvent', (req, res) => {
-    eventController.createEvent(req.body, (event) => {
+    eventController.createEvent(req.body)
+      .then((event) => {
+      console.log(event)
+      //get user from users db based on name??
+      //add userId of participants and host to join table, events_participants
+
+
       //  var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
-        JSON.parse(event.get('invitees')).forEach((invitee) => {
-            var options = {
-                to: invitee,
-                subject: 'Karmic Koalas',
-                html: '<b>Karmic Koalas</b>'
-            };
-            transporter.sendMail(options, (err, data) => {
-                if (err) return console.error(err);
-                console.log("Message sent:", data.response);
-            });
-        });
-    });
+        // JSON.parse(event.get('invitees')).forEach((invitee) => {
+        //     var options = {
+        //         to: invitee,
+        //         subject: 'Karmic Koalas',
+        //         html: '<b>Karmic Koalas</b>'
+        //     };
+        //     transporter.sendMail(options, (err, data) => {
+        //         if (err) return console.error(err);
+        //         console.log("Message sent:", data.response);
+        //     });
+        // });
+    })
     res.send("ok");
 });
 
