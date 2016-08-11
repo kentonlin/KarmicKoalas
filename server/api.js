@@ -113,63 +113,61 @@ app.post('/createRoute', (req, res) => {
       route_id = input.id
       console.log('input', route_id)
         //add each keyword to keywords table if new, else get id
-      keywords.forEach((input) => {
-        // new Keyword({word:input}).fetch()
-        //  knex.raw('INSERT INTO table (Keywords) values (?) ON DUPLICATE KEY UPDATE c=c+1', [1, 2, 3]);
-        // .then ((result) => {
-        //  if (result !== null){
-        //    //existing keyword. get the keyword_id
-        //    keyword_id = result['id']
-        //    keywordIdList.push(keyword_id)
-        //    console.log('existing keyword',keywordIdList)
-        //
-        //  } else if (!result){
-        // console.log('new keyword')
-        //new keyword.. make a new entry and get id
-        //add keyword_id to join table with route_id
-        new Keyword({
-            word: input
-          }).save()
-          .then((keyword) => {
-            keyword_id = keyword['id']
-              //add to join table
-            var data = {
-                keyword_id: keyword_id,
-                route_id: route_id,
-              }
-              //  console.log(data)
-              // Returns [1] in "mysql", "sqlite", "oracle"; [] in "postgresql" unless the 'returning' parameter is set.
-            db.knex.raw('INSERT INTO `keywords_routes` (`keyword_id`, `route_id`) values (' + toString(keyword_id) + ', ' + toString(route_id) + ' ) ');
-            //  new keyword_route(data).save()
-            //   .then((resp)=>{
-            //    console.log('db updated')
-            //    });
-            //keywordIdList.push(keyword_id)
-            //console.log('new keyword',keywordIdList)
-          })
-          //   }
-          //  })
-      })
-      console.log('output', route_id)
-      res.status(200).send(JSON.stringify({
-          'route_id': route_id
-        }))
-    }) //.then(()=>{
-    //     //add keyword_id to join table with route_id
-    //     console.log('route_id',route_id)
-    //     console.log('keywordIdList',keywordIdList)
-    //     keywordIdList.forEach((input) => {
-    //        var data = {
-    //           keyword_id: input,
-    //           route_id: route_id,
-    //         }
-    //           console.log('data',data)
-    //       new keyword_route(data).save()
-    //          .then((resp)=>{
-    //         console.log('db updated')
-    //       });
-    //    })
-    // })
+        keywords.forEach((input) => {
+          // new Keyword({word:input}).fetch()
+//  knex.raw('INSERT INTO table (Keywords) values (?) ON DUPLICATE KEY UPDATE c=c+1', [1, 2, 3]);
+              // .then ((result) => {
+                  //  if (result !== null){
+                  //    //existing keyword. get the keyword_id
+                  //    keyword_id = result['id']
+                  //    keywordIdList.push(keyword_id)
+                  //    console.log('existing keyword',keywordIdList)
+                   //
+                  //  } else if (!result){
+                     console.log('new keyword')
+                     //new keyword.. make a new entry and get id
+                     //add keyword_id to join table with route_id
+                     new Keyword({word:input}).save()
+                        .then((keyword) => {
+                             keyword_id = keyword['id']
+                             //add to join table
+                             var data = {
+                                keyword_id: keyword_id,
+                                route_id: route_id,
+                              }
+                              console.log(data)
+                              // Returns [1] in "mysql", "sqlite", "oracle"; [] in "postgresql" unless the 'returning' parameter is set.
+                        db.knex.raw('INSERT INTO `keywords_routes` (`keyword_id`, `route_id`) values ('+ toString(keyword_id) + ', ' + toString(route_id) + ' ) ');
+                            //  new keyword_route(data).save()
+                              //   .then((resp)=>{
+                            //    console.log('db updated')
+                          //    });
+                             //keywordIdList.push(keyword_id)
+                             //console.log('new keyword',keywordIdList)
+
+                        })
+                        console.log('output',route_id)
+                     res.status(200).send(JSON.stringify({'route_id':route_id}))
+                //   }
+            //  })
+        })
+      })//.then(()=>{
+  //     //add keyword_id to join table with route_id
+  //     console.log('route_id',route_id)
+  //     console.log('keywordIdList',keywordIdList)
+  //     keywordIdList.forEach((input) => {
+  //        var data = {
+  //           keyword_id: input,
+  //           route_id: route_id,
+  //         }
+  //           console.log('data',data)
+  //       new keyword_route(data).save()
+  //          .then((resp)=>{
+  //         console.log('db updated')
+  //       });
+  //    })
+  // })
+>>>>>>> user id and route id to create event
 
 });
 

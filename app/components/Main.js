@@ -75,7 +75,10 @@ class Main extends Component {
   navToCreateRoute(){
     this.props.navigator.push({
       component: createRoute,
-      title: "Create Route"
+      title: "Create Route",
+      passProps: {
+        userID: this.props.userID
+      }
     });
   }
 
