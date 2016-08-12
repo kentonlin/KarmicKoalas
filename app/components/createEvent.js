@@ -30,7 +30,8 @@ class createEvent extends Component {
     fetch("http://localhost:8000/getAllUsers", {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
-    }).then((responseData) => {
+    }).then(response => response.json())
+    .then(responseData => {
       this.setState({
         contacts: JSON.parse(responseData._bodyText)
       });
