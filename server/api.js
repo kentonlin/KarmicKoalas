@@ -27,7 +27,22 @@ app.post('/getRouteFromGoogle', (req, res) => {
   });
 });
 
-app.post('/getMyEvents', (req, res) =>{
+app.post('/getRouteById', (req, res) => {
+  var event_id = req.body.event_id;
+  return  db.knex.raw('SELECT `route_id` FROM `Events` WHERE `id` = ' + event_id )
+    .then((route_id) => {
+      route_id = route_id[0][0].route_id;
+      return  db.knex.raw('SELECT * FROM `Routes` WHERE `id` = ' + route_id )
+        .then((routeObject) => {
+          routeObject = routeObject[0][0]
+          var data =  {title:routeObject.title, start:routeObject.start, end:routeObject.end, points_of_interest:routeObject.points_of_interest, route_object:routeObject.route_object}
+          console.log(routeObject)
+          res.status(200).send(JSON.stringify(data))
+    })
+  })
+});
+
+app.post('/getMyEvents', (req, res) => {
   var myEvents = []
   //returns all events for a user.. should filter for time < current Time
   // returns [ { event_id : {title, time}},{ event_id : {title, time}}….]
@@ -163,7 +178,7 @@ app.post('/createRoute', (req, res) => {
           .then((keyword) => {
             keyword_id = keyword['id']
               //add to join table
-            return db.knex.raw('INSERT INTO `keywords_routes` (`keyword_id`, `route_id`) values (' + toString(keyword_id) + ', ' + toString(route_id) + ' ) ')
+            return db.knex.raw('INSERT INTO `keywords_routes` (`keyword_id`, `route_id`) values (' + keyword_id + ', ' + route_id + ' ) ')
                .then((result)=>{
                  console.log('INSERT INTO `keywords_routes', result)
                })
