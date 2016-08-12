@@ -88,8 +88,8 @@ class createEvent extends Component {
       });
       var body = {
         title: this.state.title,
-        host: this.props.userID,
-        invitees: this.state.invitees.split(", "),
+        host: +this.props.userID,
+        invitees: inviteeIds,
         routeID: this.props.routeID,
         time: this.state.date
       }
