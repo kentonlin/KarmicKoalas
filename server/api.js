@@ -27,19 +27,36 @@ app.post('/getRouteFromGoogle', (req, res) => {
   });
 });
 
-app.get('/getMyEvents', (req, res) =>{
+app.post('/getMyEvents', (req, res) =>{
   var myEvents = []
   //returns all events for a user.. should filter for time < current Time
   // returns [ { event_id : {title, time}},{ event_id : {title, time}}….]
-  return  db.knex.raw('SELECT `name`, `id` FROM `Users`')
-       .then((results) =>{
-          results[0].forEach((item) => {
-            var obj = {name:item.name, user_id:item.id}
-            allUsers.push(obj);
+  var user_id = req.body.user_id;
+  return  db.knex.raw('SELECT `event_id` FROM `events_participants` WHERE `user_id` = ' + user_id )
+       .then((events) => {
+          events[0].forEach((item) => {
+            item = item.event_id
+            console.log('item',item)
+            return  db.knex.raw('SELECT * FROM `Events` WHERE `id` = ' + item )
+              .then((event) => {
+                event = event[0][0];
+                 var obj = {title:event.title,time:event.time,event_id:event.id}
+                //  return  db.knex.raw('SELECT `start` FROM `Routes` WHERE `id` = ' + event[0].route_id )
+                //     .then((route) => {
+                //         console.log('route',route)
+                //       obj.start = route[0].start;
+                //       obj.end = route[0].end;
+                //     })
+                  //  console.log(obj)
+                 myEvents.push(obj);
+                 if(myEvents.length === events[0].length){
+                   res.status(200).send(myEvents)
+                 }
+              })
           })
-       res.status(200).send(allUsers)
-    })
-})
+      })
+    });
+
 app.get('/getAllUsers', (req, res) => {
   var allUsers = []
   // returns [ { name : name,user_id: user_id},{ name : name,user_id: user_id}….]
@@ -195,13 +212,6 @@ app.post('/createEvent', (req, res) => {
     .then(()=>{
     res.status(200).send('ok')
  })
-
-
-  // eventController.createEvent('foo')
-  //   .then((event) => {
-  //   console.log("event added", event)
-  // })
-
   //  var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
   // JSON.parse(event.get('invitees')).forEach((invitee) => {
   //     var options = {
