@@ -19,23 +19,25 @@ var myRoom;
 const db = require('./db/config');
 
 var joinRoom = (data, socket) => {
-  var myRoom = data.eventId;
+//  var myRoom = data.eventId;
   //check to see if user_id is matched with event_id in
   //events_participants join table
-  return db.knex.raw('SELECT * FROM `events_participants` WHERE `event_id`=' + myRoom + ' AND `user_id`= ' + data.user_id)
-  .then((result) => {
-    console.log(result)
-    // if (result)
-    //   if(rooms.myRoom){
-    //     //existing room
-    //     rooms.myRoom.push(socket)
-    //   } else {
-    //     rooms.myRoom = [];
-    //     rooms.myRoom.push(socket)
-    //   }
+  return db.knex.raw('SELECT * FROM `events_participants` WHERE `event_id`=' + data.event_id + ' AND `user_id`= ' + data.user_id)
+       .then((results) =>{
+         results = results[0][0]
+         if (results.length === 0){
+           //not a participant in this event
+         } else {
+            if(rooms.myRoom){
+              //existing room
+              rooms.myRoom.push(socket)
+            } else {
+              rooms.myRoom = [];
+              rooms.myRoom.push(socket)
+            }
+        }
        return;
   })
-
 }
 io.on('connection', (socket) => {
             console.log('Client connected');
@@ -48,7 +50,7 @@ io.on('connection', (socket) => {
                 console.log('intialaze client side', data)
                 socket.join(myRoom);
             });
-          //  socket.join(myRoom);
+  
             socket.on('location', (data) => {
                 console.log("Incoming location with updated title:", data)
                 console.log("Incoming location:", data)
