@@ -45,14 +45,17 @@ class myEvents extends Component {
   }
 
   componentDidMount(){
-    // fetch("http://localhost:8000/getAllEvents", {
-    //   method: "GET",
+    AsyncStorage.getItem("userId").then(userId => {
+    // fetch("http://localhost:8000/getMyEvents", {
+    //   method: "POST",
     //   headers: {'Content-Type': 'application/json'},
+    //   body: JSON.stringify({user_id: userId})
     // }).then((responseData) => {
     //   this.setState({
     //     objectdataSource: dataSource.cloneWithRows(JSON.parse(responseData._bodyText))
     //   });
     // }).done();
+  });
   }
 
   goMap(rowData) {
