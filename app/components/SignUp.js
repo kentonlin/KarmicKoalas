@@ -38,8 +38,9 @@ class SignUp extends Component {
 					console.log('DATA FROM SERVER', responseData)
 					//update Asynch storage
 					var id = '' + responseData.userId;
+					var username = '' + responseData.username;
 					AsyncStorage.setItem("userId", id);
-				//	AsyncStorage.setItem('username',responseData.username)
+					AsyncStorage.setItem('username',username)
 					this.navToMain(responseData.userId)
 			 })
 			 .done();
