@@ -89,7 +89,7 @@ class Main extends Component {
      fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventID})})
      .then((response) => response.json())
      .then((responseData) => {
-       console.log('SERVER', responseData)
+       console.log('SERVER', responseData);
     //   this.setState({routeCoordinates: responseData});
      })
      .done();
