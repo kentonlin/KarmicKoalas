@@ -2,12 +2,12 @@
 const nodemailer = require('nodemailer');
 const express = require('express');
 const bodyParser = require('body-parser');
+const db = require('./db/config')
 
 const User = require('./db/models/user');
 const Keyword = require('./db/models/keyword');
 const Route = require('./db/models/route');
 const Event = require('./db/models/event');
-const db = require('./db/config')
 
 const userController = require('./db/controllers/userController');
 const routeController = require('./db/controllers/routeController');
@@ -26,6 +26,10 @@ app.post('/getRouteFromGoogle', (req, res) => {
     res.send(data);
   });
 });
+app.post('/getAddressFromLoc', (req,res) => {
+  // req.body.loc = 40.8534229,-73.9793236
+
+})
 
 app.post('/getRouteById', (req, res) => {
   var event_id = req.body.event_id;
@@ -35,9 +39,8 @@ app.post('/getRouteById', (req, res) => {
       return  db.knex.raw('SELECT * FROM `Routes` WHERE `id` = ' + route_id )
         .then((routeObject) => {
           routeObject = routeObject[0][0]
-          var data =  {title:JSON.parse(routeObject.title), start:JSON.parse(routeObject.start), end:JSON.parse(routeObject.end), points_of_interest:JSON.parse(routeObject.points_of_interest), route_object:JSON.parse(routeObject.route_object)}
-          console.log(routeObject)
-          res.status(200).send(JSON.stringify(data))
+          var data =  {title:routeObject.title, start:routeObject.start, end:routeObject.end, points_of_interest:routeObject.points_of_interest, route_object:routeObject.route_object}
+          res.status(200).send(data)
     })
   })
 });
@@ -76,12 +79,12 @@ app.get('/getAllUsers', (req, res) => {
   var allUsers = []
   // returns [ { name : name,user_id: user_id},{ name : name,user_id: user_id}….]
   return  db.knex.raw('SELECT `name`, `id` FROM `Users`')
-       .then((results) =>{
+    .then((results) => {
           results[0].forEach((item) => {
             var obj = {name:item.name, user_id:item.id}
             allUsers.push(obj);
           })
-       res.status(200).send(allUsers)
+       res.status(200).send(results)
     })
 })
 
@@ -119,25 +122,6 @@ app.post('/signup', (req, res) => {
           //})
       }
     })
-});
-
-// app.post('/updateUser', (req, res)=>{
-//   userController.updateUser(req.body.userId, req.body.data, (user)=>{
-//     res.send(user);
-//   });
-// });
-
-// app.post('/addRoute', (req, res)=>{
-//   userController.addRoute(req.body.userId, req.body.routeId, (user)=>{
-//     res.send(user);
-//   });
-// });
-
-
-
-app.post('/searchRoutes', (req, res) => {
-  //keywords is an array
-
 });
 
 app.post('/createRoute', (req, res) => {
