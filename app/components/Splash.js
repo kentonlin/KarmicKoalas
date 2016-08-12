@@ -14,9 +14,8 @@ class Splash extends Component {
   }
 
 	componentDidMount(){
-    //AsyncStorage.setItem("userId", 'null');
-    AsyncStorage.getItem("username").then((username) => {
-      if(username === null){
+    	AsyncStorage.multiGet(["username", "userId"]).then((data) => {
+      if(data[0][1] === null){
         //new user
 				this.props.navigator.push({
 					navigationBarHidden: true,
@@ -28,7 +27,11 @@ class Splash extends Component {
 				this.props.navigator.push({
 					navigationBarHidden: true,
 					component: Main,
-					title: "Main"
+					title: "Main",
+					passProps: {
+		        userId: data[1][1],
+						username: data[0][1]
+		      }
 				});
     	}
   	});
