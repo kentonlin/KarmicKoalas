@@ -12,7 +12,7 @@ const server = require('http').Server(app)
 server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const io = require('socket.io')(server);
-const rooms = {};
+var rooms = {};
 // const userId = 'foo';
 // const username = 'bar';
 // const myRoom = 'baz';
@@ -21,16 +21,16 @@ io.on('connection', (socket) => {
             console.log('Client connected');
 
             socket.on('intitialize', (data) => {
-                var myRoom = toString(data.eventId);
-                var userId = toString(data.userId);
-                var username = toString(data.username);
-                console.log('intialaze client side', myRoom, userId, username)
-                socket.join(myRoom);
+                // var myRoom = toString(data.eventId);
+                // var userId = toString(data.userId);
+                // var username = toString(data.username);
+                console.log('intialaze client side', data)
+              //  socket.join(myRoom);
             });
-
+       socket.join(myRoom);
             socket.on('location', (data) => {
                 console.log("Incoming location:", data)
-                data.title = username
+                //data.title = username
                 io.to(myRoom).emit('groupUpdate', data);
             });
 
