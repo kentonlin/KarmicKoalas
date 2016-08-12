@@ -35,7 +35,7 @@ app.post('/getRouteById', (req, res) => {
       return  db.knex.raw('SELECT * FROM `Routes` WHERE `id` = ' + route_id )
         .then((routeObject) => {
           routeObject = routeObject[0][0]
-          var data =  {title:routeObject.title, start:routeObject.start, end:routeObject.end, points_of_interest:routeObject.points_of_interest, route_object:routeObject.route_object}
+          var data =  {title:JSON.parse(routeObject.title), start:JSON.parse(routeObject.start), end:JSON.parse(routeObject.end), points_of_interest:JSON.parse(routeObject.points_of_interest), route_object:JSON.parse(routeObject.route_object)}
           console.log(routeObject)
           res.status(200).send(JSON.stringify(data))
     })
@@ -180,7 +180,7 @@ app.post('/createRoute', (req, res) => {
               //add to join table
             return db.knex.raw('INSERT INTO `keywords_routes` (`keyword_id`, `route_id`) values (' + keyword_id + ', ' + route_id + ' ) ')
                .then((result)=>{
-                 console.log('INSERT INTO `keywords_routes', result)
+                 //console.log('INSERT INTO `keywords_routes', result)
                })
           })
       })
