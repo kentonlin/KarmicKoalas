@@ -14,7 +14,7 @@ class Splash extends Component {
   }
 
 	componentDidMount(){
-    //AsyncStorage.setItem("userId", 'null');
+    AsyncStorage.setItem("username", 'asdf');
     AsyncStorage.getItem("username").then((username) => {
       if(username === null){
         //new user
@@ -25,7 +25,7 @@ class Splash extends Component {
 				});
       } else {
         //existing user
-				this.props.navigator.push({
+				this.props.navigator.resetTo({
 					navigationBarHidden: true,
 					component: Main,
 					title: "Main"
