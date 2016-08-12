@@ -21,7 +21,7 @@ class SignUp extends Component {
 	signUp(){
 		console.log('name: '+ this.state.name + '\nemail: '+ this.state.email + '\nusername: '+ this.state.username + '\npassword: '+ this.state.password);
 
-				fetch("http://localhost:8000/signup", {
+				fetch("https://wegoios.herokuapp.com/signup", {
 				method: 'POST',
 				headers: {
 						'Accept': 'application/json',
@@ -38,9 +38,8 @@ class SignUp extends Component {
 					console.log('DATA FROM SERVER', responseData)
 					//update Asynch storage
 					var id = '' + responseData.userId;
-					var username = '' + responseData.username;
 					AsyncStorage.setItem("userId", id);
-					AsyncStorage.setItem('username',username)
+					AsyncStorage.setItem('username',this.state.username)
 					this.navToMain(responseData.userId)
 			 })
 			 .done();

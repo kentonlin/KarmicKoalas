@@ -22,12 +22,13 @@ class Splash extends Component {
 					component: SignUp,
 					title: "SignUp"
 				});
-      } else {
+      }
+			else {
         //existing user
 				this.props.navigator.resetTo({
 					navigationBarHidden: true,
-					component: Main,
-					title: "Main",
+					component: SignUp,
+					title: "SignUp",
 					passProps: {
 		        userId: data[1][1],
 						username: data[0][1]
