@@ -33,7 +33,7 @@ class createEvent extends Component {
     }).then(response => response.json())
     .then(responseData => {
       this.setState({
-        contacts: JSON.parse(responseData._bodyText)
+        contacts: responseData
       });
     }).done();
   }

@@ -53,7 +53,7 @@ class myEvents extends Component {
     // }).then(response => response.json())
     // .then(responseData => {
     //   this.setState({
-    //     objectdataSource: dataSource.cloneWithRows(JSON.parse(responseData._bodyText))
+    //     objectdataSource: dataSource.cloneWithRows(responseData)
     //   });
     // }).done();
     });
