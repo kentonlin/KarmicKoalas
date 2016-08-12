@@ -1,4 +1,3 @@
-
 'use strict';
 
 const express = require('express');
@@ -12,25 +11,26 @@ const server = require('http').Server(app)
 server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const io = require('socket.io')(server);
-var rooms = {};
-// const userId = 'foo';
-// const username = 'bar';
-// const myRoom = 'baz';
+const rooms = {};
+var userId = 'foo';
+var myRoom = 'baz';
+
 
 io.on('connection', (socket) => {
             console.log('Client connected');
-
-            socket.on('intitialize', (data) => {
-                // var myRoom = toString(data.eventId);
-                // var userId = toString(data.userId);
-                // var username = toString(data.username);
-                console.log('intialaze client side', data)
-              //  socket.join(myRoom);
+           
+            socket.on('initialize', (data) => {
+                // myRoom = toString(data.eventId);
+                // userId = toString(data.userId);
+                // username = toString(data.username);
+                userId = data.userId;
+                myRoom = data.myRoom;
+                console.log('initialize client side',data)
+               // socket.join(myRoom);
             });
-       socket.join(myRoom);
+            socket.join(myRoom);
             socket.on('location', (data) => {
-                console.log("Incoming location:", data)
-                //data.title = username
+                console.log("Incoming location with updated title:", data)
                 io.to(myRoom).emit('groupUpdate', data);
             });
 
