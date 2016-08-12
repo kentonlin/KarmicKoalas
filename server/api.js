@@ -27,9 +27,21 @@ app.post('/getRouteFromGoogle', (req, res) => {
   });
 });
 
+app.get('/getMyEvents', (req, res) =>{
+  var myEvents = []
+  //returns all events for a user.. should filter for time < current Time
+  // returns [ { event_id : {title, time}},{ event_id : {title, time}}….]
+  return  db.knex.raw('SELECT `name`, `id` FROM `Users`')
+       .then((results) =>{
+          results[0].forEach((item) => {
+            var obj = {name:item.name, user_id:item.id}
+            allUsers.push(obj);
+          })
+       res.status(200).send(allUsers)
+    })
+})
 app.get('/getAllUsers', (req, res) => {
   var allUsers = []
-  // Get request to /getallusers
   // returns [ { name : name,user_id: user_id},{ name : name,user_id: user_id}….]
   return  db.knex.raw('SELECT `name`, `id` FROM `Users`')
        .then((results) =>{
@@ -140,7 +152,7 @@ app.post('/createRoute', (req, res) => {
                })
           })
       })
-      console.log('output', route_id)
+      console.log('route_id', route_id)
       res.status(200).send(JSON.stringify({
           'route_id': route_id
         }))
@@ -165,27 +177,22 @@ app.post('/createRoute', (req, res) => {
 app.post('/createEvent', (req, res) => {
   //{title:string, host:user_id, guests:[user_id, user_id], route_id, route_id, time:time}
   //return all events for host
+  var event_id;
   var participants = req.body.guests;
   participants.push(req.body.host)
   var data = req.body;
   return db.knex.raw('INSERT INTO `Events` (`title`, `host_id`, `route_id`, `time`) VALUES ("'+ data.title + '",' + data.host + ',' + data.route_id + ',"' + data.time + '")')
-    .then((results) =>{
-      //return new Promise((resolve, reject) => {
-        var event_id = results.id;
-        console.log(event_id)
-    //})
-    // .then(()=>{
-    //     participants.forEach((user_id)=>{
-    //             console.log(user_id)
-    //        return db.kenx.raw('INSERT INTO `events_participants` (`event_id`, `participant_id`) VALUES (' + event_id + ', ' + user_id + ' )')
-    //          .then((result)=>{
-    //            console.log('events_participants updated',result)
-    //          })
-    //       })
-    //   //  resolve();
-    //   //  })
-    //   })
-    // .then(()=>{
+    .then((event) =>{
+        event_id = event[0].insertId;
+    })
+    .then(()=>{
+        participants.forEach((user_id)=>{
+           return db.knex.raw('INSERT INTO `events_participants` (`event_id`, `user_id`) VALUES (' + event_id + ', ' + user_id + ' )')
+             .then((result)=>{
+             })
+          })
+      })
+    .then(()=>{
     res.status(200).send('ok')
  })
 
