@@ -8,10 +8,11 @@ const Keyword = require('./db/models/keyword');
 const Route = require('./db/models/route');
 const Event = require('./db/models/event');
 const db = require('./db/config')
+
 const userController = require('./db/controllers/userController');
 const routeController = require('./db/controllers/routeController');
 const eventController = require('./db/controllers/eventController');
-
+const mysql = require('mysql');
 const googleApiDirections = require('./googleApiDirections');
 const app = express();
 
@@ -133,58 +134,66 @@ app.post('/createRoute', (req, res) => {
           .then((keyword) => {
             keyword_id = keyword['id']
               //add to join table
-            var data = {
-                keyword_id: keyword_id,
-                route_id: route_id,
-              }
-              //  console.log(data)
-              // Returns [1] in "mysql", "sqlite", "oracle"; [] in "postgresql" unless the 'returning' parameter is set.
-            db.knex.raw('INSERT INTO `keywords_routes` (`keyword_id`, `route_id`) values (' + toString(keyword_id) + ', ' + toString(route_id) + ' ) ');
-            //  new keyword_route(data).save()
-            //   .then((resp)=>{
-            //    console.log('db updated')
-            //    });
-            //keywordIdList.push(keyword_id)
-            //console.log('new keyword',keywordIdList)
+            return db.knex.raw('INSERT INTO `keywords_routes` (`keyword_id`, `route_id`) values (' + toString(keyword_id) + ', ' + toString(route_id) + ' ) ')
+               .then((result)=>{
+                 console.log('INSERT INTO `keywords_routes', result)
+               })
           })
-          //   }
-          //  })
       })
       console.log('output', route_id)
       res.status(200).send(JSON.stringify({
           'route_id': route_id
         }))
-    }) //.then(()=>{
-    //     //add keyword_id to join table with route_id
-    //     console.log('route_id',route_id)
-    //     console.log('keywordIdList',keywordIdList)
-    //     keywordIdList.forEach((input) => {
-    //        var data = {
-    //           keyword_id: input,
-    //           route_id: route_id,
-    //         }
-    //           console.log('data',data)
-    //       new keyword_route(data).save()
-    //          .then((resp)=>{
-    //         console.log('db updated')
-    //       });
-    //    })
-    // })
-
-});
-
+    })
+})
+//.then(()=>{
+//     //add keyword_id to join table with route_id
+//     console.log('route_id',route_id)
+//     console.log('keywordIdList',keywordIdList)
+//     keywordIdList.forEach((input) => {
+//        var data = {
+//           keyword_id: input,
+//           route_id: route_id,
+//         }
+//           console.log('data',data)
+//       new keyword_route(data).save()
+//          .then((resp)=>{
+//         console.log('db updated')
+//       });
+   //})
+//})
 app.post('/createEvent', (req, res) => {
-  var invitees = [];
-  //{title:string, host:user_id, guests:[id, id], route_id, route_id, time:time}
+  //{title:string, host:user_id, guests:[user_id, user_id], route_id, route_id, time:time}
+  //return all events for host
+  var participants = req.body.guests;
+  participants.push(req.body.host)
+  var data = req.body;
+  return db.knex.raw('INSERT INTO `Events` (`title`, `host_id`, `route_id`, `time`) VALUES ("'+ data.title + '",' + data.host + ',' + data.route_id + ',"' + data.time + '")')
+    .then((results) =>{
+      //return new Promise((resolve, reject) => {
+        var event_id = results.id;
+        console.log(event_id)
+    //})
+    // .then(()=>{
+    //     participants.forEach((user_id)=>{
+    //             console.log(user_id)
+    //        return db.kenx.raw('INSERT INTO `events_participants` (`event_id`, `participant_id`) VALUES (' + event_id + ', ' + user_id + ' )')
+    //          .then((result)=>{
+    //            console.log('events_participants updated',result)
+    //          })
+    //       })
+    //   //  resolve();
+    //   //  })
+    //   })
+    // .then(()=>{
+    res.status(200).send('ok')
+ })
 
 
-
-  // eventController.createEvent(req.body)
+  // eventController.createEvent('foo')
   //   .then((event) => {
-  //   console.log(event)
-  //get user from users db based on name??
-  //add userId of participants and host to join table, events_participants
-
+  //   console.log("event added", event)
+  // })
 
   //  var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
   // JSON.parse(event.get('invitees')).forEach((invitee) => {
@@ -198,8 +207,7 @@ app.post('/createEvent', (req, res) => {
   //         console.log("Message sent:", data.response);
   //     });
   // });
-//})
-res.send(invitees);
+
 });
 
 
