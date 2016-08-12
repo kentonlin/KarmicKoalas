@@ -12,7 +12,7 @@ class createEvent extends Component {
     super(props)
     this.state = {
       id: this.props.id,
-      title: this.props.title,
+      title: "",
       route: this.props.route,
       keyWords: this.props.keyWords,
       invitees: "",
@@ -20,38 +20,21 @@ class createEvent extends Component {
       contacts: [],
       date: new Date(),
       timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
-      // date: this.props.date,
-      // timeZoneOffsetInHours: this.props.timeZoneOffsetInHours
     }
 
     this.onDateChange = this.onDateChange.bind(this);
     //  console.log("TEST:" + this.props.id + " " + this props.title + " " + this.props.route + " " + this.props.keyWords);
   }
 
-  // getDefaultProps(){
-  //   return {
-  //     date: new Date(),
-  //     timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
-  //   };
-  // }
-
-  // getInitialState(){
-  //   return {
-  //     date: this.props.date,
-  //     timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
-  //   };
-  // }
-
   componentDidMount(){
-    Contacts.getAll((err, contacts) => {
-      if(err && err.type === 'permissionDenied'){
-        return console.error(err);
-      } else {
-        this.setState({
-          contacts: contacts
-        });
-      }
-    });
+    fetch("http://localhost:8000/getAllUsers", {
+      method: "GET",
+      headers: {'Content-Type': 'application/json'},
+    }).then((responseData) => {
+      this.setState({
+        contacts: JSON.parse(responseData._bodyText)
+      });
+    }).done();
   }
 
   searchContacts(text){
@@ -63,13 +46,8 @@ class createEvent extends Component {
     if(search.length){
       var suggestions = [];
       this.state.contacts.forEach((contact) => {
-        if(search === contact.givenName.slice(0, search.length).toLowerCase()){
-          suggestions.push(contact.givenName + " " + contact.familyName);
-        }
-      });
-      this.state.contacts.forEach((contact) => {
-        if(search === contact.familyName.slice(0, search.length).toLowerCase()){
-          suggestions.push(contact.givenName + " " + contact.familyName);
+        if(search === contact.name.slice(0, search.length).toLowerCase()){
+          suggestions.push(contact.name);
         }
       });
       this.setState({
@@ -98,6 +76,29 @@ class createEvent extends Component {
   }
 
   handleSubmit(){
+    var inviteeIds = [];
+    this.state.invitees.split(", ").forEach((invitee) => {
+      this.state.contacts.forEach((contact) => {
+        if(invitee === contact.name){
+          inviteeIds.push(contact.userId);
+        }
+      });
+    });
+    var body = {
+      title: this.state.title,
+      host: this.props.userID,
+      invitees: this.state.invitees.split(", "),
+      routeID: this.props.routeID,
+      time: this.state.date
+    }
+    fetch("http://localhost:8000/createEvent", {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    }).then((responseData) => {
+      console.log('createEvent -- SERVER', responseData)
+      //this.setState({routeCoordinates: responseData});
+    }).done();
     this.props.navigator.push({
       component: myEvents,
       title: "Events"
