@@ -77,7 +77,8 @@ class Main extends Component {
       component: createRoute,
       title: "Create Route",
       passProps: {
-        userID: this.props.userID
+        userID: this.props.userID,
+        setEventId: this.setEventId
       }
     });
   }

@@ -76,33 +76,39 @@ class createEvent extends Component {
   }
 
   handleSubmit(){
-    var inviteeIds = [];
-    this.state.invitees.split(", ").forEach((invitee) => {
-      this.state.contacts.forEach((contact) => {
-        if(invitee === contact.name){
-          inviteeIds.push(contact.userId);
+    // NOTE: should invitees be required?
+    if(this.state.title.length && this.state.invitees.length){
+      var inviteeIds = [];
+      this.state.invitees.split(", ").forEach((invitee) => {
+        this.state.contacts.forEach((contact) => {
+          if(invitee === contact.name){
+            inviteeIds.push(contact.userId);
+          }
+        });
+      });
+      var body = {
+        title: this.state.title,
+        host: this.props.userID,
+        invitees: this.state.invitees.split(", "),
+        routeID: this.props.routeID,
+        time: this.state.date
+      }
+      fetch("http://localhost:8000/createEvent", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+      }).then((responseData) => {
+        console.log('createEvent -- SERVER', responseData)
+        //this.setState({routeCoordinates: responseData});
+      }).done();
+      this.props.navigator.push({
+        component: myEvents,
+        title: "Events",
+        passProps: {
+          setEventId: this.props.setEventId
         }
       });
-    });
-    var body = {
-      title: this.state.title,
-      host: this.props.userID,
-      invitees: this.state.invitees.split(", "),
-      routeID: this.props.routeID,
-      time: this.state.date
     }
-    fetch("http://localhost:8000/createEvent", {
-      method: "POST",
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(body)
-    }).then((responseData) => {
-      console.log('createEvent -- SERVER', responseData)
-      //this.setState({routeCoordinates: responseData});
-    }).done();
-    this.props.navigator.push({
-      component: myEvents,
-      title: "Events"
-    });
   }
 
   render(){

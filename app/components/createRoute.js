@@ -97,7 +97,8 @@ class createRoute extends Component {
             title: "Create Event",
             passProps: {
               userID: userId,
-              routeID: responseData.route_id
+              routeID: responseData.route_id,
+              setEventId: this.props.setEventId
             }
           })
         })

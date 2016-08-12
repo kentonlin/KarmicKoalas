@@ -4,6 +4,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, ListView, TextInput, AlertIOS } from 'react-native';
 
+import Main from './Main';
+
 // Test Data Objects
 //TODO Get request to database for event data.
 
@@ -27,22 +29,41 @@ let listarray = [
   {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square', id:'123'}
 ]
 
+let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
 class myEvents extends Component {
   constructor(props) {
     super(props);
 
-    let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     this.state = {
       objectdataSource: dataSource.cloneWithRows(listarray),
       highlightedRow: {}
     };
+
+    this.goMap = this.goMap.bind(this);
+  }
+
+  componentDidMount(){
+    // fetch("http://localhost:8000/getAllEvents", {
+    //   method: "GET",
+    //   headers: {'Content-Type': 'application/json'},
+    // }).then((responseData) => {
+    //   this.setState({
+    //     objectdataSource: dataSource.cloneWithRows(JSON.parse(responseData._bodyText))
+    //   });
+    // }).done();
   }
 
   goMap(rowData) {
     console.log("Hello: ", rowData);
+    // console.log("asdfasdf:", this.props.navigator.getCurrentRoutes())
     this.props.setEventId(rowData.id);
-    this.props.navigator.pop();
+    this.props.navigator.popToTop();
+    // this.props.navigator.jumpTo({
+    //   component: Main,
+    //   title: "Main"
+    // });
   }
 
   renderRow(rowData: string, sectionID: number, rowID: number,
