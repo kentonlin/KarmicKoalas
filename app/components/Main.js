@@ -53,6 +53,7 @@ class Main extends Component {
     this.setState({
       eventId: eventId
     });
+    this.playEvent(eventId);
   }
 
   navToSearchRoutes(){
@@ -83,7 +84,19 @@ class Main extends Component {
     });
   }
 
+  playEvent(eventID){
+    console.log('Event ID', eventID);
+     fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventID})})
+     .then((response) => response.json())
+     .then((responseData) => {
+       console.log('SERVER', responseData)
+    //   this.setState({routeCoordinates: responseData});
+     })
+     .done();
+ }
+
   componentDidMount() {
+    this.playEvent(40);
     AsyncStorage.multiGet(["username", "userId"]).then((data) => {
       console.log("Multi Get from Async:", data)
       this.setState({
