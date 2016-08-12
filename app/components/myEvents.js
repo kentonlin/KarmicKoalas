@@ -55,7 +55,7 @@ class myEvents extends Component {
     //     objectdataSource: dataSource.cloneWithRows(JSON.parse(responseData._bodyText))
     //   });
     // }).done();
-  });
+    });
   }
 
   goMap(rowData) {
