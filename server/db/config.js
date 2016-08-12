@@ -19,7 +19,7 @@ module.exports = {
 //   if (!exists) {
 //     db.schema.createTable('users', function(user) {
 //         user.increments('id').primary();
-//         //user.string('name', 100);
+//         user.string('name', 100);
 //         user.string('username', 100).unique();
 //         user.string('email', 100).unique();
 //         user.string('password', 100);
@@ -38,10 +38,11 @@ module.exports = {
 //       })
 //       .createTable('events', function(event) {
 //         event.increments('id').primary();
-//         event.string('name', 100);
-//         event.integer('host_Id', 100).references('users.id');
-//         event.integer('route_Id', 100).references('routes.id');
-//         event.json('invitees', 400); //this is a list of contacts from user phonebook
+//         event.string('title', 100);
+//         event.varchar('time', 100);
+//         event.integer('host_id', 100).references('users.id');
+//         event.integer('route_id', 100).references('routes.id');
+//         event.blob('participants', 400); //this is a list of userids incuding host
 //       });
       // .createTable('events_participants', function(eptable) {
       //   eptable.integer('events_id',11).unsigned().references('id').inTable('events');
