@@ -24,11 +24,6 @@ class Splash extends Component {
 					title: "SignUp"
 				});
       } else {
-<<<<<<< 7e5dbeb23ce63c297b6b91652e1cf25d87e8d94f
-        // existing user
-=======
-        //existing user
->>>>>>> Commit to rebase server changes
 				this.props.navigator.resetTo({
 					navigationBarHidden: true,
 					component: Main,
