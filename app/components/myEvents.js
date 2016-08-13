@@ -44,7 +44,6 @@ class myEvents extends Component {
   }
 
   componentDidMount(){
-<<<<<<< HEAD
     fetch("http://localhost:8000/getMyEvents", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -54,25 +53,6 @@ class myEvents extends Component {
         objectdataSource: dataSource.cloneWithRows(responseData)
       });
     }).done();
-=======
-    // AsyncStorage.getItem("userId").then(userId => {
-      console.log("userId:", this.props.userId)
-      fetch("https://wegoios.herokuapp.com/getMyEvents", {
-        method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({user_id: +this.props.userId})
-      }).then(response => {
-        // console.log("myEVENTS:", response)
-        response.json()
-        })
-      .then(responseData => {
-        console.log("AAAA:", responseData)
-        this.setState({
-          objectdataSource: dataSource.cloneWithRows(responseData)
-        });
-      }).done();
-    // });
->>>>>>> 2f09619bd67c2b160b29297b63539770ce9c2668
   }
 
   goMap(rowData) {
