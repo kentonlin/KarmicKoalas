@@ -27,7 +27,7 @@ class createEvent extends Component {
   }
 
   componentDidMount(){
-    fetch("https://wegotoo.herokuapp.com/getAllUsers", {
+    fetch("http://localhost:8000/getAllUsers", {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
     }).then((response) => response.json()).then(responseData => {
