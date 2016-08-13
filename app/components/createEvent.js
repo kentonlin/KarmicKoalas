@@ -15,7 +15,7 @@ class createEvent extends Component {
       title: "",
       route: this.props.route,
       keyWords: this.props.keyWords,
-      invitees: "",
+      guests: "",
       contact_suggestions: [],
       contacts: [],
       date: new Date(),
@@ -27,11 +27,11 @@ class createEvent extends Component {
   }
 
   componentDidMount(){
-    fetch("http://localhost:8000/getAllUsers", {
+    fetch("https://wegoios.herokuapp.com/getAllUsers", {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
-    }).then(response => response.json())
-    .then(responseData => {
+    }).then((response) => response.json()).then(responseData => {
+      console.log("createEvent:", responseData)
       this.setState({
         contacts: responseData
       });
@@ -40,10 +40,10 @@ class createEvent extends Component {
 
   searchContacts(text){
     this.setState({
-      invitees: text
+      guests: text
     });
-    var invitees = text.split(", ");
-    var search = invitees[invitees.length - 1].toLowerCase();
+    var guests = text.split(", ");
+    var search = guests[guests.length - 1].toLowerCase();
     if(search.length){
       var suggestions = [];
       this.state.contacts.forEach((contact) => {
@@ -62,10 +62,10 @@ class createEvent extends Component {
   }
 
   addContact(contact){
-    var invitees = this.state.invitees.split(", ").slice(0, -1);
-    invitees.push(contact);
+    var guests = this.state.guests.split(", ").slice(0, -1);
+    guests.push(contact);
     this.setState({
-      invitees: invitees.join(", ") + ", ",
+      guests: guests.join(", ") + ", ",
       contact_suggestions: []
     });
   }
@@ -77,24 +77,24 @@ class createEvent extends Component {
   }
 
   handleSubmit(){
-    // NOTE: should invitees be required?
-    if(this.state.title.length && this.state.invitees.length){
-      var inviteeIds = [];
-      this.state.invitees.split(", ").forEach((invitee) => {
+    // NOTE: should guests be required?
+    if(this.state.title.length && this.state.guests.length){
+      var guestIds = [];
+      this.state.guests.split(", ").forEach((guest) => {
         this.state.contacts.forEach((contact) => {
-          if(invitee === contact.name){
-            inviteeIds.push(contact.userId);
+          if(guest === contact.name){
+            guestIds.push(contact.userId);
           }
         });
       });
       var body = {
         title: this.state.title,
-        host: +this.props.userID,
-        invitees: inviteeIds,
-        routeID: this.props.routeID,
+        host: this.props.userId,
+        guests: guestIds,
+        route_id: this.props.routeID,
         time: this.state.date
       }
-      fetch("http://localhost:8000/createEvent", {
+      fetch("https://wegoios.herokuapp.com/createEvent", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(body)
@@ -106,7 +106,8 @@ class createEvent extends Component {
         component: myEvents,
         title: "Events",
         passProps: {
-          setEventId: this.props.setEventId
+          setEventId: this.props.setEventId,
+          userId: this.props.userId
         }
       });
     }
@@ -122,12 +123,16 @@ class createEvent extends Component {
           placeholder="title"
           placeholderTextColor="#CDCDC9"
           value={this.state.title}
-          onChangeText={(txt) => this.setState({title: txt})} />
+          onChangeText={(txt) => this.setState({title: txt})}
+          onSubmitEditing={(event) => {
+            this.refs.guestsInput.focus();
+          }} />
         <Text>Invite your friends</Text>
         <TextInput
+          ref="guestsInput"
           style={styles.inputText}
-          placeholder="Add Contact"
-          value={this.state.invitees}
+          placeholder="Add Guest"
+          value={this.state.guests}
           onChangeText={(txt) => this.searchContacts(txt)} />
         {
           this.state.contact_suggestions.map((contact, idx) => (
