@@ -14,7 +14,9 @@ class Splash extends Component {
   }
 
 	componentDidMount(){
+		// AsyncStorage.setItem("username", '');
     	AsyncStorage.multiGet(["username", "userId"]).then((data) => {
+				console.log("SPLASH:",data)
       if(data[0][1] === null){
         //new user
 				this.props.navigator.push({
