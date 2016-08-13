@@ -48,7 +48,7 @@ class Main extends Component {
     this.setState({
       eventId: eventId
     });
-    this.playEvent(eventId);
+    //this.playEvent(eventId);
   }
 
   navToSearchRoutes(){
