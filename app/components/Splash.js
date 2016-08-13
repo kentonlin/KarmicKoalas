@@ -9,24 +9,22 @@ class Splash extends Component {
 	constructor(props) {
     super(props)
     this.state = {
-
     }
   }
 
 	componentDidMount(){
 		// AsyncStorage.setItem("username", '');
-    	AsyncStorage.multiGet(["username", "userId"]).then((data) => {
-				console.log("SPLASH:",data)
+  	AsyncStorage.multiGet(["username", "userId"]).then((data) => {
+			// console.log("SPLASH:",data)
       if(data[0][1] === null){
-        //new user
+        // new user
 				this.props.navigator.push({
 					navigationBarHidden: true,
 					component: SignUp,
 					title: "SignUp"
 				});
-      }
-			else {
-        //existing user
+      } else {
+        // existing user
 				this.props.navigator.resetTo({
 					navigationBarHidden: true,
 					component: Main,
