@@ -47,7 +47,7 @@ class SignUp extends Component {
 			component: Main,
 			title: "Main",
 			passProps: {
-        name: this.state.username,
+        username: this.state.username,
 				userId: id
       }
 		});
