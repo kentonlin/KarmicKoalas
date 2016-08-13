@@ -41,7 +41,7 @@ class SignUp extends Component {
   }
 
 	navToMain(id){
-		console.log('Username: ' + this.state.username + ' ID: ' + id);
+		//console.log('Username: ' + this.state.username + ' ID: ' + id);
 		this.props.navigator.resetTo({
 			navigationBarHidden: true,
 			component: Main,
