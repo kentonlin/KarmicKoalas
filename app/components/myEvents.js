@@ -9,26 +9,6 @@ import Main from './Main';
 // Test Data Objects
 //TODO Get request to database for event data.
 
-let listarray = [
-  {name: 'On the town', description: 'Hanging out with your besties and bros in Manhattan', location: 'Central Park', id:'123'},
-  {name: 'By the bay', description: 'A funtime picnic on the Hudson', location: 'Riverside Park', id:'123'},
-  {name: 'Sun Down Town', description: 'At sundown, getting together for happy hour', location: 'TriBeCa', id:'123'},
-  {name: 'On the Pier', description: 'A lazy boat ride cause we can!', location: 'Brooklyn Heights', id:'123'},
-  {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square', id:'123'},
-  {name: 'A Quick Trip', description: 'Treasure hunt at the Empire State Building', location: 'Empire State Building', id:'123'},
-  {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square', id:'123'},
-  {name: 'A Quick Trip', description: 'Treasure hunt at the Empire State Building', location: 'Empire State Building', id:'123'},
-  {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square', id:'123'},
-  {name: 'A Quick Trip', description: 'Treasure hunt at the Empire State Building', location: 'Empire State Building', id:'123'},
-  {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square', id:'123'},
-  {name: 'A Quick Trip', description: 'Treasure hunt at the Empire State Building', location: 'Empire State Building', id:'123'},
-  {name: 'On the town', description: 'Hanging out with your besties and bros in Manhattan', location: 'Central Park', id:'123'},
-  {name: 'By the bay', description: 'A funtime picnic on the Hudson', location: 'Riverside Park', id:'123'},
-  {name: 'Sun Down Town', description: 'At sundown, getting together for happy hour', location: 'TriBeCa', id:'123'},
-  {name: 'On the Pier', description: 'A lazy boat ride cause we can!', location: 'Brooklyn Heights', id:'123'},
-  {name: 'Midnight Stroll', description: 'Navigating the streets of Manhattan', location: 'Times Square', id:'123'}
-]
-
 let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 class myEvents extends Component {

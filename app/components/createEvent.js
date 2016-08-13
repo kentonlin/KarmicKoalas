@@ -27,7 +27,7 @@ class createEvent extends Component {
   }
 
   componentDidMount(){
-    fetch("https://wegotoo.herokuapp.com/getAllUsers", {
+    fetch("http://localhost:8000/getAllUsers", {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
     }).then((response) => response.json()).then(responseData => {
@@ -47,7 +47,8 @@ class createEvent extends Component {
     if(search.length){
       var suggestions = [];
       this.state.contacts.forEach((contact) => {
-        if(search === contact.name.slice(0, search.length).toLowerCase()){
+        if(search === contact.name.slice(0, search.length).toLowerCase() &&
+           contact.name !== this.props.username){
           suggestions.push(contact.name);
         }
       });
