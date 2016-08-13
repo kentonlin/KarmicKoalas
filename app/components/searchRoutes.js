@@ -4,15 +4,30 @@ import { View, StyleSheet, NavigatorIOS, Text, ListView, TextInput, TouchableHig
 import createEvent from './createEvent';
 
 let routes = [
-  {title: 'New York Historic'},
-  {title: 'Metropolitan Boston'},
-  {title: 'Fossil Treck in NJ'},
-  {title: 'Hudson River Walk'},
-  {title: 'Central Park NYC'},
-  {title: 'Bear Mountain Hike Easy'},
-  {title: 'NYC Midtown Pub Crawl'},
-  {title: 'Lower East Side NYC Historic'}
+  {
+    "title": "\"swim in Dallas Park\"",
+    "start": "{\"latitude\":37.33756603,\"longitude\":-122.02681114}",
+    "end": "{\"latitude\":37.34756603,\"longitude\":-122.02581114}",
+    "points_of_interest": null,
+    "id": 177
+  },
+  {
+    "title": "\"swim in Austin Park\"",
+    "start": "{\"latitude\":37.33756603,\"longitude\":-122.02681114}",
+    "end": "{\"latitude\":37.34756603,\"longitude\":-122.02581114}",
+    "points_of_interest": null,
+    "id": 175
+  }
 ]
+//   {title: 'New York Historic'},
+//   {title: 'Metropolitan Boston'},
+//   {title: 'Fossil Treck in NJ'},
+//   {title: 'Hudson River Walk'},
+//   {title: 'Central Park NYC'},
+//   {title: 'Bear Mountain Hike Easy'},
+//   {title: 'NYC Midtown Pub Crawl'},
+//   {title: 'Lower East Side NYC Historic'}
+// ]
 
 let routes2 = [];
 
@@ -36,8 +51,8 @@ class SearchRoutes extends Component {
 
   getRoutes(){
     // var keysToSearch = this.state.search.trim().split(',');
-		// fetch("https://wegoios.herokuapp.com/searchKeywords", {
-    fetch("https://localhost:8000/searchKeywords", {
+		fetch("https://wegotoo.herokuapp.com/searchKeywords", {
+    // fetch("https://localhost:8000/searchKeywords", {
 		method: 'POST',
 		headers: {
 				'Accept': 'application/json',
