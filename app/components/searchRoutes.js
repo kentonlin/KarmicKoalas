@@ -3,16 +3,18 @@ import { View, StyleSheet, NavigatorIOS, Text, ListView, TextInput, TouchableHig
 
 import createEvent from './createEvent';
 
-let routes = [
-  'New York Historic',
-  'Metropolitan Boston',
-  'Fossil Treck in NJ',
-  'Hudson River Walk',
-  'Central Park NYC',
-  'Bear Mountain Hike Easy',
-  'NYC Midtown Pub Crawl',
-  'Lower East Side NYC Historic'
-]
+// let routes = [
+//   'New York Historic',
+//   'Metropolitan Boston',
+//   'Fossil Treck in NJ',
+//   'Hudson River Walk',
+//   'Central Park NYC',
+//   'Bear Mountain Hike Easy',
+//   'NYC Midtown Pub Crawl',
+//   'Lower East Side NYC Historic'
+// ]
+
+  let routes = [];
 
 class SearchRoutes extends Component {
    constructor(props) {
@@ -33,7 +35,33 @@ class SearchRoutes extends Component {
   }
 
   getRoutes(){
-    // TODO: get request to server /routes and save results in an array
+    console.log('keywords: ' + this.state.search);
+    console.log("SEARCHABLES: ", this.state.search.split(''));
+    var searchables = '[' + this.state.search.split(',') + ']';
+    console.log("Searchables: ", searchables);
+
+			// 	fetch("https://wegoios.herokuapp.com/signup", {
+			// 	method: 'POST',
+			// 	headers: {
+			// 			'Accept': 'application/json',
+			// 			'Content-Type': 'application/json',
+			// 	},
+			// 	body: JSON.stringify({
+			// 		name: this.state.name,
+			// 		email: this.state.email,
+			// 		username: this.state.username,
+			// 		password:  this.state.password,
+			// 	})
+			// }).then((response) => response.json())
+			// 	.then((responseData) => {
+			// 		console.log('DATA FROM SERVER', responseData)
+			// 		//update Asynch storage
+			// 		var id = '' + responseData.userId;
+			// 		AsyncStorage.setItem("userId", id);
+			// 		AsyncStorage.setItem('username',this.state.username)
+			// 		this.navToMain(responseData.userId)
+			//  })
+			//  .done();
   }
 
   renderRow(rowData: string, sectionID: number, rowID: number,
@@ -71,7 +99,7 @@ class SearchRoutes extends Component {
           fontSize={20}
           padding={10}
           value={this.state.search}
-          placeholder="Enter keywords: "
+          placeholder="Enter search keywords: "
           onChangeText={(text) => this.setState({search: text})}/>
         <View style={{paddingTop: 2}}>
         <TouchableHighlight onPress={() => this.getRoutes()} style={styles.button}>
