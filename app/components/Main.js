@@ -30,8 +30,9 @@ class Main extends Component {
     // this.navToCreateRoute = this.navToCreateRoute.bind(this);
 
     this.setEventId = this.setEventId.bind(this);
+    this.initializesEvent = this.initializesEvent.bind(this);
 
-    this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
+    this.socket = io('http://localhost:8000',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
       userId: this.props.userId,
       username: this.props.username,
@@ -47,7 +48,7 @@ class Main extends Component {
     this.setState({
       eventId: eventId
     });
-    this.playEvent(eventId);
+    //this.playEvent(eventId);
   }
 
   navToSearchRoutes(){
@@ -79,23 +80,18 @@ class Main extends Component {
     });
   }
 
-  playEvent(eventID){
-    console.log('Event ID', eventID);
-     fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventID})})
-     .then((response) => response.json())
-     .then((responseData) => {
-       console.log('SERVER', responseData);
-    //   this.setState({routeCoordinates: responseData});
-     })
-     .done();
- }
+  initializesEvent(eventId){
+    console.log('Connected to Main', eventId)
+    this.socket.emit('initialize',{eventId: eventId, userId: this.state.userId, username: this.state.username})
+  }
 
   componentDidMount() {
-    this.playEvent(40);
+    //this.playEvent(48);
     AsyncStorage.multiGet(["username", "userId"]).then((data) => {
       console.log("Multi Get from Async:", data)
       this.setState({
-        username : data[0][1]
+        username : data[0][1],
+        userId: data[1][1]
       })
       this.socket.emit('initialize',{eventId: this.state.eventId, userId: data[1][1], username: data[0][1]})
 
@@ -105,7 +101,7 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapComponent socket={this.state.socket} username={this.state.username}/>
+        <MapComponent socket={this.state.socket} username={this.state.username} initializesEvent={this.initializesEvent}/>
         <Chat socket={this.socket}/>
         <TouchableHighlight
           style={styles.searchRoutesBtn}

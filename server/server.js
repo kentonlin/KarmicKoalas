@@ -42,7 +42,7 @@ var joinRoom = (data, socket) => {
 io.on('connection', (socket) => {
             console.log('Client connected');
 
-            socket.on('intitialize', (data) => {
+            socket.on('initialize', (data) => {
                 myRoom = data.eventId;
                 userId = data.userId;
                 username = data.username;
@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
                 console.log('intialaze client side', data)
                 socket.join(myRoom);
             });
-  
+
             socket.on('location', (data) => {
                 console.log("Incoming location with updated title:", data)
                 console.log("Incoming location:", data)
