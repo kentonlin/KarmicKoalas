@@ -84,14 +84,14 @@ class MapComponent extends Component {
      const { prevLatLng } = this.state
      return (haversine(prevLatLng, newLatLng) || 0)
   }
-  playEvent(eventID){
-    console.log('Event ID', eventID);
-     fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventID})})
+  playEvent(eventId){
+    console.log('Event ID', eventId);
+     fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventId})})
      .then((response) => response.json())
      .then((responseData) => {
        console.log('SERVER', responseData);
        this.setState({routeCoordinates: JSON.parse(responseData.route_object)});
-
+       this.props.initializesEvent(eventId)
      })
      .done();
    }

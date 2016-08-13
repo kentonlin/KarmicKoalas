@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
                 console.log('intialaze client side', data)
                 socket.join(myRoom);
             });
-  
+
             socket.on('location', (data) => {
                 console.log("Incoming location with updated title:", data)
                 console.log("Incoming location:", data)
