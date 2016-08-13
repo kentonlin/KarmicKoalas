@@ -3,25 +3,25 @@ import { View, StyleSheet, NavigatorIOS, Text, ListView, TextInput, TouchableHig
 
 import createEvent from './createEvent';
 
-// let routes = [
-//   'New York Historic',
-//   'Metropolitan Boston',
-//   'Fossil Treck in NJ',
-//   'Hudson River Walk',
-//   'Central Park NYC',
-//   'Bear Mountain Hike Easy',
-//   'NYC Midtown Pub Crawl',
-//   'Lower East Side NYC Historic'
-// ]
+let routes = [
+  {title: 'New York Historic'},
+  {title: 'Metropolitan Boston'},
+  {title: 'Fossil Treck in NJ'},
+  {title: 'Hudson River Walk'},
+  {title: 'Central Park NYC'},
+  {title: 'Bear Mountain Hike Easy'},
+  {title: 'NYC Midtown Pub Crawl'},
+  {title: 'Lower East Side NYC Historic'}
+]
 
-let routes = [];
+let routes2 = [];
 
 class SearchRoutes extends Component {
    constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      search: '',
+      keywords: '',
       dataSource: ds.cloneWithRows(routes)
     };
   }
@@ -35,23 +35,27 @@ class SearchRoutes extends Component {
   }
 
   getRoutes(){
-    var keysToSearch = this.state.search.trim().split(',');
-
-		fetch("https://wegoios.herokuapp.com/searchKeywords", {
+    // var keysToSearch = this.state.search.trim().split(',');
+		// fetch("https://wegoios.herokuapp.com/searchKeywords", {
+    fetch("https://localhost:8000/searchKeywords", {
 		method: 'POST',
 		headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
-			keywords: keysToSearch
+			keywords: this.state.search.trim().split(',')
 		})
 	}).then((response) => response.json())
 		.then((responseData) => {
 			console.log('DATA FROM SERVER', responseData);
-
+        for (var i = 0; i < responseData.length; i++){
+          routes2.push(responseData[i]);
+        }
 			//update Asynch storage
-	 })
+	 }).catch((error) => {
+     console.error(error);
+   })
 	 .done();
   }
 
@@ -60,7 +64,7 @@ class SearchRoutes extends Component {
     return (
       <TouchableOpacity style={styles.routeRow} onPress={(event) => this.handleItemClick(rowData)}>
       <View>
-        <Text style={{alignItems: 'center', padding: 3}}>{'\n'}{rowData}{'\n'}</Text>
+        <Text style={{alignItems: 'center', padding: 3}}>{'\n'}{rowData.title}{'\n'}</Text>
       </View>
       </TouchableOpacity>
     );
