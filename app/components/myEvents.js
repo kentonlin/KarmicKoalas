@@ -57,7 +57,7 @@ class myEvents extends Component {
 
   goMap(rowData) {
     console.log("Hello: ", rowData);
-    this.props.setEventId(rowData.id);
+    this.props.setEventId(rowData.event_id);
     this.props.navigator.popToTop();
   }
 

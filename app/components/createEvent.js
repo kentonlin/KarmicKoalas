@@ -123,11 +123,15 @@ class createEvent extends Component {
           placeholder="title"
           placeholderTextColor="#CDCDC9"
           value={this.state.title}
-          onChangeText={(txt) => this.setState({title: txt})} />
+          onChangeText={(txt) => this.setState({title: txt})}
+          onSubmitEditing={(event) => {
+            this.refs.guestsInput.focus();
+          }} />
         <Text>Invite your friends</Text>
         <TextInput
+          ref="guestsInput"
           style={styles.inputText}
-          placeholder="Add Contact"
+          placeholder="Add Guest"
           value={this.state.guests}
           onChangeText={(txt) => this.searchContacts(txt)} />
         {
