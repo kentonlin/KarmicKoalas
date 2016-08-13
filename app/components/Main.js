@@ -33,20 +33,14 @@ class Main extends Component {
 
     this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
-      userId: '',
-      username: '',
+      userId: this.props.userId,
+      username: this.props.username,
       eventId: '1',//eventId: props.eventId,   //this will come from group list view and pass to server
       socket: this.socket
     }
-
-    Contacts.getAll((err, contacts) => {
-      if(err && err.type === 'permissionDenied'){
-        console.error('Error',err);
-      } else {
-        console.log("Contacts:", contacts)
-      }
-    })
-    console.log("event Id:", this.state.eventId);
+    console.log("MAIN:");
+    console.log("  eventId:", this.state.eventId);
+    console.log("  userId:", this.state.userId);
   }
 
   setEventId(eventId){
@@ -68,7 +62,8 @@ class Main extends Component {
       component: myEvents,
       title: "Events",
       passProps: {
-        setEventId: this.setEventId
+        setEventId: this.setEventId,
+        userId: this.props.userId
       }
     });
   }
@@ -78,7 +73,7 @@ class Main extends Component {
       component: createRoute,
       title: "Create Route",
       passProps: {
-        userID: this.props.userID,
+        userId: this.props.userId,
         setEventId: this.setEventId
       }
     });

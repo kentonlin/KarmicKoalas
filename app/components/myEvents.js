@@ -35,7 +35,6 @@ class myEvents extends Component {
   constructor(props) {
     super(props);
 
-
     this.state = {
       objectdataSource: dataSource.cloneWithRows([]),
       highlightedRow: {}
@@ -45,34 +44,21 @@ class myEvents extends Component {
   }
 
   componentDidMount(){
-    // AsyncStorage.getItem("userId").then(userId => {
-      console.log("userId:", this.props.userId)
-      fetch("https://wegoios.herokuapp.com/getMyEvents", {
-        method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({user_id: +this.props.userId})
-      }).then(response => {
-        // console.log("myEVENTS:", response)
-        response.json()
-        })
-      .then(responseData => {
-        console.log("AAAA:", responseData)
-        this.setState({
-          objectdataSource: dataSource.cloneWithRows(responseData)
-        });
-      }).done();
-    // });
+    fetch("http://localhost:8000/getMyEvents", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({user_id: this.props.userId})
+    }).then((response) => response.json()).then(responseData => {
+      this.setState({
+        objectdataSource: dataSource.cloneWithRows(responseData)
+      });
+    }).done();
   }
 
   goMap(rowData) {
     console.log("Hello: ", rowData);
-    // console.log("asdfasdf:", this.props.navigator.getCurrentRoutes())
     this.props.setEventId(rowData.id);
     this.props.navigator.popToTop();
-    // this.props.navigator.jumpTo({
-    //   component: Main,
-    //   title: "Main"
-    // });
   }
 
   renderRow(rowData: string, sectionID: number, rowID: number,
@@ -80,7 +66,7 @@ class myEvents extends Component {
     return (
       <TouchableOpacity style={styles.eventRow} onPress={() => this.goMap(rowData)}>
       <View>
-        <Text>{'\n'}{rowData.name}{'\n'}{rowData.description}{'\n'}{rowData.location}{'\n'}</Text>
+        <Text>{'\n'}{rowData.title}{'\n'}{rowData.time}{'\n'}</Text>
         <View />
       </View>
       </TouchableOpacity>
@@ -107,7 +93,8 @@ class myEvents extends Component {
           initialListSize={10}
           dataSource={this.state.objectdataSource}
           renderRow={(item) => { return this.renderRow(item) }}
-          renderSeparator={this.renderSeparator}/>
+          renderSeparator={this.renderSeparator}
+          enableEmptySections={true}/>
       </View>
     );
   }

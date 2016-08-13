@@ -30,7 +30,7 @@ class Splash extends Component {
 					component: Main,
 					title: "Main",
 					passProps: {
-		        userId: data[1][1],
+		        userId: +data[1][1],
 						username: data[0][1]
 		      }
 				});

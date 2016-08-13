@@ -27,11 +27,11 @@ class createEvent extends Component {
   }
 
   componentDidMount(){
-    fetch("https://wegoios.herokuapp.com/getAllUsers", {
+    fetch("http://localhost:8000/getAllUsers", {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
-    }).then(response => response.json())
-    .then(responseData => {
+    }).then((response) => response.json()).then(responseData => {
+      console.log("createEvent:", responseData)
       this.setState({
         contacts: responseData
       });
@@ -89,7 +89,7 @@ class createEvent extends Component {
       });
       var body = {
         title: this.state.title,
-        host: this.props.userID,
+        host: this.props.userId,
         guests: guestIds,
         route_id: this.props.routeID,
         time: this.state.date
@@ -107,7 +107,7 @@ class createEvent extends Component {
         title: "Events",
         passProps: {
           setEventId: this.props.setEventId,
-          userId: this.props.userID
+          userId: this.props.userId
         }
       });
     }

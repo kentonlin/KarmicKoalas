@@ -72,36 +72,41 @@ class createRoute extends Component {
       end: end.latlng
     });
     console.log('send to back', startCoord, endCoord);
-     fetch("https://wegoios.herokuapp.com/getRouteFromGoogle", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({start: startCoord, end: endCoord})})
-     .then((response) => response.json())
-     .then((responseData) => {
-       console.log('DATA FROM SERVER', responseData)
-       this.setState({routeCoordinates: responseData});
-     })
-     .done();
+      fetch("http://localhost:8000/getRouteFromGoogle", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({start: startCoord, end: endCoord})
+      }).then((response) => response.json()).then((responseData) => {
+        console.log('DATA FROM SERVER', responseData)
+        this.setState({
+         routeCoordinates: responseData
+        });
+      }).done();
  }
 
   handleCreateRoute(title, keywords, start, end, routeObject) {
     // {title:string, keywords:[],start:{}, end:{}, routeObject:[]}
-     var keywordsArr = this.traceKeywordsString(keywords);
-      if(this.state.title && keywordsArr.length && this.state.routeCoordinates.length) {
-      fetch("https://wegoios.herokuapp.com/createRoute", {method: "POST" , headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title:title, keywords:keywordsArr,start:start, end:end, routeObject:routeObject})})
-      .then((response) => response.json())
-      .then((responseData) => {
+    var keywordsArr = this.traceKeywordsString(keywords);
+    if(this.state.title && keywordsArr.length && this.state.routeCoordinates.length) {
+      fetch("http://localhost:8000/createRoute", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({title:title, keywords:keywordsArr,start:start, end:end, routeObject:routeObject})
+      }).then((response) => response.json()).then((responseData) => {
         console.log('createRoute -- SERVER', responseData)
         //this.setState({routeCoordinates: responseData});
-        AsyncStorage.getItem("userId").then((userId) => {
-          console.log('to create event view', userId, responseData.route_id)
+        // AsyncStorage.getItem("userId").then((userId) => {
+          console.log('to create event view', this.props.userId, responseData.route_id)
           this.props.navigator.push({
             component: createEvent,
             title: "Create Event",
             passProps: {
-              userID: userId,
+              userId: this.props.userId,
               routeID: responseData.route_id,
               setEventId: this.props.setEventId,
             }
           })
-        })
+        // })
       })
       .done();
     } else {
