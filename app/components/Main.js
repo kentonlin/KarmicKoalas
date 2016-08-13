@@ -32,8 +32,9 @@ class Main extends Component {
     this.setEventId = this.setEventId.bind(this);
     this.initializesEvent = this.initializesEvent.bind(this);
 
-    this.socket = io('http://localhost:8000',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
+    this.socket = io('https://wegotoo.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
+      routeCoordinates: [],
       userId: this.props.userId,
       username: this.props.username,
       eventId: '1',//eventId: props.eventId,   //this will come from group list view and pass to server
@@ -45,10 +46,11 @@ class Main extends Component {
   }
 
   setEventId(eventId){
+    console.log('Event Id has been changed', eventId);
     this.setState({
       eventId: eventId
     });
-    //this.playEvent(eventId);
+    this.playEvent(eventId);
   }
 
   navToSearchRoutes(){
@@ -85,6 +87,17 @@ class Main extends Component {
     console.log('Connected to Main', eventId)
     this.socket.emit('initialize',{eventId: eventId, userId: this.state.userId, username: this.state.username})
   }
+  playEvent(eventId){
+    console.log('Event ID', eventId);
+     fetch("https://wegotoo.herokuapp.com/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventId})})
+     .then((response) => response.json())
+     .then((responseData) => {
+       console.log('SERVER', responseData);
+       this.setState({routeCoordinates: JSON.parse(responseData.route_object)});
+       this.initializesEvent(eventId)
+     })
+     .done();
+   }
 
   componentDidMount() {
     //this.playEvent(48);
@@ -102,7 +115,7 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapComponent socket={this.state.socket} username={this.state.username} initializesEvent={this.initializesEvent}/>
+        <MapComponent socket={this.state.socket} username={this.state.username} initializesEvent={this.initializesEvent} routeCoordinates={this.state.routeCoordinates}/>
         <Chat socket={this.socket}/>
         <TouchableHighlight
           style={styles.searchRoutesBtn}
