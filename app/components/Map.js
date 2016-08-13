@@ -33,6 +33,7 @@ class MapComponent extends Component {
   }
 
   componentDidMount() {
+      this.playEvent(48);
       navigator.geolocation.getCurrentPosition(
         (position) => {
           console.log("CURRENT POSITION", position);
@@ -83,6 +84,17 @@ class MapComponent extends Component {
      const { prevLatLng } = this.state
      return (haversine(prevLatLng, newLatLng) || 0)
   }
+  playEvent(eventID){
+    console.log('Event ID', eventID);
+     fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventID})})
+     .then((response) => response.json())
+     .then((responseData) => {
+       console.log('SERVER', responseData);
+       this.setState({routeCoordinates: JSON.parse(responseData.route_object)});
+
+     })
+     .done();
+   }
   //function update user array for annotations
   updateUsersArray(object){
     var exist = false;

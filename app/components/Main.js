@@ -85,13 +85,14 @@ class Main extends Component {
      .then((response) => response.json())
      .then((responseData) => {
        console.log('SERVER', responseData);
-    //   this.setState({routeCoordinates: responseData});
+      //this.setState({routeCoordinates: responseData});
+
      })
      .done();
  }
 
   componentDidMount() {
-    this.playEvent(40);
+    //this.playEvent(48);
     AsyncStorage.multiGet(["username", "userId"]).then((data) => {
       console.log("Multi Get from Async:", data)
       this.setState({
