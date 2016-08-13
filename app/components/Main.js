@@ -45,6 +45,7 @@ class Main extends Component {
   }
 
   setEventId(eventId){
+    console.log('Event Id has been changed', eventId);
     this.setState({
       eventId: eventId
     });
@@ -102,7 +103,7 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapComponent socket={this.state.socket} username={this.state.username} initializesEvent={this.initializesEvent}/>
+        <MapComponent socket={this.state.socket} username={this.state.username} initializesEvent={this.initializesEvent} event={this.state.eventId}/>
         <Chat socket={this.socket}/>
         <TouchableHighlight
           style={styles.searchRoutesBtn}
