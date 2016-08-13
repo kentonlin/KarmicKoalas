@@ -24,7 +24,6 @@ class Splash extends Component {
 					title: "SignUp"
 				});
       } else {
-        // existing user
 				this.props.navigator.resetTo({
 					navigationBarHidden: true,
 					component: Main,
