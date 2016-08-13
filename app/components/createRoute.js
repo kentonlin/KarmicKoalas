@@ -85,7 +85,7 @@ class createRoute extends Component {
     // {title:string, keywords:[],start:{}, end:{}, routeObject:[]}
      var keywordsArr = this.traceKeywordsString(keywords);
       if(this.state.title && keywordsArr.length && this.state.routeCoordinates.length) {
-      fetch("http://localhost:8000/createRoute", {method: "POST" , headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title:title, keywords:keywordsArr,start:start, end:end, routeObject:routeObject})})
+      fetch("https://wegoios.herokuapp.com/createRoute", {method: "POST" , headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title:title, keywords:keywordsArr,start:start, end:end, routeObject:routeObject})})
       .then((response) => response.json())
       .then((responseData) => {
         console.log('createRoute -- SERVER', responseData)
