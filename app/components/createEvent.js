@@ -102,15 +102,15 @@ class createEvent extends Component {
       }).then((responseData) => {
         console.log('createEvent -- SERVER', responseData)
         //this.setState({routeCoordinates: responseData});
+        this.props.navigator.push({
+          component: myEvents,
+          title: "Events",
+          passProps: {
+            setEventId: this.props.setEventId,
+            userId: this.props.userId
+          }
+        });
       }).done();
-      this.props.navigator.push({
-        component: myEvents,
-        title: "Events",
-        passProps: {
-          setEventId: this.props.setEventId,
-          userId: this.props.userId
-        }
-      });
     }
   }
 
