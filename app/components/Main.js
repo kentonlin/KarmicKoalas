@@ -94,7 +94,7 @@ class Main extends Component {
      .then((responseData) => {
        console.log('SERVER', responseData);
        this.setState({routeCoordinates: JSON.parse(responseData.route_object)});
-       this.initializesEvent(eventId)
+       this.initializesEvent(eventId);
      })
      .done();
    }
@@ -107,7 +107,7 @@ class Main extends Component {
         username : data[0][1],
         userId: data[1][1]
       })
-      this.socket.emit('initialize',{eventId: this.state.eventId, userId: data[1][1], username: data[0][1]})
+      //this.socket.emit('initialize',{eventId: this.state.eventId, userId: data[1][1], username: data[0][1]})
 
     });
   }

@@ -229,6 +229,7 @@ app.post('/createRoute', (req, res) => {
 });
 
 app.post('/createEvent', (req, res) => {
+//  var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
   //{title:string, host:user_id, guests:[user_id, user_id], route_id, route_id, time:time}
   //return all events for host
   var event_id;
@@ -242,25 +243,28 @@ app.post('/createEvent', (req, res) => {
     .then(() => {
       participants.forEach((user_id) => {
         return db.knex.raw('INSERT INTO `events_participants` (`event_id`, `user_id`) VALUES (' + event_id + ', ' + user_id + ' )')
-          .then((result) => {})
-      })
+          .then((result) => {
+              // return db.knex.raw('SELECT `email`, `name` FROM  `Users` WHERE `id` = "' + user_id + '"')
+              //   .then((result) => {
+              //     var name = result[0][0].name
+              //     var user_email = result[0][0].email
+              //     console.log(name, user_email)
+              //     var options = {
+              //         to: user_email,
+              //         subject: 'WeGoToo Invitation',
+              //         html: '<b>WeGoToo!!</b><p>You have a new event. Open the app to check it out!</p>'
+              //     }
+              //     transporter.sendMail(options, (err, data) => {
+              //         if (err) return console.error(err);
+              //         console.log("Message sent:", data.response);
+              //     })
+              //})
+          })
+       })
     })
     .then(() => {
       res.status(200).send('ok')
     })
-    //  var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
-    // JSON.parse(event.get('invitees')).forEach((invitee) => {
-    //     var options = {
-    //         to: invitee,
-    //         subject: 'Karmic Koalas',
-    //         html: '<b>Karmic Koalas</b>'
-    //     };
-    //     transporter.sendMail(options, (err, data) => {
-    //         if (err) return console.error(err);
-    //         console.log("Message sent:", data.response);
-    //     });
-    // });
-
 });
 
 module.exports = app;
