@@ -26,10 +26,11 @@ app.post('/getRouteFromGoogle', (req, res) => {
     res.send(data);
   });
 });
+
 app.post('/getAddressFromLoc', (req,res) => {
   // req.body.loc = 40.8534229,-73.9793236
 
-})
+});
 
 app.post('/getRouteById', (req, res) => {
   var event_id = req.body.event_id;
@@ -54,7 +55,6 @@ app.post('/getMyEvents', (req, res) => {
        .then((events) => {
           events[0].forEach((item) => {
             item = item.event_id
-            console.log('item',item)
             return  db.knex.raw('SELECT * FROM `Events` WHERE `id` = ' + item )
               .then((event) => {
                 event = event[0][0];
