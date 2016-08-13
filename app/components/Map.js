@@ -14,7 +14,7 @@ class MapComponent extends Component {
     super(props);
 
     this.state = {
-      routeCoordinates: [],
+      routeCoordinates: this.props.routeCoordinates,
       distanceTravelled: 0,
       prevLatLng: {},
       users: [],
@@ -33,7 +33,7 @@ class MapComponent extends Component {
   }
 
   componentDidMount() {
-    console.log('MAP EVENT', this.props.event)
+  //  console.log('MAP EVENT', this.props.event)
     //  this.playEvent(this.props.eventId);
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -85,17 +85,17 @@ class MapComponent extends Component {
      const { prevLatLng } = this.state
      return (haversine(prevLatLng, newLatLng) || 0)
   }
-  playEvent(eventId){
-    console.log('Event ID', eventId);
-     fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventId})})
-     .then((response) => response.json())
-     .then((responseData) => {
-       console.log('SERVER', responseData);
-       this.setState({routeCoordinates: JSON.parse(responseData.route_object)});
-       this.props.initializesEvent(eventId)
-     })
-     .done();
-   }
+  // playEvent(eventId){
+  //   console.log('Event ID', eventId);
+  //    fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventId})})
+  //    .then((response) => response.json())
+  //    .then((responseData) => {
+  //      console.log('SERVER', responseData);
+  //      this.setState({routeCoordinates: JSON.parse(responseData.route_object)});
+  //      this.props.initializesEvent(eventId)
+  //    })
+  //    .done();
+  //  }
   //function update user array for annotations
   updateUsersArray(object){
     var exist = false;
@@ -140,7 +140,7 @@ class MapComponent extends Component {
             />
           ))}
           <MapView.Polyline
-           coordinates={this.state.routeCoordinates}
+           coordinates={this.props.routeCoordinates}
            strokeColor="rgba(0,0,200,0.5)"
            strokeWidth={3}
            lineDashPattern={[5, 2, 3, 2]}

@@ -27,7 +27,7 @@ class createEvent extends Component {
   }
 
   componentDidMount(){
-    fetch("http://localhost:8000/getAllUsers", {
+    fetch("https://wegotoo.herokuapp.com/getAllUsers", {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
     }).then((response) => response.json()).then(responseData => {
@@ -102,15 +102,16 @@ class createEvent extends Component {
       }).then((responseData) => {
         console.log('createEvent -- SERVER', responseData)
         //this.setState({routeCoordinates: responseData});
+        this.props.navigator.push({
+          component: myEvents,
+          title: "Events",
+          passProps: {
+            setEventId: this.props.setEventId,
+            userId: this.props.userId
+          }
+        });
       }).done();
-      this.props.navigator.push({
-        component: myEvents,
-        title: "Events",
-        passProps: {
-          setEventId: this.props.setEventId,
-          userId: this.props.userId
-        }
-      });
+
     }
   }
 
