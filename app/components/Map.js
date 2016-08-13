@@ -33,7 +33,7 @@ class MapComponent extends Component {
   }
 
   componentDidMount() {
-      this.playEvent(48);
+      this.playEvent(47);
       navigator.geolocation.getCurrentPosition(
         (position) => {
           console.log("CURRENT POSITION", position);

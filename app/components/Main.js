@@ -32,7 +32,7 @@ class Main extends Component {
     this.setEventId = this.setEventId.bind(this);
     this.initializesEvent = this.initializesEvent.bind(this);
 
-    this.socket = io('https://wegoios.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
+    this.socket = io('http://localhost:8000',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
       userId: this.props.userId,
       username: this.props.username,

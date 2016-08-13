@@ -42,7 +42,7 @@ var joinRoom = (data, socket) => {
 io.on('connection', (socket) => {
             console.log('Client connected');
 
-            socket.on('intitialize', (data) => {
+            socket.on('initialize', (data) => {
                 myRoom = data.eventId;
                 userId = data.userId;
                 username = data.username;
