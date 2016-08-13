@@ -151,47 +151,39 @@ app.post('/signup', (req, res) => {
 app.post('/createRoute', (req, res) => {
   //{title:'bike in Central Park', keywords:['New York', 'Central Park', 'bike', 'bicycle'],start:'{latitude: 37.33756603, longitude: -122.02681114}', end:{latitude: 37.34756603, longitude: -122.02581114}, routeObject: '[{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}]'}
   var route_id;
-  //var body = JSON.parse(req.body);
+  var count = 0;
   var keywords = req.body.keywords
     //var addWords = helpers.generateKeywords(req.body)
     //add route object to route table
   routeController.createRoute(req.body)
     .then((input) => {
       route_id = input.id
-      console.log('route_id', route_id)
         //add each keyword to keywords table if new, else get id
       keywords.forEach((input) => {
-        console.log('input',input)
-        return db.knex.raw('SELECT * FROM `keywords` WHERE `word` = "'+ input + '"' )
-          .then((result) => {
-            console.log('result',result)
-            if (!result) {
-               return db.knex.raw('INSERT INTO `keywords` (`word`) values ( "' + input + '")')
+               return db.knex.raw('INSERT IGNORE INTO `keywords` (`word`) values ( "' + input + '")')
                 .then((result) => {
-                  console.log(1, result)
-                  keyword_id = result['insertId']
-                  console.log(2, keyword_id)
-                  return db.knex.raw('INSERT INTO `keywords_routes` (`keyword_id`, `route_id`) values (' + keyword_id + ', ' + route_id + ' ) ')
+                  keyword_id = result[0].insertId
+                })
+                .then(()=>{
+                  if(keyword_id === 0) {
+                    //existing keyword, get id with select
+                    return db.knex.raw('SELECT * FROM `keywords` WHERE `word` = "'+ input + '"' )
+                       .then((result) => {
+                         keyword_id = result[0][0].id
+                       })
+                  }
+                })
+                .then(()=>{
+                  return db.knex.raw('INSERT INTO `keywords_routes` (`key_id`, `route`) values (' + keyword_id + ', ' + route_id + ' ) ')
                     .then((result) => {
-                      console.log('INSERT INTO `keywords_routes', result)
-                      res.status(200).send(JSON.stringify({
-                        'route_id': route_id
-                      }))
+                      ++count;
+                      if (count === keywords.length){
+                          res.status(200).send(JSON.stringify({
+                            'route_id': route_id
+                          }))
+                      }
                     })
                 })
-            } else {
-              //existing
-              keyword_id = result['id']
-              console.log(1, result['id'])
-              return db.knex.raw('INSERT INTO `keywords_routes` (`keyword_id`, `route_id`) values (' + keyword_id + ', ' + route_id + ' ) ')
-                .then((result) => {
-                  console.log('INSERT INTO `keywords_routes', result)
-                  res.status(200).send(JSON.stringify({
-                    'route_id': route_id
-                  }))
-                })
-            }
-         })
       })
     })
 });
