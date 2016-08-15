@@ -27,7 +27,7 @@ class createEvent extends Component {
   }
 
   componentDidMount(){
-    fetch("https://localhost.com:8000.com/getAllUsers", {
+    fetch("http://localhost:8000/getAllUsers", {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
     }).then((response) => response.json()).then(responseData => {
@@ -84,7 +84,7 @@ class createEvent extends Component {
       this.state.guests.split(", ").forEach((guest) => {
         this.state.contacts.forEach((contact) => {
           if(guest === contact.name){
-            guestIds.push(contact.userId);
+            guestIds.push(contact.user_id);
           }
         });
       });
@@ -95,7 +95,8 @@ class createEvent extends Component {
         route_id: this.props.routeID,
         time: this.state.date
       }
-      fetch("https://wegotoo.herokuapp.com/createEvent", {
+      console.log('Data to the server', body.guests);
+      fetch("http://localhost:8000/createEvent", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(body)
