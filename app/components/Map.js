@@ -73,7 +73,7 @@ class MapComponent extends Component {
         console.log('Users!!!', this.state.users);
       },
       (error) => alert(error.message),
-      {maximumAge: 1000, timeout: 20000, enableHighAccuracy: true}
+      {maximumAge: 1000, timeout: 200000000, enableHighAccuracy: true}
     );
   }
 

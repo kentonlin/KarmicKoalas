@@ -3,22 +3,22 @@ import { View, StyleSheet, NavigatorIOS, Text, ListView, TextInput, TouchableHig
 
 import createEvent from './createEvent';
 
-let routes = [
-  {
-    "title": "\"swim in Dallas Park\"",
-    "start": "{\"latitude\":37.33756603,\"longitude\":-122.02681114}",
-    "end": "{\"latitude\":37.34756603,\"longitude\":-122.02581114}",
-    "points_of_interest": null,
-    "id": 177
-  },
-  {
-    "title": "\"swim in Austin Park\"",
-    "start": "{\"latitude\":37.33756603,\"longitude\":-122.02681114}",
-    "end": "{\"latitude\":37.34756603,\"longitude\":-122.02581114}",
-    "points_of_interest": null,
-    "id": 175
-  }
-]
+// let routes = [
+//   {
+//     "title": "\"swim in Dallas Park\"",
+//     "start": "{\"latitude\":37.33756603,\"longitude\":-122.02681114}",
+//     "end": "{\"latitude\":37.34756603,\"longitude\":-122.02581114}",
+//     "points_of_interest": null,
+//     "id": 177
+//   },
+//   {
+//     "title": "\"swim in Austin Park\"",
+//     "start": "{\"latitude\":37.33756603,\"longitude\":-122.02681114}",
+//     "end": "{\"latitude\":37.34756603,\"longitude\":-122.02581114}",
+//     "points_of_interest": null,
+//     "id": 175
+//   }
+// ]
 //   {title: 'New York Historic'},
 //   {title: 'Metropolitan Boston'},
 //   {title: 'Fossil Treck in NJ'},
@@ -29,7 +29,7 @@ let routes = [
 //   {title: 'Lower East Side NYC Historic'}
 // ]
 
-let routes2 = [];
+let routes = [];
 
 class SearchRoutes extends Component {
    constructor(props) {
@@ -51,21 +51,19 @@ class SearchRoutes extends Component {
 
   getRoutes(){
     // var keysToSearch = this.state.search.trim().split(',');
-		fetch("https://wegotoo.herokuapp.com/searchKeywords", {
-    // fetch("https://localhost:8000/searchKeywords", {
-		method: 'POST',
-		headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			keywords: this.state.search.trim().split(',')
-		})
-	}).then((response) => response.json())
-		.then((responseData) => {
-			console.log('DATA FROM SERVER', responseData);
-        for (var i = 0; i < responseData.length; i++){
-          routes2.push(responseData[i]);
+	//	fetch("https://wegotoo.herokuapp.com/searchKeywords", {
+     fetch("https://localhost:8000/searchKeywords", {
+		method: "POST",
+		headers: {"Content-Type": "application/json"},
+		body: JSON.stringify({keywords: this.state.search.trim().split(',')})
+ 	})
+  .then((response) => {
+    response.json()
+  })
+		.then((response) => {
+			console.log('DATA FROM SERVER', response);
+        for (var i = 0; i < response.length; i++){
+          routes2.push(response[i]);
         }
 			//update Asynch storage
 	 }).catch((error) => {
@@ -73,6 +71,7 @@ class SearchRoutes extends Component {
    })
 	 .done();
   }
+
 
   renderRow(rowData: string, sectionID: number, rowID: number,
     highlightedRow: (sectionID: nunber, rowID: number) => void) {
