@@ -116,7 +116,7 @@ class Main extends Component {
     return (
       <View style={styles.container}>
         <MapComponent socket={this.state.socket} eventId={this.state.eventId} username={this.state.username} initializesEvent={this.initializesEvent} routeCoordinates={this.state.routeCoordinates}/>
-        <Chat socket={this.socket} />
+        <Chat socket={this.socket} eventId={this.state.eventId}/>
         <TouchableHighlight
           style={styles.searchRoutesBtn}
           onPress={() => this.navToSearchRoutes()}>
