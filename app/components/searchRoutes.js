@@ -26,7 +26,7 @@ class SearchRoutes extends Component {
   getRoutes(){
   // var keysToSearch = this.state.search.trim().split(',');
 	//	fetch("https://wegotoo.herokuapp.com/searchKeywords", {
-     fetch("http://localhost:8000/searchKeywords", {
+    fetch("http://localhost:8000/searchKeywords", {
 		method: "POST",
 		headers: {"Content-Type": "application/json"},
 		body: JSON.stringify({keywords: this.state.search.trim().split(',')})
@@ -90,7 +90,8 @@ class SearchRoutes extends Component {
             initialListSize={1}
             dataSource={this.state.dataSource}
             renderRow={(route) => { return this.renderRow(route) }}
-            renderSeparator={this.renderSeparator}/>
+            renderSeparator={this.renderSeparator}
+            enableEmptySections={true}/>
           </View>
         </View>
       </View>
