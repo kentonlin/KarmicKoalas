@@ -80,10 +80,12 @@ app.post('/searchKeywords', (req, res) => {
                }
             })
           })
+          .catch(function(e) {
+             console.error(e); // "oh, no!"
       })
   })
 })
-
+})
 app.post('/getRouteById', (req, res) => {
   var event_id = req.body.event_id;
   console.log('getRouteByID', event_id)
@@ -105,6 +107,9 @@ app.post('/getRouteById', (req, res) => {
           res.status(200).send(data)
         })
     })
+    .catch(function(e) {
+       console.error(e); // "oh, no!"
+   })
 });
 
 app.post('/getMyEvents', (req, res) => {
@@ -142,6 +147,9 @@ app.post('/getMyEvents', (req, res) => {
           })
       })
     })
+    .catch(function(e) {
+       console.error(e); // "oh, no!"
+   })
 });
 
 app.get('/getAllUsers', (req, res) => {
@@ -155,6 +163,8 @@ app.get('/getAllUsers', (req, res) => {
           user_id: item.id
         }
         allUsers.push(obj);
+      })    .catch(function(e) {
+             console.error(e); // "oh, no!"
       })
       res.status(200).send(allUsers)
     })
@@ -194,6 +204,9 @@ app.post('/signup', (req, res) => {
           //})
       }
     })
+    .catch(function(e) {
+       console.error(e); // "oh, no!"
+    })
 });
 
 app.post('/createRoute', (req, res) => {
@@ -213,6 +226,8 @@ app.post('/createRoute', (req, res) => {
           .then((result) => {
             keyword_id = result[0].insertId
                   console.log('insert keyword into routes',input )
+          })    .catch(function(e) {
+                 console.error(e); // "oh, no!"
           })
           .then(() => {
             if (keyword_id === 0) {
@@ -223,6 +238,8 @@ app.post('/createRoute', (req, res) => {
                         console.log('insert keyword into routes',keyword_id )
                 })
             }
+          })    .catch(function(e) {
+                 console.error(e); // "oh, no!"
           })
           .then(() => {
             return db.knex.raw('INSERT INTO `keywords_routes` (`key_id`, `route`) values (' + keyword_id + ', ' + route_id + ' ) ')
@@ -235,6 +252,8 @@ app.post('/createRoute', (req, res) => {
                   }))
                 }
               })
+          })    .catch(function(e) {
+                 console.error(e); // "oh, no!"
           })
       })
     })
@@ -252,6 +271,8 @@ app.post('/createEvent', (req, res) => {
   return db.knex.raw('INSERT INTO `Events` (`title`, `host_id`, `route_id`, `time`) VALUES ("' + data.title + '",' + data.host + ',' + data.route_id + ',"' + data.time + '")')
     .then((event) => {
       event_id = event[0].insertId;
+    })    .catch(function(e) {
+           console.error(e); // "oh, no!"
     })
     .then(() => {
       participants.forEach((user_id) => {
@@ -274,6 +295,8 @@ app.post('/createEvent', (req, res) => {
               //})
           })
        })
+    })    .catch(function(e) {
+           console.error(e); // "oh, no!"
     })
     .then(() => {
       res.status(200).send('ok')
