@@ -32,15 +32,15 @@ class Chat extends Component {
     this.socket.on('tweet', (data) => {
       console.log("Chat message from server", data);
        this.setState({
-         incomingMessage: data.text
+         incomingMessage: data
        });
     });
    }
 
   handleKeyDown(e) {
     if(e.nativeEvent.key == "Enter"){
-      console.log('sending tweet', this.state.message, this.eventId)
-    this.socket.emit('tweet', {'text':this.state.message, 'eventId':this.eventId})
+      console.log('sending tweet', this.state.message, this.props.eventId)
+    this.socket.emit('tweet', {'text':this.state.message, 'eventId': this.props.eventId})
     this.state.message = "";
     }
   }
