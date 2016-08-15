@@ -50,14 +50,14 @@ io.on('connection', (socket) => {
                 userId = data.userId;
                 username = data.username;
                 joinRoom(myRoom, socket)
-                console.log('++++++intialaze client side', data)
+                console.log('+++++++intialaze client side', data, myRoom)
                 socket.join(myRoom);
                 console.log('joined')
             });
 
             socket.on('location', (data) => {
                 console.log("Incoming location with updated title:", data)
-                console.log("Incoming location:", data)
+                console.log("Incoming location:", data, myRoom)
                 data.title = username
                 io.to(data.eventId).emit('groupUpdate', data);
             });

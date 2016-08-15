@@ -115,7 +115,7 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapComponent socket={this.state.socket} username={this.state.username} initializesEvent={this.initializesEvent} routeCoordinates={this.state.routeCoordinates}/>
+        <MapComponent socket={this.state.socket} eventId={this.state.eventId} username={this.state.username} initializesEvent={this.initializesEvent} routeCoordinates={this.state.routeCoordinates}/>
         <Chat socket={this.socket}/>
         <TouchableHighlight
           style={styles.searchRoutesBtn}
