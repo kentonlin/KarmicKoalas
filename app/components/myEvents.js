@@ -29,8 +29,11 @@ class myEvents extends Component {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({user_id: this.props.userId})
     }).then((response) => response.json()).then(responseData => {
+      var data = responseData.filter(event => {
+        return new Date(event.time) > new Date();
+      });
       this.setState({
-        objectdataSource: dataSource.cloneWithRows(responseData)
+        objectdataSource: dataSource.cloneWithRows(data)
       });
     }).done();
   }
