@@ -240,7 +240,6 @@ app.post('/createRoute', (req, res) => {
 });
 
 app.post('/createEvent', (req, res) => {
-  var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
   //{title:string, host:user_id, guests:[user_id, user_id], route_id, route_id, time:time}
   //return all events for host
   var event_id;
@@ -261,6 +260,7 @@ app.post('/createEvent', (req, res) => {
                   var name = result[0][0].name
                   var user_email = result[0][0].email
                   console.log(name, user_email)
+                  var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
                   var options = {
                       to: user_email,
                       subject: 'WeGoToo Invitation',
