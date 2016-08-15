@@ -12,8 +12,9 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     this.socket = props.socket
+    this.eventId = props.eventId
     this.state = {
-      eventId: '1',//eventId: props.eventId,   //this will come from group list view and pass to server
+      eventId: props.eventId,//eventId: props.eventId,   //this will come from group list view and pass to server
       message: props.message,
       socket:props.socket,
       incomingMessage: props.incomingMessage
@@ -21,10 +22,10 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    console.log('mounted',this.state.socket)
+    console.log('mounted socket, eventid',this.state.socket, this.eventId)
     //this.state.socket = props.socket
 
-    this.socket.emit('intitialize',{eventId:this.state.eventId})
+    //this.socket.emit('intitialize',{eventId:this.state.eventId})
     console.log('intialaze client side')
 
 
@@ -38,8 +39,8 @@ class Chat extends Component {
 
   handleKeyDown(e) {
     if(e.nativeEvent.key == "Enter"){
-      console.log('sending tweet', this.state.message)
-    this.socket.emit('tweet', {text:this.state.message})
+      console.log('sending tweet', this.state.message, this.eventId)
+    this.socket.emit('tweet', {'text':this.state.message, 'eventId':this.eventId})
     this.state.message = "";
     }
   }
