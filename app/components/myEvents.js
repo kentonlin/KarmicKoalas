@@ -2,10 +2,9 @@
 // My Events Template to render views of user created views.
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, ListView, TextInput, AlertIOS, AsyncStorage } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, TouchableHighlight, ScrollView, ListView, TextInput, AlertIOS, AsyncStorage } from 'react-native';
 
 import Main from './Main';
-
 // Test Data Objects
 //TODO Get request to database for event data.
 
@@ -94,6 +93,9 @@ const styles = StyleSheet.create({
     },
     text: {
       flex: 1
+    },
+    image: {
+    //  height:
     }
 });
 

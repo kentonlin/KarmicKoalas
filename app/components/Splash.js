@@ -1,9 +1,10 @@
 'use strict'
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
 import SignUp from './SignUp'
 import Main from './Main'
+import icon from '../icons/noun_8677.png'
 
 class Splash extends Component {
 	constructor(props) {
@@ -40,6 +41,7 @@ class Splash extends Component {
   render() {
 		return (
       <View style={styles.container}>
+		 	<Image source={icon} style={styles.image}/>
 				<Text style={styles.textHeader}>
 					WeGoToo>>>>>
 				</Text>
@@ -60,7 +62,11 @@ const styles = StyleSheet.create({
       backgroundColor: 'lightblue',
       fontSize: 30,
       margin: 80
-    }
+    },
+		image: {
+			height:30,
+			width:30
+		}
 });
 
 module.exports =  Splash;
