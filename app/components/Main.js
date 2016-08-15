@@ -32,7 +32,7 @@ class Main extends Component {
     this.setEventId = this.setEventId.bind(this);
     this.initializesEvent = this.initializesEvent.bind(this);
 
-    this.socket = io('https://wegotoo.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
+    this.socket = io('http://localhost:8000',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
       routeCoordinates: [],
       userId: this.props.userId,
@@ -84,7 +84,7 @@ class Main extends Component {
   }
 
   initializesEvent(eventId){
-    console.log('Connected to Main', eventId)
+    console.log('Connected to Main', eventId, this.state.userId, this.state.username)
     this.socket.emit('initialize',{eventId: eventId, userId: this.state.userId, username: this.state.username})
   }
   playEvent(eventId){

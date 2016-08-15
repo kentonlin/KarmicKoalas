@@ -52,7 +52,7 @@ class SearchRoutes extends Component {
   getRoutes(){
     // var keysToSearch = this.state.search.trim().split(',');
 	//	fetch("https://wegotoo.herokuapp.com/searchKeywords", {
-     fetch("https://localhost:8000/searchKeywords", {
+     fetch("http://localhost:8000/searchKeywords", {
 		method: "POST",
 		headers: {"Content-Type": "application/json"},
 		body: JSON.stringify({keywords: this.state.search.trim().split(',')})

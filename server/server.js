@@ -22,9 +22,11 @@ var joinRoom = (data, socket) => {
 //  var myRoom = data.eventId;
   //check to see if user_id is matched with event_id in
   //events_participants join table
+  console.log('join room', data)
   return db.knex.raw('SELECT * FROM `events_participants` WHERE `event_id`=' + data.event_id + ' AND `user_id`= ' + data.user_id)
        .then((results) =>{
          results = results[0][0]
+         console.log('join room', results)
          if (results.length === 0){
            //not a participant in this event
          } else {
@@ -35,6 +37,7 @@ var joinRoom = (data, socket) => {
               rooms.myRoom = [];
               rooms.myRoom.push(socket)
             }
+            console.log('rooms', rooms)
         }
        return;
   })
@@ -47,15 +50,16 @@ io.on('connection', (socket) => {
                 userId = data.userId;
                 username = data.username;
                 joinRoom(myRoom, socket)
-                console.log('intialaze client side', data)
+                console.log('++++++intialaze client side', data)
                 socket.join(myRoom);
+                console.log('joined')
             });
 
             socket.on('location', (data) => {
                 console.log("Incoming location with updated title:", data)
                 console.log("Incoming location:", data)
                 data.title = username
-                io.to(myRoom).emit('groupUpdate', data);
+                io.to(data.eventId).emit('groupUpdate', data);
             });
 
             socket.on('tweet', (data) => {
