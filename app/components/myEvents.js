@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, TouchableHighlight, ScrollView, ListView, TextInput, AlertIOS, AsyncStorage } from 'react-native';
 
 import Main from './Main';
-import icon from '../icons/noun_8677.png';
 // Test Data Objects
 //TODO Get request to database for event data.
 
