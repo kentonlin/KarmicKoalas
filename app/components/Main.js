@@ -84,8 +84,9 @@ class Main extends Component {
   }
 
   initializesEvent(eventId){
-    console.log('Connected to Main', eventId, this.state.userId, this.state.username)
-    this.socket.emit('initialize',{eventId: eventId, userId: this.state.userId, username: this.state.username})
+    //console.log('Connected to Main', eventId, this.state.userId, this.state.username)
+    //this.socket.emit('initialize',{eventId: eventId, userId: this.state.userId, username: this.state.username})
+    this.socket.emit('initialize',{eventId: eventId})
   }
   playEvent(eventId){
     console.log('Event ID', eventId);
