@@ -24,24 +24,15 @@ class SearchRoutes extends Component {
   }
 
   getRoutes(){
-    // var keysToSearch = this.state.search.trim().split(',');
+  // var keysToSearch = this.state.search.trim().split(',');
 	//	fetch("https://wegotoo.herokuapp.com/searchKeywords", {
-     fetch("http://localhost:8000/searchKeywords", {
+    fetch("http://localhost:8000/searchKeywords", {
 		method: "POST",
 		headers: {"Content-Type": "application/json"},
-		body: JSON.stringify({"keywords": this.state.search.trim().split(',')})
+		body: JSON.stringify({keywords: this.state.search.trim().split(',')})
  	})
   .then((response) => response.json()).then((responseData) => {
-			console.log('DATA FROM SERVER', responseData);
-      // var data = responseData.map((route) => {
-      //   callapi(JSON.parse(route.start), (address) => {
-      //     route.start = address;
-      //   })
-      //   callapi(route.end, (address) => {
-      //     route.end = address;
-      //   })
-      //   return route;
-      // })
+  		console.log('DATA FROM SERVER', responseData);
       this.setState({
         dataSource: ds.cloneWithRows(responseData)
       });
@@ -99,7 +90,8 @@ class SearchRoutes extends Component {
             initialListSize={1}
             dataSource={this.state.dataSource}
             renderRow={(route) => { return this.renderRow(route) }}
-            renderSeparator={this.renderSeparator}/>
+            renderSeparator={this.renderSeparator}
+            enableEmptySections={true}/>
           </View>
         </View>
       </View>
