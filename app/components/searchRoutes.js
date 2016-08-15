@@ -23,35 +23,39 @@ class SearchRoutes extends Component {
   }
 
   getRoutes(){
-     var keysToSearch = this.state.search.trim().split(',');
-     fetch("http://localhost:8000/searchKeywords", {
+    // var keysToSearch = this.state.search.trim().split(',');
+	//	fetch("https://wegotoo.herokuapp.com/searchKeywords", {
+    fetch("http://localhost:8000/searchKeywords", {
 		method: "POST",
 		headers: {"Content-Type": "application/json"},
-		body: JSON.stringify({"keywords": keysToSearch})
+		body: JSON.stringify({"keywords": this.state.search.trim().split(',')})
  	})
-  .then((response) => {
-    console.log(response)
-    response.json()
-  })
-		.then((response) => {
-			console.log('DATA FROM SERVER', response);
-        for (var i = 0; i < response.length; i++){
-          routes2.push(response[i]);
-        }
-			//update Asynch storage
+  .then((response) => response.json()).then((responseData) => {
+			console.log('DATA FROM SERVER', responseData);
+      // var data = responseData.map((route) => {
+      //   callapi(JSON.parse(route.start), (address) => {
+      //     route.start = address;
+      //   })
+      //   callapi(route.end, (address) => {
+      //     route.end = address;
+      //   })
+      //   return route;
+      // })
+      this.setState({
+        dataSource: ds.cloneWithRows(responseData)
+      });
 	 }).catch((error) => {
      console.error(error);
    })
 	 .done();
   }
 
-
   renderRow(rowData: string, sectionID: number, rowID: number,
     highlightedRow: (sectionID: nunber, rowID: number) => void) {
     return (
       <TouchableOpacity style={styles.routeRow} onPress={(event) => this.handleItemClick(rowData)}>
       <View>
-        <Text style={{alignItems: 'center', padding: 3}}>{'\n'}{rowData.title}{'\n'}</Text>
+        <Text style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 10}}>{rowData.title}{'\n'}{rowData.start}{'\n'}{rowData.end}</Text>
       </View>
       </TouchableOpacity>
     );
@@ -88,7 +92,8 @@ class SearchRoutes extends Component {
             <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
           <ListView
-            initialListSize={10}
+            style={{marginTop: 2, alignSelf: 'center', padding: 7}}
+            initialListSize={1}
             dataSource={this.state.dataSource}
             renderRow={(route) => { return this.renderRow(route) }}
             renderSeparator={this.renderSeparator}/>
@@ -100,7 +105,7 @@ class SearchRoutes extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#E0DFDF'
   },
@@ -111,8 +116,9 @@ const styles = StyleSheet.create({
   },
   routeRow: {
     flex: 1,
+    alignItems: 'flex-end',
     flexDirection: "row",
-    justifyContent: "flex-start"
+    justifyContent: "center"
   },
   buttonText: {
     fontSize: 18,
