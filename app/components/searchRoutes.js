@@ -12,6 +12,8 @@ class SearchRoutes extends Component {
       keywords: '',
       dataSource: ds.cloneWithRows([])
     };
+
+    // this.getRoutes = this.getRoutes.bind(this);
   }
 
   handleItemClick(item) {
