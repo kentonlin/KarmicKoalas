@@ -23,18 +23,22 @@ class SearchRoutes extends Component {
   }
 
   getRoutes(){
-    // var keysToSearch = this.state.search.trim().split(',');
-	//	fetch("https://wegotoo.herokuapp.com/searchKeywords", {
+     var keysToSearch = this.state.search.trim().split(',');
      fetch("http://localhost:8000/searchKeywords", {
 		method: "POST",
 		headers: {"Content-Type": "application/json"},
-		body: JSON.stringify({"keywords": this.state.search.trim().split(',')})
+		body: JSON.stringify({"keywords": keysToSearch})
  	})
-  .then((response) => response.json()).then((responseData) => {
-			console.log('DATA FROM SERVER', responseData);
-        this.setState({
-          dataSource: ds.cloneWithRows(responseData)
-        });
+  .then((response) => {
+    console.log(response)
+    response.json()
+  })
+		.then((response) => {
+			console.log('DATA FROM SERVER', response);
+        for (var i = 0; i < response.length; i++){
+          routes2.push(response[i]);
+        }
+			//update Asynch storage
 	 }).catch((error) => {
      console.error(error);
    })

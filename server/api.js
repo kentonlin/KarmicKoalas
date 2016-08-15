@@ -44,7 +44,16 @@ app.post('/searchKeywords', (req, res) => {
   keywords.forEach((word) => {
     return db.knex.raw('SELECT `id` FROM `keywords` WHERE `word` = "' + word + '"')
       .then((result) => {
-        var key_id = result[0][0].id
+        if (result[0][0] === undefined){
+          //keyword not in db
+          return db.knex.raw('INSERT IGNORE INTO `keywords` (`word`) values ( "' + word + '")')
+            .then((result) => {
+              var key_id = result[0].insertId
+                    console.log('insert keyword into keywords',word )
+            })
+        } else {
+          var key_id = result[0][0].id
+        }
         console.log('key_id', key_id)
           //get id for keyword word
         return db.knex.raw('SELECT `route` FROM `keywords_routes` WHERE `key_id` = ' + key_id)
@@ -240,7 +249,6 @@ app.post('/createRoute', (req, res) => {
 });
 
 app.post('/createEvent', (req, res) => {
-  var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
   //{title:string, host:user_id, guests:[user_id, user_id], route_id, route_id, time:time}
   //return all events for host
   var event_id;
@@ -261,6 +269,7 @@ app.post('/createEvent', (req, res) => {
                   var name = result[0][0].name
                   var user_email = result[0][0].email
                   console.log(name, user_email)
+                  var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
                   var options = {
                       to: user_email,
                       subject: 'WeGoToo Invitation',
