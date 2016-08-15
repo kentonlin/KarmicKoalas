@@ -2,7 +2,8 @@
 // My Events Template to render views of user created views.
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image, TouchableHighlight, ScrollView, ListView, TextInput, AlertIOS, AsyncStorage } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight, ScrollView, ListView, TextInput, AlertIOS, AsyncStorage } from 'react-native';
+import icon from '../icons/noun_14294.png'
 
 import Main from './Main';
 // Test Data Objects
@@ -48,6 +49,7 @@ class myEvents extends Component {
     return (
       <TouchableOpacity style={styles.eventRow} onPress={() => this.goMap(rowData)}>
       <View>
+       <Image source={icon} style={styles.image}/>
         <Text>{'\n'}{rowData.title}{'\n'}{rowData.time}{'\n'}</Text>
         <View />
       </View>
@@ -98,7 +100,8 @@ const styles = StyleSheet.create({
       flex: 1
     },
     image: {
-    //  height:
+      height: 30,
+      width: 30
     }
 });
 
