@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
     chatIn: {
-    height: 40,
+    //height: 40,
     padding:10,
     backgroundColor: 'white',
     top:20,

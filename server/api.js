@@ -44,7 +44,16 @@ app.post('/searchKeywords', (req, res) => {
   keywords.forEach((word) => {
     return db.knex.raw('SELECT `id` FROM `keywords` WHERE `word` = "' + word + '"')
       .then((result) => {
-        var key_id = result[0][0].id
+        if (result[0][0] === undefined){
+          //keyword not in db
+          return db.knex.raw('INSERT IGNORE INTO `keywords` (`word`) values ( "' + word + '")')
+            .then((result) => {
+              var key_id = result[0].insertId
+                    console.log('insert keyword into keywords',word )
+            })
+        } else {
+          var key_id = result[0][0].id
+        }
         console.log('key_id', key_id)
           //get id for keyword word
         return db.knex.raw('SELECT `route` FROM `keywords_routes` WHERE `key_id` = ' + key_id)
