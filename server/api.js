@@ -1,5 +1,5 @@
 
-const nodemailer = require('nodemailer');
+const email = require('./email');
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./db/config')
@@ -255,7 +255,7 @@ app.post('/createEvent', (req, res) => {
   var participants = req.body.guests;
   participants.push(req.body.host)
   var data = req.body;
-    console.log('createEvent',data )
+  console.log('createEvent',data )
   return db.knex.raw('INSERT INTO `Events` (`title`, `host_id`, `route_id`, `time`) VALUES ("' + data.title + '",' + data.host + ',' + data.route_id + ',"' + data.time + '")')
     .then((event) => {
       event_id = event[0].insertId;
@@ -269,16 +269,8 @@ app.post('/createEvent', (req, res) => {
                   var name = result[0][0].name
                   var user_email = result[0][0].email
                   console.log(name, user_email)
-                  var transporter = nodemailer.createTransport('smptps://karmickoalas42%40gmail.com:makersquare42@smptp.gmail.com');
-                  var options = {
-                      to: user_email,
-                      subject: 'WeGoToo Invitation',
-                      html: '<b>WeGoToo!!</b><p>You have a new event. Open the app to check it out!</p>'
-                  }
-                  transporter.sendMail(options, (err, data) => {
-                      if (err) return console.error(err);
-                      console.log("Message sent:", data.response);
-                  })
+                  var message = '<b>WeGoToo!!</b><p>You have a new event. Open the app to check it out!</p>'
+                  email.sendMail(user_email, message);
               })
           })
        })
