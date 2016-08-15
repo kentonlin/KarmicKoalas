@@ -55,7 +55,7 @@ class SearchRoutes extends Component {
      fetch("http://localhost:8000/searchKeywords", {
 		method: "POST",
 		headers: {"Content-Type": "application/json"},
-		body: JSON.stringify({keywords: this.state.search.trim().split(',')})
+		body: JSON.stringify({"keywords": this.state.search.trim().split(',')})
  	})
   .then((response) => {
     response.json()

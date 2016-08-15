@@ -63,7 +63,7 @@ class MapComponent extends Component {
             prevLatLng: newLatLngs
          })
          console.log(this.props.username);
-        this.props.socket.emit('location', {'title': this.props.username, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude})
+        this.props.socket.emit('location', {'title': this.props.username, 'eventId': this.props.eventId, 'latitude': this.state.prevLatLng.latitude, 'longitude': this.state.prevLatLng.longitude})
         this.props.socket.on('groupUpdate',(data) =>  {
           console.log("Server Data", data);
           this.updateUsersArray(data)
