@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, NavigatorIOS, Text, ListView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, NavigatorIOS, Text, ListView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
 
 import createEvent from './createEvent';
+import icon from '../icons/noun_14294.png'
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -25,7 +26,7 @@ class SearchRoutes extends Component {
   getRoutes(){
     // var keysToSearch = this.state.search.trim().split(',');
 	//	fetch("https://wegotoo.herokuapp.com/searchKeywords", {
-    fetch("http://localhost:8000/searchKeywords", {
+     fetch("http://localhost:8000/searchKeywords", {
 		method: "POST",
 		headers: {"Content-Type": "application/json"},
 		body: JSON.stringify({"keywords": this.state.search.trim().split(',')})
@@ -55,7 +56,8 @@ class SearchRoutes extends Component {
     return (
       <TouchableOpacity style={styles.routeRow} onPress={(event) => this.handleItemClick(rowData)}>
       <View>
-        <Text style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 10}}>{rowData.title}{'\n'}{rowData.start}{'\n'}{rowData.end}</Text>
+       <Image style={styles.image} source={icon}/>
+       <Text style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 10}}>{rowData.title}{'\n'}{rowData.start}{'\n'}{rowData.end}</Text>
       </View>
       </TouchableOpacity>
     );
@@ -91,6 +93,7 @@ class SearchRoutes extends Component {
         <TouchableHighlight onPress={() => this.getRoutes()} style={styles.button}>
             <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
+        <View style={styles.container}>
           <ListView
             style={{marginTop: 2, alignSelf: 'center', padding: 7}}
             initialListSize={1}
@@ -98,6 +101,7 @@ class SearchRoutes extends Component {
             renderRow={(route) => { return this.renderRow(route) }}
             renderSeparator={this.renderSeparator}/>
           </View>
+        </View>
       </View>
       );
    }
@@ -132,6 +136,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     padding: 5,
     marginTop: 4
+  },
+  image: {
+    height: 20,
+    width: 20
   }
 });
 
