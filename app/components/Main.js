@@ -56,7 +56,10 @@ class Main extends Component {
   navToSearchRoutes(){
     this.props.navigator.push({
       component: searchRoutes,
-      title: "Search Routes"
+      title: "Search Routes",
+      passProps: {
+        userId: this.props.userId
+      }
     });
   }
 
