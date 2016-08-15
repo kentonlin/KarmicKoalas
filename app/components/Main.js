@@ -32,7 +32,7 @@ class Main extends Component {
     this.setEventId = this.setEventId.bind(this);
     this.initializesEvent = this.initializesEvent.bind(this);
 
-    this.socket = io('http://localhost:8000',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
+    this.socket = io('https://wegotoo.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
       routeCoordinates: [],
       userId: this.props.userId,
@@ -116,7 +116,7 @@ class Main extends Component {
     return (
       <View style={styles.container}>
         <MapComponent socket={this.state.socket} eventId={this.state.eventId} username={this.state.username} initializesEvent={this.initializesEvent} routeCoordinates={this.state.routeCoordinates}/>
-        <Chat socket={this.socket}/>
+        <Chat socket={this.socket} />
         <TouchableHighlight
           style={styles.searchRoutesBtn}
           onPress={() => this.navToSearchRoutes()}>

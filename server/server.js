@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
                 username = data.username;
                 joinRoom(myRoom, socket)
                 console.log('+++++++intialaze client side', data, myRoom)
-                socket.join(myRoom);
+                socket.join(toString(myRoom));
                 console.log('joined')
             });
 
@@ -59,12 +59,14 @@ io.on('connection', (socket) => {
                 console.log("Incoming location with updated title:", data)
                 console.log("Incoming location:", data, myRoom)
                 data.title = username
-                io.to(data.eventId).emit('groupUpdate', data);
+                myRoom = toString(data.eventId)
+                io.to(myRoom).emit('groupUpdate', data);
             });
 
             socket.on('tweet', (data) => {
                 console.log("Incoming tweet:", data)
-                io.to(myRoom).emit('tweet', data);
+                myRoom = toString(data.eventId)
+                io.to(myRoom).emit('tweet', data.text);
             });
 
             socket.on('error', (err) => {
