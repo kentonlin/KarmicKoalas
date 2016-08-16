@@ -6,6 +6,7 @@ import MapView from 'react-native-maps';
 import haversine from 'haversine'
 import pick from 'lodash/pick'
 import pin from '../icons/pin.png'
+import pin2 from '../icons/pin2.png'
 
 const { width, height } = Dimensions.get('window')
 
@@ -143,6 +144,7 @@ class MapComponent extends Component {
             />
             <MapView.Marker
               title={'Finish'}
+              image={pin2}
               coordinate={this.props.pinEnd}
             />
           <MapView.Polyline
