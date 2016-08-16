@@ -20,29 +20,21 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/getRouteFromGoogle', (req, res) => {
-  console.log('route',req.body)
+  console.log(req.body)
+
   // req.body.start = 40.8534229,-73.9793236
   // req.body.end = 40.7466059,-73.9885128
   // req.body.waypoints = latlon | latlon | ...NOT USED
-  googleApiDirections(req.body, (data) => {
+  googleApiDirections(req.body.start,req.body.end, (data) => {
     res.send(data);
   });
 });
 
-app.post('/getAddressFromGoogle', (req, res) => {
-  console.log("++++++++REQUEST.BODY++++++++++: ", req.body);
-
-  //{start:0.8534229,-73.9793236,end:40.7466059,-73.9885128}
-  // req.body.start = 40.8534229,-73.9793236
-  // req.body.end = 40.7466059,-73.9885128
-  //data:{start:address,end:address}
+app.post('/getAddressFromGoogle', (req, res, cb) => {
+  //{"start":"0.8534229,-73.9793236","end":"40.7466059,-73.9885128"}
   googleApiAddresses(req.body, (address) => {
-    console.log(address)
-    res.send(address);
+    cb(address);
   });
-  // googleApiAddresses(req.body.start, req.body.end, (data) => {
-  //   res.send(data);
-  // });
 });
 
 app.post('/searchKeywords', (req, res) => {
