@@ -46,6 +46,7 @@ class createRoute extends Component {
   }
 
   createNewPin() {
+    if(count === 2) return;
      var pin = { latlng: {latitude: regionText.latitude, longitude: regionText.longitude }, key: count};
      this.state.pins[0][pin.key] = pin;
      count++
@@ -65,14 +66,15 @@ class createRoute extends Component {
   }
 
   _onPressButtonPOST(start, end){
+    if(!start || !end) { return }
     var startCoord = start.latlng.latitude + ',' + start.latlng.longitude;
     var endCoord = end.latlng.latitude + ',' + end.latlng.longitude;
     this.setState({
       start: start.latlng,
       end: end.latlng
     });
-    console.log('send to back',JSON.stringify({start: startCoord, end: endCoord}));
-      fetch("https://localhost:8000/getRouteFromGoogle", {
+    console.log('send to back', startCoord, endCoord);
+      fetch("https://wegotoo.herokuapp.com/getRouteFromGoogle", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({start: startCoord, end: endCoord})
@@ -88,7 +90,7 @@ class createRoute extends Component {
     // {title:string, keywords:[],start:{}, end:{}, routeObject:[]}
     var keywordsArr = this.traceKeywordsString(keywords);
     if(this.state.title && keywordsArr.length && this.state.routeCoordinates.length) {
-      fetch("http://localhost:8000/createRoute", {
+      fetch("https://wegotoo.herokuapp.com/createRoute", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({title:title, keywords:keywordsArr,start:start, end:end, routeObject:routeObject})

@@ -36,10 +36,18 @@ class Main extends Component {
     this.state = {
       routeCoordinates: [],
       start: {
+        longitudeDelta: 0.2574920897512953,
+        latitude: 40.72530277772641,
+        longitude: -73.92195948302341,
+        latitudeDelta: 0.3286146645283381
+      },
+      pinStart: {
         latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0,
-        longitudeDelta: 0
+        longitude: 0
+      },
+      pinEnd: {
+        latitude: 0,
+        longitude: 0
       },
       userId: this.props.userId,
       username: this.props.username,
@@ -104,23 +112,31 @@ class Main extends Component {
     this.socket.emit('initialize',{eventId: eventId})
   }
   playEvent(eventId){
+    //this.setState({ points: [] });
     console.log('Event ID', eventId);
-     fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventId})})
+     fetch("https://wegotoo.herokuapp.com/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventId})})
      .then((response) => response.json())
      .then((responseData) => {
-       console.log('SERVER', JSON.parse(responseData.start));
+
+       //console.log('SERVER', JSON.parse(responseData.start));
        var parseStart = JSON.parse(responseData.start);
+       var parseEnd = JSON.parse(responseData.end);
+      // parseStart['title'] = 'start';
+      // console.log('start object',parseStart );
+      // var pointsArr = this.state.points.push(parseStart)
        var newStart = {
          latitude: parseStart.latitude,
          longitude: parseStart.longitude,
-         latitudeDelta: 0.020300188024080512,
-         longitudeDelta: 0.016093256407543777
+         latitudeDelta: 0.008471502763114813,
+         longitudeDelta: 0.010554364489337331
        }
        this.setState({
          routeCoordinates: JSON.parse(responseData.route_object),
-         start: newStart
+         start: newStart,
+         pinStart: { latitude: parseStart.latitude, longitude: parseStart.longitude},
+         pinEnd: { latitude: parseEnd.latitude, longitude: parseEnd.longitude}
        });
-       console.log('New Start',this.state.start)
+      // console.log('New Start',this.state.start)
        this.initializesEvent(eventId);
      })
      .done();
@@ -142,7 +158,7 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapComponent informParent={(e)=>this.setState({start: e })} socket={this.state.socket} eventId={this.state.eventId} username={this.state.username} initializesEvent={this.initializesEvent} routeCoordinates={this.state.routeCoordinates} start={this.state.start}/>
+        <MapComponent informParent={(e)=>this.setState({start: e })} pinStart={this.state.pinStart} pinEnd={this.state.pinEnd} socket={this.state.socket} eventId={this.state.eventId} username={this.state.username} initializesEvent={this.initializesEvent} routeCoordinates={this.state.routeCoordinates} start={this.state.start}/>
         <Chat socket={this.socket} eventId={this.state.eventId}/>
         <TouchableHighlight
           style={styles.searchRoutesBtn}
