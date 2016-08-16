@@ -124,7 +124,7 @@ app.post('/getRouteById', (req, res) => {
 });
 
 app.post('/getMyEvents', (req, res) => {
-  var myEvents = []
+  var myEvents = [], obj;
     //returns all events for a user.. should filter for time < current Time
     // returns [ { event_id : {title, time, startAddres, endAddress}},{ event_id : {title, time, startAddres, endAddress}}….]
   var user_id = req.body.user_id;
@@ -142,23 +142,26 @@ app.post('/getMyEvents', (req, res) => {
             event = event[0][0];
             console.log('getMyEvents', event)
             //compile object with data on event
-            var obj = {
+            obj = {
                 title: event.title,
                 time: event.time,
                 event_id: event.id
               }
-              //  return  db.knex.raw('SELECT `start` FROM `Routes` WHERE `id` = ' + event[0].route_id )
-              //     .then((route) => {
-              //         console.log('route',route)
-              //       obj.start = route[0].start;
-              //       obj.end = route[0].end;
-              //     })
-              //  console.log(obj)
-            myEvents.push(obj);
-            console.log('getMyEvents', myEvents)
-            if (myEvents.length === events[0].length) {
-              res.status(200).send(myEvents)
-            }
+              //console.log('obj', obj)
+             return  db.knex.raw('SELECT `start_address`, `end_address` FROM `Routes` WHERE `id` = ' + event.route_id )
+            .then((route) => {
+              //  console.log('route',route[0][0])
+              obj.start_address = route[0][0].start_address;
+              obj.end_address = route[0][0].end_address;
+              //console.log('moreobj', obj)
+              myEvents.push(obj);
+              console.log('getMyEvents', myEvents)
+              if (myEvents.length === events[0].length) {
+                res.status(200).send(myEvents)
+              }
+            })
+            //console.log(obj)
+
           })
       })
     })
