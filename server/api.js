@@ -14,22 +14,35 @@ const routeController = require('./db/controllers/routeController');
 const eventController = require('./db/controllers/eventController');
 const mysql = require('mysql');
 const googleApiDirections = require('./googleApiDirections');
+const googleApiAddresses = require('./googleApiAddresses');
 const app = express();
 
 app.use(bodyParser.json());
 
 app.post('/getRouteFromGoogle', (req, res) => {
+  console.log('route',req.body)
   // req.body.start = 40.8534229,-73.9793236
   // req.body.end = 40.7466059,-73.9885128
   // req.body.waypoints = latlon | latlon | ...NOT USED
-  googleApiDirections(req.body.start, req.body.end, (data) => {
+  googleApiDirections(req.body, (data) => {
     res.send(data);
   });
 });
 
-app.post('/getAddressFromLoc', (req, res) => {
-  // req.body.loc = 40.8534229,-73.9793236
+app.post('/getAddressFromGoogle', (req, res) => {
+  console.log("++++++++REQUEST.BODY++++++++++: ", req.body);
 
+  //{start:0.8534229,-73.9793236,end:40.7466059,-73.9885128}
+  // req.body.start = 40.8534229,-73.9793236
+  // req.body.end = 40.7466059,-73.9885128
+  //data:{start:address,end:address}
+  googleApiAddresses(req.body, (address) => {
+    console.log(address)
+    res.send(address);
+  });
+  // googleApiAddresses(req.body.start, req.body.end, (data) => {
+  //   res.send(data);
+  // });
 });
 
 app.post('/searchKeywords', (req, res) => {
