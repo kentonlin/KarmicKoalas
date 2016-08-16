@@ -45,8 +45,8 @@ class SearchRoutes extends Component {
     return (
       <TouchableOpacity style={styles.routeRow} onPress={(event) => this.handleItemClick(rowData)}>
       <View>
-       <Image style={styles.image} source={icon}/>
-       <Text style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 10}}>{rowData.title}{'\n'}Start:{rowData.start_address}{'\n'}End:{rowData.end_address}</Text>
+
+       <Text style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 10}}><Image style={styles.image} source={icon}/>{rowData.title}{'\n'}Start:{rowData.start_address}{'\n'}End:{rowData.end_address}</Text>
       </View>
       </TouchableOpacity>
     );
