@@ -1,59 +1,29 @@
-// var http = require("https");
-//
-//
-// var options = {
-//   "method": "GET",
-//   "hostname": "maps.googleapis.com",
-//   "port": null,
-//   "path": "/maps/api/geocode/json?latlng=40.714224%2C-73.961452&key=AIzaSyDPR_rluVMdgqvM4JBorRSJa3Q2Mo_rUXU",
-//   "headers": {
-//     "content-type": "application/json",
-//     "cache-control": "no-cache",
-//     "postman-token": "b71c4aae-9293-7afb-211f-1225c3314573"
-//   }
-// };
-//
-// var req = http.request(options, function (res) {
-//   var chunks = [];
-//
-//   res.on("data", function (chunk) {
-//     chunks.push(chunk);
-//   });
-//
-//   res.on("end", function () {
-//     var body = Buffer.concat(chunks);
-//     console.log(body.toString());
-//   });
-// });
-
-
-
-
-
-
-
-
-
-
 var http = require("https");
 
 //https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyDPR_rluVMdgqvM4JBorRSJa3Q2Mo_rUXU
 
-// const getAddress = (start, end, callback) => {
-//    var StartAddress = getLoc(start)
-//    console.log("startAddress:", StartAddress);
-//    var EndAddress = getLoc(end)
-//    callback({start:StartAddress, end:EndAddress})
-//  }
- function getAddress(loc, cb){
-   console.log('getloc', loc)
-   var locString = loc.split(",").join("%2C")
-   console.log(locString);
+var getAddress = (data, cb) => {
+  var start = "'" + data.start + "'";
+  var end = "'" + data.end + "'";
+  console.log("++++++ START LATLNG +++++++: ", start);
+  //console.log("\n++++++ END LATLNG +++++++: ", end);
+  var StartAddress = getAddressFromLoc(start);
+  console.log("startAddress:", StartAddress);
+  // var EndAddress = getAddressFromLoc(data.end);
+  // console.log("++++++++++++ END ADDRESS ++++++++: ", EndAddress);
+
+  // cb({start:StartAddress, end:EndAddress});
+ }
+
+ function getAddressFromLoc(latLong){
+   console.log('++++++++ LatLong +++++++: ', latLong);
+   var llString = JSON.stringify(latLong.split(","));
+   console.log('++++++++ ADDRESS STRING +++++++: ', llString);
    var options = {
             "method": "GET",
-            "hostname": "maps.googleapis.com",
+            "hostname": "https://maps.googleapis.com",
             "port": null,
-            "path": "/maps/api/geocode/json?latlng=" + loc + "&key=AIzaSyDPR_rluVMdgqvM4JBorRSJa3Q2Mo_rUXU",
+            "path": "/maps/api/geocode/json?latlng=" + llString + "&key=AIzaSyDPR_rluVMdgqvM4JBorRSJa3Q2Mo_rUXU",
             "headers": {
               "content-type": "application/json",
               "cache-control": "no-cache",
@@ -89,7 +59,7 @@ var http = require("https");
           // console.log(json.routes[0].legs[0]);
           console.log("+++++json++++++++: ", json.results);
           // console.log("formatted address:", json.formatted_address);
-          cb("++++++++++ JSON.RESULTS[0] +++++++++++: ", json.results[0].formatted_address);
+          cb(json.results[0].formatted_address);
         });
       });
 
