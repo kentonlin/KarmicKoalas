@@ -87,9 +87,9 @@ var http = require("https");
           //   })
           // })
           // console.log(json.routes[0].legs[0]);
-          console.log("json:", json.results);
+          console.log("+++++json++++++++: ", json.results);
           // console.log("formatted address:", json.formatted_address);
-          cb(json.results[0].formatted_address);
+          cb("++++++++++ JSON.RESULTS[0] +++++++++++: ", json.results[0].formatted_address);
         });
       });
 
