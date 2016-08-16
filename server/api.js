@@ -30,12 +30,12 @@ app.post('/getRouteFromGoogle', (req, res) => {
   });
 });
 
-app.post('/getAddressFromGoogle', (req, res, cb) => {
-  //{"start":"0.8534229,-73.9793236","end":"40.7466059,-73.9885128"}
-  googleApiAddresses(req.body, (address) => {
-    cb(address);
-  });
-});
+// app.post('/getAddressFromGoogle', (req, res, cb) => {
+//   //{"start":"0.8534229,-73.9793236","end":"40.7466059,-73.9885128"}
+//   googleApiAddresses(req.body, (address) => {
+//     cb(address);
+//   });
+// });
 
 app.post('/searchKeywords', (req, res) => {
   var routeIdList = [];
@@ -223,6 +223,11 @@ app.post('/createRoute', (req, res) => {
   var keywords = req.body.keywords
         console.log('insert keyword into routes',keywords )
     //var addWords = helpers.generateKeywords(req.body)
+    googleApiAddresses(req.body.start, req.body.end, (address) => {
+    console.log(address);
+    var data = req.body;
+    data.startAddress = address.start
+    data.endAddress = address.end
     //add route object to route table
   routeController.createRoute(req.body)
     .then((input) => {
@@ -258,6 +263,7 @@ app.post('/createRoute', (req, res) => {
           })
       })
     })
+  })
 });
 
 app.post('/createEvent', (req, res) => {
