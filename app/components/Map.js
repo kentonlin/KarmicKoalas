@@ -5,6 +5,7 @@ import { StyleSheet, View, Text, TextInput, Dimensions, StatusBarIOS, TouchableH
 import MapView from 'react-native-maps';
 import haversine from 'haversine'
 import pick from 'lodash/pick'
+import pin from '../icons/pin.png'
 
 const { width, height } = Dimensions.get('window')
 
@@ -46,6 +47,7 @@ class MapComponent extends Component {
       this.watchID = navigator.geolocation.watchPosition(
         (position) => {
         console.log(position);
+        console.log('PIN START', this.props.pinStart)
         const { routeCoordinates, distanceTravelled } = this.state
         const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude }
         const positionLatLngs = pick(position.coords, ['latitude', 'longitude'])
@@ -134,6 +136,15 @@ class MapComponent extends Component {
               coordinate={{latitude: user.latitude, longitude:user.longitude}}
             />
           ))}
+            <MapView.Marker
+              title={'Start'}
+              image={pin}
+              coordinate={this.props.pinStart}
+            />
+            <MapView.Marker
+              title={'Finish'}
+              coordinate={this.props.pinEnd}
+            />
           <MapView.Polyline
            coordinates={this.props.routeCoordinates}
            strokeColor="rgba(0,0,200,0.5)"

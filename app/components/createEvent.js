@@ -88,19 +88,19 @@ class createEvent extends Component {
           }
         });
       });
-      var body = {
+      var data = {
         title: this.state.title,
         host: this.props.userId,
         guests: guestIds,
         route_id: this.props.routeID,
         time: this.state.date
       }
-      console.log('Data to the server', body.guests);
+      //console.log('Data to the server', data.guests);
       fetch("https://wegotoo.herokuapp.com/createEvent", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(body)
-      }).then((responseData) => {
+        body: JSON.stringify(data)
+      }).then((response) => response.json()).then((responseData) => {
         console.log('createEvent -- SERVER', responseData)
         //this.setState({routeCoordinates: responseData});
         this.props.navigator.push({
