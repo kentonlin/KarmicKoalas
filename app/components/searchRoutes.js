@@ -31,8 +31,17 @@ class SearchRoutes extends Component {
 		headers: {"Content-Type": "application/json"},
 		body: JSON.stringify({keywords: this.state.search.trim().split(',')})
  	})
-  .then((response) => response.json()).then((responseData) => {
-  		console.log('DATA FROM SERVER', responseData);
+  .then((response) => response.json()).then((routes) => {
+  		console.log('DATA FROM SERVER', routes);
+      routes.forEach((route) => {
+        fetch("http://localhost:8000/getAddressFromLoc", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({loc: route.start})
+        }).then((address) => {
+          console.log("getRoutes address:", address);
+        })
+      })
       this.setState({
         dataSource: ds.cloneWithRows(responseData)
       });
