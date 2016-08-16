@@ -58,7 +58,7 @@ class SearchRoutes extends Component {
         key={`${sectionID}-${rowID}`}
         style={{
           height: adjacentRowHighlighted ? 4 : 1,
-          backgroundColor: adjacentRowHighlighted ? '#E0DFDF' : '#073AD2',
+          backgroundColor: adjacentRowHighlighted ? '#073AD2' : '#E0DFDF',
         }}
       />
     );
