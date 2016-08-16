@@ -71,8 +71,8 @@ class createRoute extends Component {
       start: start.latlng,
       end: end.latlng
     });
-    console.log('send to back', startCoord, endCoord);
-      fetch("http://localhost:8000/getRouteFromGoogle", {
+    console.log('send to back',JSON.stringify({start: startCoord, end: endCoord}));
+      fetch("https://localhost:8000/getRouteFromGoogle", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({start: startCoord, end: endCoord})
