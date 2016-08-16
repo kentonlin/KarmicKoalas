@@ -24,7 +24,7 @@ class myEvents extends Component {
   }
 
   componentDidMount(){
-    fetch("https://wegotoo.herokuapp.com/getMyEvents", {
+    fetch("http://localhost:8000/getMyEvents", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({user_id: this.props.userId})
@@ -50,7 +50,7 @@ class myEvents extends Component {
       <TouchableOpacity style={styles.eventRow} onPress={() => this.goMap(rowData)}>
       <View>
        <Image source={icon} style={styles.image}/>
-        <Text>{'\n'}{rowData.title}{'\n'}{rowData.time}{'\n'}</Text>
+        <Text>{'\n'}{rowData.title}{'\n'}Start:{rowData.start_address}  End:{rowData.end_address}{'\n'}{rowData.time}{'\n'}</Text>
         <View />
       </View>
       </TouchableOpacity>
