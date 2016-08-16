@@ -11,10 +11,10 @@ class createEvent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: this.props.id,
+      id: props.id,
       title: "",
-      route: this.props.route,
-      keyWords: this.props.keyWords,
+      route: props.route,
+      keyWords: props.keyWords,
       guests: "",
       contact_suggestions: [],
       contacts: [],
