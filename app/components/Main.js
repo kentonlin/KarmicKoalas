@@ -35,6 +35,12 @@ class Main extends Component {
     this.socket = io('https://wegotoo.herokuapp.com',  {jsonp: false, transports:['websocket'], allowUpgrades:true});
     this.state = {
       routeCoordinates: [],
+      start: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0,
+        longitudeDelta: 0
+      },
       userId: this.props.userId,
       username: this.props.username,
       eventId: '1',//eventId: props.eventId,   //this will come from group list view and pass to server
@@ -85,6 +91,12 @@ class Main extends Component {
       }
     });
   }
+  onRegionChangeComplete(e) {
+    console.log(e);
+    this.setState({
+        start: e
+     })
+  }
 
   initializesEvent(eventId){
     //console.log('Connected to Main', eventId, this.state.userId, this.state.username)
@@ -96,8 +108,19 @@ class Main extends Component {
      fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventId})})
      .then((response) => response.json())
      .then((responseData) => {
-       console.log('SERVER', responseData);
-       this.setState({routeCoordinates: JSON.parse(responseData.route_object)});
+       console.log('SERVER', JSON.parse(responseData.start));
+       var parseStart = JSON.parse(responseData.start);
+       var newStart = {
+         latitude: parseStart.latitude,
+         longitude: parseStart.longitude,
+         latitudeDelta: 0.020300188024080512,
+         longitudeDelta: 0.016093256407543777
+       }
+       this.setState({
+         routeCoordinates: JSON.parse(responseData.route_object),
+         start: newStart
+       });
+       console.log('New Start',this.state.start)
        this.initializesEvent(eventId);
      })
      .done();
@@ -119,7 +142,7 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapComponent socket={this.state.socket} eventId={this.state.eventId} username={this.state.username} initializesEvent={this.initializesEvent} routeCoordinates={this.state.routeCoordinates}/>
+        <MapComponent informParent={(e)=>this.setState({start: e })} socket={this.state.socket} eventId={this.state.eventId} username={this.state.username} initializesEvent={this.initializesEvent} routeCoordinates={this.state.routeCoordinates} start={this.state.start}/>
         <Chat socket={this.socket} eventId={this.state.eventId}/>
         <TouchableHighlight
           style={styles.searchRoutesBtn}

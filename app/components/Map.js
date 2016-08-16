@@ -18,12 +18,7 @@ class MapComponent extends Component {
       distanceTravelled: 0,
       prevLatLng: {},
       users: [],
-      region: {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0.020300188024080512,
-        longitudeDelta: 0.016093256407543777
-      },
+      region: this.props.start,
       toggle: false,
       test: [{title: "TEST", latitude: 37.55992988, longitude: -122.3826562}],
       route: [{latitude: 37.33756603, longitude: -122.02681114}, {latitude: 37.34756603, longitude: -122.02581114}],
@@ -33,8 +28,10 @@ class MapComponent extends Component {
   }
 
   componentDidMount() {
-  //  console.log('MAP EVENT', this.props.event)
     //  this.playEvent(this.props.eventId);
+      // this.setState({
+      //     region: this.props.start
+      //  })
       navigator.geolocation.getCurrentPosition(
         (position) => {
           console.log("CURRENT POSITION", position);
@@ -117,9 +114,7 @@ class MapComponent extends Component {
   }
   onRegionChangeComplete(e) {
     console.log(e);
-    this.setState({
-        region: e
-     })
+    this.props.informParent(e)
   }
 
   render() {
@@ -127,7 +122,7 @@ class MapComponent extends Component {
         <View style={styles.container}>
           <MapView
             style={styles.map}
-            region={this.state.region}
+            region={this.props.start}
             showsUserLocation={true}
             followUserLocation={false}
             onRegionChangeComplete={this.onRegionChangeComplete}
