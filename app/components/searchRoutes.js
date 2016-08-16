@@ -31,11 +31,10 @@ class SearchRoutes extends Component {
 		headers: {"Content-Type": "application/json"},
 		body: JSON.stringify({keywords: this.state.search.trim().split(',')})
  	})
-  .then((response) => response.json()).then((routes) => {
-  		console.log('DATA FROM SERVER', routes);
-      })
+  .then((response) => response.json()).then((responseData) => {
+  		console.log('DATA FROM SERVER', responseData);
       this.setState({
-        dataSource: ds.cloneWithRows(response)
+        dataSource: ds.cloneWithRows(responseData)
       });
 	 }).catch((error) => {
      console.error(error);
