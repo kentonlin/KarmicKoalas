@@ -268,18 +268,30 @@ app.post('/createEvent', (req, res) => {
       event_id = event[0].insertId;
     })
     .then(() => {
+      var insertData = '';
+      var idlist = '(';
       participants.forEach((user_id) => {
-        return db.knex.raw('INSERT INTO `events_participants` (`event_id`, `user_id`) VALUES (' + event_id + ', ' + user_id + ' )')
-          .then((result) => {
-    //           return db.knex.raw('SELECT `email`, `name` FROM  `Users` WHERE `id` = "' + user_id + '"')
-    //             .then((result) => {
-    //               var name = result[0][0].name
-    //               var user_email = result[0][0].email
-    //               console.log(name, user_email)
-    //               var message = '<b>WeGoToo!!</b><p>You have a new event. Open the app to check it out!</p>'
-    //               email.sendMail(user_email, message);
-    //           })
-          })
+        insertData += '(' + event_id + ', ' + user_id + ' ), '
+        idlist += user_id + ', ';
+      })
+      idlist = idlist.slice(0,-2)
+      idlist = idlist += ')';
+      insertData = insertData.slice(0, -2)
+      insertData += ';'
+      return db.knex.raw('INSERT INTO `events_participants` (`event_id`, `user_id`) VALUES ' + insertData  )
+      .then((result) => {
+         return db.knex.raw('SELECT `email` FROM `Users` WHERE `id` IN ' + idlist)
+         .then((emails) => {
+           //compile list of emails in format for nodemailer
+           var user_emails = '';
+           emails[0].forEach((email) =>{
+             console.log(email.email)
+             user_emails += email.email + ', '
+           })
+           user_emails.slice(0,-2)
+           var message = '<b>WeGoToo!!</b><p>You have a new event. Open the app to check it out!</p>'
+           email.sendMail(user_emails, message);
+         })
         })
      })
     .then(() => {
