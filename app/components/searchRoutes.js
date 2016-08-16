@@ -24,8 +24,7 @@ class SearchRoutes extends Component {
   }
 
   getRoutes(){
-	//	fetch("https://wegotoo.herokuapp.com/searchKeywords", {
-    fetch("https://wegotoo.herokuapp.com/searchKeywords", {
+    fetch("http://localhost:8000/searchKeywords", {
 		method: "POST",
 		headers: {"Content-Type": "application/json"},
 		body: JSON.stringify({keywords: this.state.search.trim().split(',')})
@@ -47,7 +46,7 @@ class SearchRoutes extends Component {
       <TouchableOpacity style={styles.routeRow} onPress={(event) => this.handleItemClick(rowData)}>
       <View>
        <Image style={styles.image} source={icon}/>
-       <Text style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 10}}>{rowData.title}{'\n'}{rowData.start}{'\n'}{rowData.end}</Text>
+       <Text style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 10}}>{rowData.title}{'\n'}Start:{rowData.start_address}{'\n'}End:{rowData.end_address}</Text>
       </View>
       </TouchableOpacity>
     );
