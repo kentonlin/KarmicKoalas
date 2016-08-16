@@ -16,7 +16,7 @@ class MapComponent extends Component {
     super(props);
 
     this.state = {
-      routeCoordinates: this.props.routeCoordinates,
+      routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
       users: [],
@@ -153,6 +153,12 @@ class MapComponent extends Component {
            strokeWidth={3}
            lineDashPattern={[5, 2, 3, 2]}
          />
+         <MapView.Polyline
+          coordinates={this.state.routeCoordinates}
+          strokeColor="rgba(0,0,200,0.5)"
+          strokeWidth={3}
+          lineDashPattern={[5, 2, 3, 2]}
+        />
           </MapView>
         <TouchableHighlight
           style={styles.button}
