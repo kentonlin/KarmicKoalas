@@ -18,7 +18,7 @@ class SignUp extends Component {
   signUp(){
 		console.log('name: '+ this.state.name + '\nemail: '+ this.state.email + '\nusername: '+ this.state.username + '\npassword: '+ this.state.password);
 
-				fetch("http://localhost:8000/signup", {
+				fetch("https://wegotoo.herokuapp.com/signup", {
 				method: 'POST',
 				headers: {
 						'Accept': 'application/json',

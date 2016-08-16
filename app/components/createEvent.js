@@ -27,7 +27,7 @@ class createEvent extends Component {
   }
 
   componentDidMount(){
-    fetch("http://localhost:8000/getAllUsers", {
+    fetch("https://wegotoo.herokuapp.com/getAllUsers", {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
     }).then((response) => response.json()).then(responseData => {
@@ -96,7 +96,7 @@ class createEvent extends Component {
         time: this.state.date
       }
       console.log('Data to the server', body.guests);
-      fetch("http://localhost:8000/createEvent", {
+      fetch("https://wegotoo.herokuapp.com/createEvent", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(body)

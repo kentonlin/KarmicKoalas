@@ -105,7 +105,7 @@ class Main extends Component {
   }
   playEvent(eventId){
     console.log('Event ID', eventId);
-     fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventId})})
+     fetch("https://wegotoo.herokuapp.com/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventId})})
      .then((response) => response.json())
      .then((responseData) => {
        console.log('SERVER', JSON.parse(responseData.start));
