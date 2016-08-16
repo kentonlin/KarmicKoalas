@@ -73,14 +73,16 @@ app.post('/searchKeywords', (req, res) => {
                    routeIdList.push(route_id)
                    count ++;
                    console.log('routeIdList', routeIdList, count)
-                   return db.knex.raw('SELECT `title`,`start`,`end`,`id`,`points_of_interest`  FROM `Routes` WHERE `id` = ' + route_id)
+                   return db.knex.raw('SELECT `title`,`start`,`end`,`id`,`points_of_interest`,`start_address`, `end_address`  FROM `Routes` WHERE `id` = ' + route_id)
                     .then((routeInfo) => {
                       console.log('get route_info', routeInfo[0][0])
                       var routeInfo = routeInfo[0][0]
                       var data = {
                         title: routeInfo.title,
                         start: routeInfo.start,
+                        start_address: routeInfo.start_address,
                         end: routeInfo.end,
+                        end_address: routeInfo.end_address,
                         points_of_interest: routeInfo.points_of_interest,
                         id:routeInfo.id
                       }
