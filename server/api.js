@@ -267,21 +267,21 @@ app.post('/createEvent', (req, res) => {
     .then((event) => {
       event_id = event[0].insertId;
     })
-    .then(() => {
-      participants.forEach((user_id) => {
-        return db.knex.raw('INSERT INTO `events_participants` (`event_id`, `user_id`) VALUES (' + event_id + ', ' + user_id + ' )')
-          .then((result) => {
-              return db.knex.raw('SELECT `email`, `name` FROM  `Users` WHERE `id` = "' + user_id + '"')
-                .then((result) => {
-                  var name = result[0][0].name
-                  var user_email = result[0][0].email
-                  console.log(name, user_email)
-                  var message = '<b>WeGoToo!!</b><p>You have a new event. Open the app to check it out!</p>'
-                  email.sendMail(user_email, message);
-              })
-          })
-       })
-    })
+    // .then(() => {
+    //   participants.forEach((user_id) => {
+    //     return db.knex.raw('INSERT INTO `events_participants` (`event_id`, `user_id`) VALUES (' + event_id + ', ' + user_id + ' )')
+    //       .then((result) => {
+    //           return db.knex.raw('SELECT `email`, `name` FROM  `Users` WHERE `id` = "' + user_id + '"')
+    //             .then((result) => {
+    //               var name = result[0][0].name
+    //               var user_email = result[0][0].email
+    //               console.log(name, user_email)
+    //               var message = '<b>WeGoToo!!</b><p>You have a new event. Open the app to check it out!</p>'
+    //               email.sendMail(user_email, message);
+    //           })
+    //       })
+    //    })
+    // })
     .then(() => {
       res.status(200).send(JSON.stringify({
         'create_event': 'ok'
