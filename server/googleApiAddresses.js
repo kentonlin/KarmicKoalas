@@ -4,73 +4,55 @@ var http = require("https");
 
 var getAddress = (data, cb) => {
   var start = data.start;
-  var end = "'" + data.end + "'";
-  console.log("++++++ START LATLNG +++++++: ", start);
-  //console.log("\n++++++ END LATLNG +++++++: ", end);
-  var StartAddress = getAddressFromLoc(start);
-  console.log("startAddress:", StartAddress);
-  // var EndAddress = getAddressFromLoc(data.end);
-  // console.log("++++++++++++ END ADDRESS ++++++++: ", EndAddress);
+  var end = data.end;
+  var results = {};
+    getAddressFromLoc(start, (result)=>{
+      result = JSON.parse(result)
+      var Address = result['results'][0]['formatted_address']
+      results.start = Address
+      console.log(results)
 
-  // cb({start:StartAddress, end:EndAddress});
- }
+     getAddressFromLoc(end, (result)=>{
+      result = JSON.parse(result)
+      var Address = result['results'][0]['formatted_address']
+      results.end = Address
+      console.log(results)
+      cb(results)
+     })
+   })
+};
 
- function getAddressFromLoc(latLongStr){
-   console.log('++++++++ LATLONGSTR +++++++: ', latLongStr);
 
-   var options = {
-      "method": "GET",
-      "hostname": "https://maps.googleapis.com",
-      "port": null,
-      "path": "/maps/api/geocode/json?latlng=" + latLongStr + "&key=AIzaSyDPR_rluVMdgqvM4JBorRSJa3Q2Mo_rUXU",
-      "headers": {
-        "content-type": "application/json",
-        "cache-control": "no-cache",
-        "postman-token": "2a345e43-8982-8909-5e33-b51770a63de2"
-      }
-    };
+function getAddressFromLoc(latLongStr, callback){
+  var http = require("https");
 
-    console.log("+++ API STRING: " + hostname + path);
+  var options = {
+    "method": "POST",
+    "hostname": "maps.googleapis.com",
+    "port": null,
+    "path": "/maps/api/geocode/json?latlng="+ latLongStr +"&key=AIzaSyDPR_rluVMdgqvM4JBorRSJa3Q2Mo_rUXU",
+    "headers": {
+      "content-type": "application/json",
+      "cache-control": "no-cache",
+      "postman-token": "53b1198e-8977-f90d-3293-c4e302516eb3"
+    }
+  };
 
-    /*  var req = http.request(options, function (res) {
-        console.log("++++++ RESPONSE +++++++: ", res);
-        var chunks = [];
-        var body = "";
+  var req = http.request(options, function (res) {
+    var chunks = [];
 
-        res.on("data", function (chunk) {
-          console.log("++++++ IN RESPONSE - CHUNKS ++++++++");
-          chunks.push(chunk);
-        });
+    res.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
 
-        res.on("end", function () {
-          console.log("++++++ IN RESPONSE - END ++++++++");
-          body += Buffer.concat(chunks);
-          //  console.log("body.toString:", body.toString());
-          var result = [];
-          var json = JSON.parse(body);
-          console.log("+++++++ BODY ++++++++: ", body);
-          console.log("+++++++ JSON AFTER PARSE ++++++++: ", json);
-          // result = body.formattedAddress
-          // result.push({
-          //   latitude: json.routes[0].legs[0].start_location.lat,
-          //   longitude: json.routes[0].legs[0].start_location.lng
-          // });
-          // // json.routes[0].legs[0].start_location
-          // json.routes[0].legs[0].steps.forEach(function(step){
-          //   result.push({
-          //     latitude: step.end_location.lat,
-          //     longitude: step.end_location.lng
-          //   })
-          // })
-          // console.log(json.routes[0].legs[0]);
-          //console.log("+++++json++++++++: ", json.results);
-          // console.log("formatted address:", json.formatted_address);
-          //cb(json.results[0].formatted_address);
-        });
-      });
+    res.on("end", function () {
+      var body = Buffer.concat(chunks);
+      //console.log(body.toString());
+      callback(body.toString())
+    });
+  });
 
-  //  req.write("{\n    \"userId\": 1,\n    \"data\": {\n        \"routes\": \"[1,2,3]\"\n    }\n}");
-    req.end();
-    */
-}
-module.exports = getAddress;
+  req.end();
+    }
+
+  module.exports = getAddress;

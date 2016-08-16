@@ -20,6 +20,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/getRouteFromGoogle', (req, res) => {
+  console.log('route',req.body)
   // req.body.start = 40.8534229,-73.9793236
   // req.body.end = 40.7466059,-73.9885128
   // req.body.waypoints = latlon | latlon | ...NOT USED
@@ -30,11 +31,13 @@ app.post('/getRouteFromGoogle', (req, res) => {
 
 app.post('/getAddressFromGoogle', (req, res) => {
   console.log("++++++++REQUEST.BODY++++++++++: ", req.body);
+
   //{start:0.8534229,-73.9793236,end:40.7466059,-73.9885128}
   // req.body.start = 40.8534229,-73.9793236
   // req.body.end = 40.7466059,-73.9885128
   //data:{start:address,end:address}
   googleApiAddresses(req.body, (address) => {
+    console.log(address)
     res.send(address);
   });
   // googleApiAddresses(req.body.start, req.body.end, (data) => {
