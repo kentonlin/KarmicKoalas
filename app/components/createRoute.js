@@ -46,6 +46,7 @@ class createRoute extends Component {
   }
 
   createNewPin() {
+    if(count === 2) return;
      var pin = { latlng: {latitude: regionText.latitude, longitude: regionText.longitude }, key: count};
      this.state.pins[0][pin.key] = pin;
      count++
@@ -65,6 +66,7 @@ class createRoute extends Component {
   }
 
   _onPressButtonPOST(start, end){
+    if(!start || !end) { return }
     var startCoord = start.latlng.latitude + ',' + start.latlng.longitude;
     var endCoord = end.latlng.latitude + ',' + end.latlng.longitude;
     this.setState({
