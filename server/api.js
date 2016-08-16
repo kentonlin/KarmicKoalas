@@ -20,7 +20,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/getRouteFromGoogle', (req, res) => {
-  console.log(req.body)
+  //console.log(req.body)
 
   // req.body.start = 40.8534229,-73.9793236
   // req.body.end = 40.7466059,-73.9885128
@@ -30,12 +30,12 @@ app.post('/getRouteFromGoogle', (req, res) => {
   });
 });
 
-app.post('/getAddressFromGoogle', (req, res, cb) => {
-  //{"start":"0.8534229,-73.9793236","end":"40.7466059,-73.9885128"}
-  googleApiAddresses(req.body, (address) => {
-    cb(address);
-  });
-});
+// var getAddressFromGoogle = (req, res, cb) => {
+//   //{"start":"0.8534229,-73.9793236","end":"40.7466059,-73.9885128"}
+//   googleApiAddresses(data, (address) => {
+//     cb(address);
+//   });
+// };
 
 app.post('/searchKeywords', (req, res) => {
   var routeIdList = [];
@@ -221,8 +221,16 @@ app.post('/createRoute', (req, res) => {
   var route_id;
   var count = 0;
   var keywords = req.body.keywords
-        console.log('insert keyword into routes',keywords )
+    console.log('insert keyword into routes',keywords )
     //var addWords = helpers.generateKeywords(req.body)
+    //get Addresses from lat:lon for start and end
+    //{"start":"0.8534229,-73.9793236","end":"40.7466059,-73.9885128"}
+
+    googleApiAddresses(req.body.start,req.body.end, (address) => {
+      console.log('address',address);
+    })
+
+
     //add route object to route table
   routeController.createRoute(req.body)
     .then((input) => {
