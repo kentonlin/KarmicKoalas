@@ -95,13 +95,16 @@ app.post('/searchKeywords', (req, res) => {
 app.post('/getRouteById', (req, res) => {
   var event_id = req.body.event_id;
   console.log('getRouteByID', event_id)
+  //get id for route from events db based on event_id from client
   return db.knex.raw('SELECT `route_id` FROM `Events` WHERE `id` = ' + event_id)
     .then((route_id) => {
       route_id = route_id[0][0].route_id;
-        console.log('getRouteByID', route_id)
+      console.log('getRouteByID', route_id)
+      //use route_id from Events table to get Route data from Routes table
       return db.knex.raw('SELECT * FROM `Routes` WHERE `id` = ' + route_id)
         .then((routeObject) => {
           routeObject = routeObject[0][0]
+          //compile route data to show route and return to client
           var data = {
             title: routeObject.title,
             start: routeObject.start,
@@ -109,7 +112,7 @@ app.post('/getRouteById', (req, res) => {
             points_of_interest: routeObject.points_of_interest,
             route_object: routeObject.route_object
           }
-            console.log('getRouteByID', data)
+          console.log('getRouteByID', data)
           res.status(200).send(data)
         })
     })
@@ -118,18 +121,22 @@ app.post('/getRouteById', (req, res) => {
 app.post('/getMyEvents', (req, res) => {
   var myEvents = []
     //returns all events for a user.. should filter for time < current Time
-    // returns [ { event_id : {title, time}},{ event_id : {title, time}}….]
+    // returns [ { event_id : {title, time, startAddres, endAddress}},{ event_id : {title, time, startAddres, endAddress}}….]
   var user_id = req.body.user_id;
+  //get user_id from client
   console.log('getMyEvents', user_id)
+  //get event_id list from join table using user_id
   return db.knex.raw('SELECT `event_id` FROM `events_participants` WHERE `user_id` = ' + user_id)
     .then((events) => {
-        console.log('getMyEvents', events)
+      console.log('getMyEvents', events)
       events[0].forEach((item) => {
+        //for each event_id get the event info from Events table
         item = item.event_id
         return db.knex.raw('SELECT * FROM `Events` WHERE `id` = ' + item)
           .then((event) => {
             event = event[0][0];
-              console.log('getMyEvents', event)
+            console.log('getMyEvents', event)
+            //compile object with data on event
             var obj = {
                 title: event.title,
                 time: event.time,
@@ -143,7 +150,7 @@ app.post('/getMyEvents', (req, res) => {
               //     })
               //  console.log(obj)
             myEvents.push(obj);
-              console.log('getMyEvents', myEvents)
+            console.log('getMyEvents', myEvents)
             if (myEvents.length === events[0].length) {
               res.status(200).send(myEvents)
             }
@@ -276,7 +283,9 @@ app.post('/createEvent', (req, res) => {
        })
     })
     .then(() => {
-      res.status(200).send('ok')
+      res.status(200).send(JSON.stringify({
+        'create_event': 'ok'
+      }))
     })
 });
 
