@@ -39,13 +39,16 @@ app.post('/searchKeywords', (req, res) => {
   //get id for each keyword from keywords db
   keywords.forEach((word) => {
     return db.knex.raw('SELECT `id` FROM `keywords` WHERE `word` = "' + word + '"')
-      .then((result) => {
-        if (result[0][0] === undefined){
+      .then((results) => {
+        if (results[0][0] === undefined){
           //keyword not in db
           return db.knex.raw('INSERT IGNORE INTO `keywords` (`word`) values ( "' + word + '")')
             .then((result) => {
               var key_id = result[0].insertId
                     console.log('insert keyword into keywords',word )
+                    if(keywords.length === 1){
+                      res.status(200).send({message:"We don't have any routes for those keywords"})
+                    }
             })
         } else {
           var key_id = result[0][0].id
@@ -77,10 +80,11 @@ app.post('/searchKeywords', (req, res) => {
                         points_of_interest: routeInfo.points_of_interest,
                         id:routeInfo.id
                       }
-                      console.log(data)
+                      console.log('data',data)
                       routesList.push(data);
                       console.log('routesList',routesList)
                         if (routesList.length === count) {
+                          console.log('routeslist',count, routesList)
                            res.status(200).send(routesList)
                         }
                       })

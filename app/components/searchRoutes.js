@@ -51,10 +51,16 @@ class SearchRoutes extends Component {
         if (responseData === null){
           console.log("NO DATA RETURNED");
         }
-
-        this.setState({
-          dataSource: ds.cloneWithRows(responseData)
-        });
+        if (responseData.message){
+          console.log(responseData.message)
+          this.setState({
+            search: responseData.message
+          })
+        }else {
+          this.setState({
+            dataSource: ds.cloneWithRows(responseData)
+          })
+      }
      }).catch((error) => {
        console.error(error);
      })
