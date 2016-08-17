@@ -49,7 +49,7 @@ class myEvents extends Component {
     return (
       <TouchableOpacity style={styles.eventRow} onPress={() => this.goMap(rowData)}>
       <View>
-        <Text><Image source={icon} style={styles.image}/>{'\n'}{rowData.title}{'\n'}Start:{rowData.start_address}  End:{rowData.end_address}{'\n'}{rowData.time}{'\n'}</Text>
+        <Text><Image source={icon} style={styles.image}/>{rowData.title}{'\n'}Start:{rowData.start_address}  End:{rowData.end_address}{'\n'}{rowData.time}{'\n'}</Text>
         <View />
       </View>
       </TouchableOpacity>
@@ -72,7 +72,7 @@ class myEvents extends Component {
     return (
       <View style={styles.container}>
         <ListView
-          style={{marginTop: 2, alignSelf: 'center', padding: 7}}
+          style={{marginTop: 4, alignSelf: 'center', padding: 7}}
           initialListSize={10}
           dataSource={this.state.objectdataSource}
           renderRow={(item) => { return this.renderRow(item) }}
@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
       flex: 1,
       flexDirection: "row",
       justifyContent: "flex-start",
-      height: 70
+      height: 70,
+      marginTop: 5
     },
     text: {
       flex: 1
