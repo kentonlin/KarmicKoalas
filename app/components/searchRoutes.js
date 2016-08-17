@@ -51,9 +51,7 @@ class SearchRoutes extends Component {
     return (
       <TouchableOpacity style={styles.routeRow} onPress={(event) => this.handleItemClick(rowData)}>
       <View>
-
        <Text><Image style={styles.image} source={icon}/>{rowData.title}{'\n'}Start:{rowData.start_address}{'\n'}End:{rowData.end_address}</Text>
-       <View />
       </View>
       </TouchableOpacity>
     );
@@ -77,6 +75,12 @@ class SearchRoutes extends Component {
         <TextInput
           style={styles.inputText}
           autoFocus = {true}
+          multiline = {true}
+          numberOfLines = {8}
+          borderWidth={2}
+          fontSize={15}
+          padding={10}
+          marginTop={65}
           value={this.state.search}
           placeholder="Enter keywords: ex. NYC,Atlanta,City-Of-Love"
           onChangeText={(text) => this.setState({search: text})}/>
@@ -86,7 +90,7 @@ class SearchRoutes extends Component {
         </TouchableHighlight>
         <View>
           <ListView
-            style={{marginTop: 2, alignSelf: 'center', padding: 7}}
+            style={{marginTop: 2, padding: 7}}
             initialListSize={1}
             dataSource={this.state.dataSource}
             renderRow={(route) => { return this.renderRow(route) }}
@@ -132,7 +136,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingVertical: 12,
     padding: 5,
-    marginTop: 4
+    marginTop: 2
   },
   image: {
     height: 20,
