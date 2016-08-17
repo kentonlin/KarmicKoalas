@@ -15,7 +15,7 @@ class Chat extends Component {
     this.eventId = props.eventId
     this.state = {
       username: props.username,
-      eventId: props.eventId,//eventId: props.eventId,   //this will come from group list view and pass to server
+      eventId: props.eventId,
       message: props.message,
       socket:props.socket,
       incomingMessage: props.incomingMessage
@@ -71,28 +71,30 @@ const styles = StyleSheet.create({
     padding:10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+
   },
     chatIn: {
-    //height: 40,
-    padding:10,
+    width: width-20,
+    padding:5,
+    marginLeft:10,
+    marginRight:10,
     backgroundColor: 'white',
-    top:20,
+    top:10,
     color: '#19B5FE',
-    padding: 8
+    padding: 8,
   },
   chat: {
+    marginLeft:10,
+    marginRight:10,
     height: 40,
-    padding:10,
-    borderColor: 'rgba(0,0,0,0.7)',
-    borderWidth: 2,
+    width: width-20,
+    padding:5,
     backgroundColor: 'white',
     top:20,
     color: '#19B5FE',
-    padding: 8
+    padding: 8,
   },
   navBar: {
-    backgroundColor: 'grey',
     height: 64,
     width: width,
     position: 'absolute',

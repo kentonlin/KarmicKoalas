@@ -127,37 +127,36 @@ app.post('/getMyEvents', (req, res) => {
   return db.knex.raw('SELECT `event_id` FROM `events_participants` WHERE `user_id` = ' + user_id)
     .then((events) => {
       console.log('getMyEvents', events)
-      events[0].forEach((item) => {
-        //for each event_id get the event info from Events table
-        item = item.event_id
-        return db.knex.raw('SELECT * FROM `Events` WHERE `id` = ' + item)
-          .then((event) => {
-            event = event[0][0];
-            console.log('getMyEventsevent', event)
+       events[0].forEach((item)=>{
+       var id = item.event_id
+       db.knex.raw('SELECT `Events`.`route_id`, `Events`.`title`, `Events`.`time`, `Events`.`host_id`, `Routes`.`start_address`, `Routes`.`end_address` '+
+        'FROM `Events` INNER JOIN `Routes` ON `Routes`.`id`=`Events`.`route_id` WHERE `Events`.`id` = ' + id + '')
+
+//SELECT Events.route_id, Events.title, Events.time,Events.host_id, Routes.start_address,Routes.end_address FROM Events INNER JOIN Routes ON Routes.id=Events.route_id
+
+        // //for each event_id get the event info from Events table
+        // item = item.event_id
+        // return db.knex.raw('SELECT * FROM `Events` WHERE `id` = ' + item)
+           .then((event) => {
+             event = event[0][0];
+             console.log('getMyEventsevent', event)
             //compile object with data on event
             obj = {
+                route_id:event.route_id,
+                start_address:event.start_address,
+                end_address:event.end_address,
                 title: event.title,
                 time: event.time,
                 event_id: event.id
               }
-              //console.log('obj', obj)
-             return  db.knex.raw('SELECT `start_address`, `end_address` FROM `Routes` WHERE `id` = ' + event.route_id )
-            .then((route) => {
-              //  console.log('route',route[0][0])
-              obj.start_address = route[0][0].start_address;
-              obj.end_address = route[0][0].end_address;
-              //console.log('moreobj', obj)
               myEvents.push(obj);
               console.log('getMyEvents', myEvents)
               if (myEvents.length === events[0].length) {
                 res.status(200).send(myEvents)
               }
             })
-            //console.log(obj)
-
           })
       })
-    })
 });
 
 app.get('/getAllUsers', (req, res) => {
