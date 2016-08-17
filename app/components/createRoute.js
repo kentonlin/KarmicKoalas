@@ -49,10 +49,10 @@ class createRoute extends Component {
   createNewPin() {
     if(count === 2) return
     else if(count === 0){
-       var pin = { latlng: {latitude: regionText.latitude, longitude: regionText.longitude }, key: count, color: 'black', title: 'Start'};
+       var pin = { latlng: {latitude: regionText.latitude, longitude: regionText.longitude }, key: count, color: '#3498db', title: 'Start'};
     }
     else if(count === 1){
-       var pin = { latlng: {latitude: regionText.latitude, longitude: regionText.longitude }, key: count, color: 'red', title: 'Finish'};
+       var pin = { latlng: {latitude: regionText.latitude, longitude: regionText.longitude }, key: count, color: '#e74c3c', title: 'Finish'};
     }
      this.state.pins[0][pin.key] = pin;
      count++
