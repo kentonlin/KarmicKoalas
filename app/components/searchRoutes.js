@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Dimensions, View, StyleSheet, Image, NavigatorIOS, Text, ListView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
+import {Dimensions, View, StyleSheet, Image, NavigatorIOS, Text, ListView, TextInput, TouchableHighlight, TouchableOpacity, AlertIOS } from 'react-native';
 
 import createEvent from './createEvent';
 import icon from '../icons/noun_14294.png'
@@ -29,22 +29,38 @@ class SearchRoutes extends Component {
     });
   }
 
+  checkBeforeSubmit() {
+    if (!this.state.search) {
+        AlertIOS.alert("keywords are required!");
+        setTimeout(function() {
+          this.refs.textInput.focus();
+        }.bind(this), 0);
+    } else {
+      this.getRoutes();
+    }
+  }
+
   getRoutes(){
     fetch("http://localhost:8000/searchKeywords", {
-		method: "POST",
-		headers: {"Content-Type": "application/json"},
-		body: JSON.stringify({keywords: this.state.search.trim().split(',')})
- 	})
-  .then((response) => response.json()).then((responseData) => {
-  		console.log('DATA FROM SERVER', responseData);
-      this.setState({
-        dataSource: ds.cloneWithRows(responseData)
-      });
-	 }).catch((error) => {
-     console.error(error);
-   })
-	 .done();
-  }
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({keywords: this.state.search.trim().split(',')})
+    })
+    .then((response) => response.json()).then((responseData) => {
+        console.log('DATA FROM SERVER', responseData);
+        if (responseData === null){
+          console.log("NO DATA RETURNED");
+        }
+
+        this.setState({
+          dataSource: ds.cloneWithRows(responseData)
+        });
+     }).catch((error) => {
+       console.error(error);
+     })
+     .done();
+     this.setState({search: ''});
+    }
 
   renderRow(rowData: string, sectionID: number, rowID: number,
     highlightedRow: (sectionID: nunber, rowID: number) => void) {
@@ -73,6 +89,7 @@ class SearchRoutes extends Component {
     return (
       <View style={styles.container}>
         <TextInput
+          ref='textInput'
           style={styles.inputText}
           autoFocus = {true}
           multiline = {true}
@@ -83,9 +100,10 @@ class SearchRoutes extends Component {
           marginTop={68}
           value={this.state.search}
           placeholder="Enter keywords: ex. NYC,Atlanta,City-Of-Love"
+          onKeyPress={this.handleKeyDown}
           onChangeText={(text) => this.setState({search: text})}/>
         <View style={{paddingTop: 2}}>
-        <TouchableHighlight onPress={() => this.getRoutes()} style={styles.button}>
+        <TouchableHighlight onPress={() => this.checkBeforeSubmit()} style={styles.button}>
             <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
         <View>
