@@ -72,7 +72,8 @@ class Main extends Component {
       component: searchRoutes,
       title: "Search Routes",
       passProps: {
-        userId: this.props.userId
+        userId: this.props.userId,
+        setEventId: this.setEventId
       }
     });
   }

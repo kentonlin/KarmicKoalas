@@ -21,10 +21,11 @@ class SearchRoutes extends Component {
       component: createEvent,
       title: "Create Event",
       passProps: {
+        routeID: item.id,
         userId: this.props.userId,
-        routeID: item.id
+        setEventId: this.props.setEventId
       }
-    })
+    });
   }
 
   getRoutes(){
@@ -50,7 +51,8 @@ class SearchRoutes extends Component {
       <TouchableOpacity style={styles.routeRow} onPress={(event) => this.handleItemClick(rowData)}>
       <View>
 
-       <Text style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 10}}><Image style={styles.image} source={icon}/>{rowData.title}{'\n'}Start:{rowData.start_address}{'\n'}End:{rowData.end_address}</Text>
+       <Text><Image style={styles.image} source={icon}/>{rowData.title}{'\n'}Start:{rowData.start_address}{'\n'}End:{rowData.end_address}</Text>
+       <View />
       </View>
       </TouchableOpacity>
     );
@@ -62,7 +64,7 @@ class SearchRoutes extends Component {
         key={`${sectionID}-${rowID}`}
         style={{
           height: adjacentRowHighlighted ? 4 : 1,
-          backgroundColor: adjacentRowHighlighted ? '#E0DFDF' : '#073AD2',
+          backgroundColor: adjacentRowHighlighted ? '#073AD2' : '#E0DFDF',
         }}
       />
     );
@@ -70,7 +72,7 @@ class SearchRoutes extends Component {
 
   render() {
     return (
-      <View style={styles.navBar}>
+      <View style={styles.container}>
         <TextInput
           style={{height: 50}}
           autoFocus = {true}
@@ -79,6 +81,7 @@ class SearchRoutes extends Component {
           borderWidth={2}
           fontSize={15}
           padding={10}
+          marginTop={100}
           value={this.state.search}
           placeholder="Enter keywords: ex. NYC,Atlanta,City-Of-Love"
           onChangeText={(text) => this.setState({search: text})}/>
@@ -86,14 +89,15 @@ class SearchRoutes extends Component {
         <TouchableHighlight onPress={() => this.getRoutes()} style={styles.button}>
             <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
-        <View style={styles.container}>
+        <View>
           <ListView
             style={{marginTop: 2, alignSelf: 'center', padding: 7}}
             initialListSize={1}
             dataSource={this.state.dataSource}
             renderRow={(route) => { return this.renderRow(route) }}
             renderSeparator={this.renderSeparator}
-            enableEmptySections={true}/>
+            enableEmptySections={true}
+            automaticallyAdjustContentInsets={false}/>
           </View>
         </View>
       </View>
@@ -103,20 +107,14 @@ class SearchRoutes extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: '#E0DFDF'
-  },
-  navBar: {
-    height: 50,
-    top: 15,
-    paddingTop: 50
   },
   routeRow: {
     flex: 1,
-    alignItems: 'flex-end',
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "flex-start",
+    height: 70
   },
   buttonText: {
     fontSize: 18,
