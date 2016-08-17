@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, NavigatorIOS, Dimensions, Text, AlertIOS, AsyncStorage, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
 import MapView from 'react-native-maps';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import createEvent from './createEvent';
 
@@ -137,6 +138,30 @@ class createRoute extends Component {
   render() {
     return (
       <View style={styles.container}>
+          <View style={styles.mapContainer}>
+              <MapView
+                style={styles.map}
+                onRegionChangeComplete={this.onRegionChangeComplete}
+              >
+                {Object.keys(this.state.pins[0]).map(id => (
+                  <MapView.Marker
+                    key={this.state.pins[0][id].key}
+                    pinColor={this.state.pins[0][id].color}
+                    title={this.state.pins[0][id].title}
+                    coordinate={this.state.pins[0][id].latlng}
+                    onDragEnd={(e) => this.changeCoordinatesAfterDrop(e, this.state.pins[0][id].key)}
+                    draggable
+                  />
+                ))}
+                <MapView.Polyline
+                 coordinates={this.state.routeCoordinates}
+                 strokeColor="rgba(0,0,200,0.5)"
+                 strokeWidth={3}
+                 lineDashPattern={[5, 2, 3, 2]}
+               />
+             </MapView>
+         </View>
+        <View style={styles.inputs}>
           <TextInput
             style={styles.inputText}
             autoFocus = {true}
@@ -149,41 +174,21 @@ class createRoute extends Component {
           />
           <TextInput
             ref='SecondInput'
-            style={styles.inputOne}
+            style={styles.inputText}
             placeholder="keywords"
             placeholderTextColor='#CDCDC9'
             onChangeText={(text) => this.setState({keywordsToTrace: text})}
           />
-          <MapView
-            style={styles.map}
-            onRegionChangeComplete={this.onRegionChangeComplete}
-          >
-            {Object.keys(this.state.pins[0]).map(id => (
-              <MapView.Marker
-                key={this.state.pins[0][id].key}
-                pinColor={this.state.pins[0][id].color}
-                title={this.state.pins[0][id].title}
-                coordinate={this.state.pins[0][id].latlng}
-                onDragEnd={(e) => this.changeCoordinatesAfterDrop(e, this.state.pins[0][id].key)}
-                draggable
-              />
-            ))}
-            <MapView.Polyline
-             coordinates={this.state.routeCoordinates}
-             strokeColor="rgba(0,0,200,0.5)"
-             strokeWidth={3}
-             lineDashPattern={[5, 2, 3, 2]}
-           />
-         </MapView>
+        </View>
          <View>
          <TouchableOpacity
            style={styles.buttonPin}
            onPress={() => this.createNewPin()}
           >
-          <Text>PIN</Text>
+          <Text><Icon name="pin-drop" size={25} color="#3498db"/></Text>
         </TouchableOpacity>
           <TouchableHighlight style={styles.createRouteBtn} onPress={() => this.createEventView()}>
-            <Text>Create Route</Text>
+              <Text><Icon name="map" size={25} color="#3498db"/></Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -199,24 +204,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   },
   map: {
-    flex: 3,
-    width: width
+    position: 'relative',
+    flex: 1,
+    width: width,
+    height: height
+  },
+  inputs: {
+    position: 'absolute',
+    top:80
   },
   inputText: {
     height: 40,
-    width: width,
+    width: width-4,
     padding: 5,
+    marginTop:5,
+    marginLeft:2,
+    marginRight:2,
+    color: "#3498db",
     backgroundColor: '#fff',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
-    marginTop: 80
-  },
-  inputOne: {
-    height: 40,
-    width: width,
-    marginTop: 10,
-    backgroundColor: '#fff',
+    borderColor: "#3498db",
+    borderWidth: 1,
     paddingHorizontal: 18,
     paddingVertical: 12,
     borderRadius: 20
@@ -224,19 +231,28 @@ const styles = StyleSheet.create({
   buttonPin: {
     bottom: 30,
     right: 120,
+    width:50,
+    height:50,
     position: 'absolute',
     backgroundColor: '#fff',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20
+    borderColor: "#3498db",
+    borderWidth: 1,
+    paddingHorizontal: 11,
+    paddingVertical: 11,
+    borderRadius: 50
   },
   createRouteBtn: {
     bottom: 30,
+    left: 120,
+    width:50,
+    height:50,
     position: 'absolute',
     backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    borderRadius: 20
+    borderColor: "#3498db",
+    borderWidth: 1,
+    paddingHorizontal: 11,
+    paddingVertical: 11,
+    borderRadius: 50
   }
 });
 
