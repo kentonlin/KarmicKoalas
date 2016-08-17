@@ -19,7 +19,11 @@ class SearchRoutes extends Component {
     console.log("Route: ", item);
     this.props.navigator.push({
       component: createEvent,
-      title: "Create Event"
+      title: "Create Event",
+      passProps: {
+        routeID: item.id,
+        userId: this.props.userId
+      }
     });
   }
 
