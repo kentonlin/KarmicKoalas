@@ -46,17 +46,24 @@ class createRoute extends Component {
   }
 
   createNewPin() {
-    if(count === 2) return;
-     var pin = { latlng: {latitude: regionText.latitude, longitude: regionText.longitude }, key: count};
+    if(count === 2) return
+    else if(count === 0){
+       var pin = { latlng: {latitude: regionText.latitude, longitude: regionText.longitude }, key: count, color: 'black', title: 'Start'};
+    }
+    else if(count === 1){
+       var pin = { latlng: {latitude: regionText.latitude, longitude: regionText.longitude }, key: count, color: 'red', title: 'Finish'};
+    }
      this.state.pins[0][pin.key] = pin;
      count++
     // console.log('TEST', this.state.pins);
      this.setState({})
      console.log('id', count);
+     if (count === 2) this._onPressButtonPOST(this.state.pins[0]['0'], this.state.pins[0]['1'])
   }
   changeCoordinatesAfterDrop(e, key) {
      this.state.pins[0][key]['latlng'] = e.nativeEvent.coordinate
      this.setState({});
+     if (count === 2) this._onPressButtonPOST(this.state.pins[0]['0'], this.state.pins[0]['1'])
   }
   checkPinCoordinates() {
      console.log('PIN', this.state.pins[0]['0'], this.state.pins[0]['1']);
@@ -90,7 +97,7 @@ class createRoute extends Component {
     // {title:string, keywords:[],start:{}, end:{}, routeObject:[]}
     var keywordsArr = this.traceKeywordsString(keywords);
     if(this.state.title && keywordsArr.length && this.state.routeCoordinates.length) {
-      fetch("http://localhost:8000/createRoute", {
+      fetch("https://wegotoo.herokuapp.com/createRoute", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({title:title, keywords:keywordsArr,start:start, end:end, routeObject:routeObject})
@@ -149,6 +156,8 @@ class createRoute extends Component {
             {Object.keys(this.state.pins[0]).map(id => (
               <MapView.Marker
                 key={this.state.pins[0][id].key}
+                pinColor={this.state.pins[0][id].color}
+                title={this.state.pins[0][id].title}
                 coordinate={this.state.pins[0][id].latlng}
                 onDragEnd={(e) => this.changeCoordinatesAfterDrop(e, this.state.pins[0][id].key)}
                 draggable
@@ -168,12 +177,6 @@ class createRoute extends Component {
           >
           <Text>PIN</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonCheck}
-          onPress={() => this._onPressButtonPOST(this.state.pins[0]['0'], this.state.pins[0]['1'])}
-         >
-        <Text>Build</Text>
-          </TouchableOpacity>
           <TouchableHighlight style={styles.createRouteBtn} onPress={() => this.createEventView()}>
             <Text>Create Route</Text>
           </TouchableHighlight>
@@ -216,15 +219,6 @@ const styles = StyleSheet.create({
   buttonPin: {
     bottom: 30,
     right: 120,
-    position: 'absolute',
-    backgroundColor: '#fff',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20
-  },
-  buttonCheck: {
-    bottom:30,
-    right: 40,
     position: 'absolute',
     backgroundColor: '#fff',
     paddingHorizontal: 18,

@@ -418,7 +418,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = NZJUA8366E;
+						DevelopmentTeam = XKH4NKSYX4;
 					};
 				};
 			};
@@ -724,12 +724,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.KarmicKoalas;
 				PRODUCT_NAME = KarmicKoalas;
-<<<<<<< 9faa4cc1c4dd6feb082104446de366d01784a4da
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
-=======
-				PROVISIONING_PROFILE = "63499841-dff2-4af4-a5eb-1d26230eeaa8";
->>>>>>> chat message showing author username
 			};
 			name = Debug;
 		};
@@ -753,12 +749,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.KarmicKoalas;
 				PRODUCT_NAME = KarmicKoalas;
-<<<<<<< 9faa4cc1c4dd6feb082104446de366d01784a4da
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
-=======
-				PROVISIONING_PROFILE = "63499841-dff2-4af4-a5eb-1d26230eeaa8";
->>>>>>> chat message showing author username
 			};
 			name = Release;
 		};
