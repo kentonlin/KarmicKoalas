@@ -15,7 +15,7 @@ class Chat extends Component {
     this.eventId = props.eventId
     this.state = {
       username: props.username,
-      eventId: props.eventId,//eventId: props.eventId,   //this will come from group list view and pass to server
+      eventId: props.eventId,
       message: props.message,
       socket:props.socket,
       incomingMessage: props.incomingMessage
