@@ -110,7 +110,7 @@ class SearchRoutes extends Component {
           onChangeText={(text) => this.setState({search: text})}/>
         <View style={{paddingTop: 2}}>
         <TouchableHighlight onPress={() => this.checkBeforeSubmit()} style={styles.button}>
-            <Text style={styles.buttonText}>Submit</Text>
+            <Text style={styles.buttonText}>Submit - becoming an icon</Text>
         </TouchableHighlight>
         <View>
           <ListView
@@ -145,7 +145,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 18,
     paddingVertical: 12,
-    borderColor: '#fff'
+    borderColor: '#fff',
+    borderRadius: 20
   },
   buttonText: {
     fontSize: 18,
