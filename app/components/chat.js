@@ -14,6 +14,7 @@ class Chat extends Component {
     this.socket = props.socket
     this.eventId = props.eventId
     this.state = {
+      username: props.username,
       eventId: props.eventId,//eventId: props.eventId,   //this will come from group list view and pass to server
       message: props.message,
       socket:props.socket,
@@ -39,8 +40,9 @@ class Chat extends Component {
 
   handleKeyDown(e) {
     if(e.nativeEvent.key == "Enter"){
-      console.log('sending tweet', this.state.message, this.props.eventId)
-    this.socket.emit('tweet', {'text':this.state.message, 'eventId': this.props.eventId})
+      var message = this.state.message + ' -' + this.state.username;
+      console.log('sending tweet', message, this.props.eventId)
+    this.socket.emit('tweet', {'text':message, 'eventId': this.props.eventId})
     this.state.message = "";
     }
   }

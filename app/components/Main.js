@@ -159,7 +159,7 @@ class Main extends Component {
     return (
       <View style={styles.container}>
         <MapComponent informParent={(e)=>this.setState({start: e })} pinStart={this.state.pinStart} pinEnd={this.state.pinEnd} socket={this.state.socket} eventId={this.state.eventId} username={this.state.username} initializesEvent={this.initializesEvent} routeCoordinates={this.state.routeCoordinates} start={this.state.start}/>
-        <Chat socket={this.socket} eventId={this.state.eventId}/>
+        <Chat socket={this.socket} eventId={this.state.eventId} username={this.props.username}/>
         <TouchableHighlight
           style={styles.searchRoutesBtn}
           onPress={() => this.navToSearchRoutes()}>
