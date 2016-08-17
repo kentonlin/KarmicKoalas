@@ -20,8 +20,6 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/getRouteFromGoogle', (req, res) => {
-  console.log(req.body)
-
   // req.body.start = 40.8534229,-73.9793236
   // req.body.end = 40.7466059,-73.9885128
   // req.body.waypoints = latlon | latlon | ...NOT USED
@@ -29,13 +27,6 @@ app.post('/getRouteFromGoogle', (req, res) => {
     res.send(data);
   });
 });
-
-// app.post('/getAddressFromGoogle', (req, res, cb) => {
-//   //{"start":"0.8534229,-73.9793236","end":"40.7466059,-73.9885128"}
-//   googleApiAddresses(req.body, (address) => {
-//     cb(address);
-//   });
-// });
 
 app.post('/searchKeywords', (req, res) => {
   var routeIdList = [];
@@ -131,7 +122,7 @@ app.post('/getMyEvents', (req, res) => {
     // returns [ { event_id : {title, time, startAddres, endAddress}},{ event_id : {title, time, startAddres, endAddress}}….]
   var user_id = req.body.user_id;
   //get user_id from client
-  console.log('getMyEvents', user_id)
+  console.log('getMyEventsuserid', user_id)
   //get event_id list from join table using user_id
   return db.knex.raw('SELECT `event_id` FROM `events_participants` WHERE `user_id` = ' + user_id)
     .then((events) => {
@@ -142,7 +133,7 @@ app.post('/getMyEvents', (req, res) => {
         return db.knex.raw('SELECT * FROM `Events` WHERE `id` = ' + item)
           .then((event) => {
             event = event[0][0];
-            console.log('getMyEvents', event)
+            console.log('getMyEventsevent', event)
             //compile object with data on event
             obj = {
                 title: event.title,

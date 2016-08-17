@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Image, NavigatorIOS, Text, ListView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
+import {Dimensions, View, StyleSheet, Image, NavigatorIOS, Text, ListView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
 
 import createEvent from './createEvent';
 import icon from '../icons/noun_14294.png'
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+const { width, height } = Dimensions.get('window')
 
 class SearchRoutes extends Component {
    constructor(props) {
@@ -22,7 +23,8 @@ class SearchRoutes extends Component {
       title: "Create Event",
       passProps: {
         routeID: item.id,
-        userId: this.props.userId
+        userId: this.props.userId,
+        setEventId: this.props.setEventId
       }
     });
   }
@@ -73,14 +75,8 @@ class SearchRoutes extends Component {
     return (
       <View style={styles.container}>
         <TextInput
-          style={{height: 50}}
+          style={styles.inputText}
           autoFocus = {true}
-          multiline = {true}
-          numberOfLines = {8}
-          borderWidth={2}
-          fontSize={15}
-          padding={10}
-          marginTop={100}
           value={this.state.search}
           placeholder="Enter keywords: ex. NYC,Atlanta,City-Of-Love"
           onChangeText={(text) => this.setState({search: text})}/>
@@ -114,6 +110,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     height: 70
+  },
+  inputText: {
+    height: 40,
+    width: width,
+    padding: 5,
+    backgroundColor: '#fff',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+    marginTop: 80
   },
   buttonText: {
     fontSize: 18,
