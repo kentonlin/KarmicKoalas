@@ -79,8 +79,8 @@ class SearchRoutes extends Component {
           numberOfLines = {8}
           borderWidth={2}
           fontSize={15}
-          padding={10}
-          marginTop={65}
+          padding={8}
+          marginTop={68}
           value={this.state.search}
           placeholder="Enter keywords: ex. NYC,Atlanta,City-Of-Love"
           onChangeText={(text) => this.setState({search: text})}/>
@@ -118,24 +118,24 @@ const styles = StyleSheet.create({
   inputText: {
     height: 40,
     width: width,
-    padding: 5,
     backgroundColor: '#fff',
     paddingHorizontal: 18,
     paddingVertical: 12,
     borderRadius: 20,
-    marginTop: 80
+    borderColor: '#fff'
   },
   buttonText: {
     fontSize: 18,
-    color: 'white',
+    color: '#000000',
     alignSelf: 'center'
   },
   button: {
     height: 40,
-    backgroundColor: 'skyblue',
+    backgroundColor: '#A9D0F5',
     paddingHorizontal: 30,
     paddingVertical: 12,
     padding: 5,
+    borderRadius: 20,
     marginTop: 2
   },
   image: {
