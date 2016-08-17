@@ -121,7 +121,8 @@ class createRoute extends Component {
       })
       .done();
     } else {
-      console.log('Title, keywords, route is Required');
+      console.log('Title, keywords, route are Required');
+      AlertIOS.alert("Title, keywords and route are Required");
     }
 
    }
@@ -188,7 +189,7 @@ class createRoute extends Component {
           <Text><Icon name="pin-drop" size={25} color="#3498db"/></Text>
         </TouchableOpacity>
           <TouchableHighlight style={styles.createRouteBtn} onPress={() => this.createEventView()}>
-              <Text><Icon name="map" size={25} color="#3498db"/></Text>
+              <Text><Icon name="group-add" size={25} color="#3498db"/></Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
   },
   inputs: {
     position: 'absolute',
-    top:80
+    top:65
   },
   inputText: {
     height: 40,
