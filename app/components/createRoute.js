@@ -90,7 +90,7 @@ class createRoute extends Component {
     // {title:string, keywords:[],start:{}, end:{}, routeObject:[]}
     var keywordsArr = this.traceKeywordsString(keywords);
     if(this.state.title && keywordsArr.length && this.state.routeCoordinates.length) {
-      fetch("http://localhost:8000/createRoute", {
+      fetch("https://wegotoo.herokuapp.com/createRoute", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({title:title, keywords:keywordsArr,start:start, end:end, routeObject:routeObject})
