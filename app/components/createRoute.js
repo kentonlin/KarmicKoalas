@@ -129,6 +129,11 @@ class createRoute extends Component {
     this.handleCreateRoute(this.state.title, this.state.keywordsToTrace, this.state.start, this.state.end, this.state.routeCoordinates);
   }
 
+  componentWillUnmount() {
+    count = 0;
+    console.log('Component has been unmounted');
+  }
+
   render() {
     return (
       <View style={styles.container}>
