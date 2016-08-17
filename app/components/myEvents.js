@@ -50,7 +50,7 @@ class myEvents extends Component {
       <TouchableOpacity style={styles.eventRow} onPress={() => this.goMap(rowData)}>
       <View>
 
-        <Text><Image source={icon} style={styles.image}/>{'\n'}{rowData.title}{'\n'}Start:{rowData.start_address}  End:{rowData.end_address}{'\n'}{rowData.time}{'\n'}</Text>
+        <Text><Image source={icon} style={styles.image}/>{rowData.title}{'\n'}Start:{rowData.start_address}  End:{rowData.end_address}{'\n'}{rowData.time}{'\n'}</Text>
         <View />
       </View>
       </TouchableOpacity>
