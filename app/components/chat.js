@@ -102,10 +102,7 @@ const styles = StyleSheet.create({
   navBar: {
     width: width,
     position: 'absolute',
-    top: 40,
-    bottom: 0,
-    left: 0,
-    right: 0
+    top: 40
   }
 })
 
