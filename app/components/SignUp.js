@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
-import Main from './Main';
+import logo from '../icons/pin.png'
+
 
 class SignUp extends Component {
 	constructor(props) {
@@ -60,11 +61,11 @@ class SignUp extends Component {
 					INSERT LOGO
 				</Text>
         <TextInput
-          style = {styles.inputText}
-          returnKeyType = {"next"}
-          autoFocus = {true}
-          placeholder = "Name: "
-          placeholderTextColor="#3498db"
+          style={styles.inputText}
+          returnKeyType={"next"}
+          autoFocus={true}
+          placeholder="Name"
+          placeholderTextColor="silver"
           onChangeText={(text) => this.setState({name: text})}
           onSubmitEditing={(event) => {
             this.refs.SecondInput.focus();
@@ -72,9 +73,9 @@ class SignUp extends Component {
         />
         <TextInput
           ref='SecondInput'
-          style = {styles.inputText}
-          placeholder="Email Address: "
-          placeholderTextColor="#3498db"
+          style={styles.inputText}
+          placeholder="Email"
+          placeholderTextColor="silver"
           onChangeText={(text) => this.setState({email: text})}
           onSubmitEditing={(event) => {
             this.refs.ThirdInput.focus();
@@ -83,8 +84,8 @@ class SignUp extends Component {
 				<TextInput
           ref='ThirdInput'
           style={styles.inputText}
-          placeholder="Username: "
-          placeholderTextColor="#3498db"
+					placeholder="Username"
+          placeholderTextColor="silver"
           onChangeText={(text) => this.setState({username: text})}
           onSubmitEditing={(event) => {
             this.refs.FourthInput.focus();
@@ -93,13 +94,13 @@ class SignUp extends Component {
         <TextInput
           ref='FourthInput'
           style={styles.inputText}
-          placeholder="Password: "
-          placeholderTextColor="#3498db"
+					placeholder="Password"
+          placeholderTextColor="silver"
           password={true}
           onChangeText={(text) => this.setState({password: text})}
         />
         <TouchableHighlight onPress={() => this.signUp()} style={styles.button}>
-            <Text style={styles.buttonText}>Submit</Text>
+					<Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
 			</View>
 			)
@@ -119,17 +120,13 @@ const styles = StyleSheet.create({
       fontSize: 30,
       margin: 80
     },
-		TextInput: {
-			justifyContent: 'center',
-			fontSize: 30,
-			margin: 10
-		},
     inputText: {
       height: 35,
       color: '#3498db',
 			borderColor: "#3498db",
-	    borderWidth: 1,
-			alignItems: 'center'
+			fontSize: 15,
+			paddingLeft: 95,
+			borderBottomColor: 'red'
     },
     textHeader: {
       fontSize: 30,
@@ -142,10 +139,17 @@ const styles = StyleSheet.create({
     },
     button: {
       height: 44,
+			width: 100,
       flexDirection: 'row',
       justifyContent: 'center',
-      backgroundColor: 'skyblue'
-    }
+      backgroundColor: 'skyblue',
+			borderRadius: 50,
+			marginTop: 10
+    },
+		logo: {
+			height: 20,
+			width: 20
+		}
 });
 
 module.exports =  SignUp;
