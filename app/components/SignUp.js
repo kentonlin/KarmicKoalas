@@ -63,7 +63,7 @@ class SignUp extends Component {
           style={styles.inputText}
           returnKeyType = {"next"}
           autoFocus = {true}
-          placeholder = "Name: "
+          placeholder = "		   name: Jane Doe "
           placeholderTextColor="#3498db"
           onChangeText={(text) => this.setState({name: text})}
           onSubmitEditing={(event) => {
@@ -73,7 +73,7 @@ class SignUp extends Component {
         <TextInput
           ref='SecondInput'
           style={styles.inputText}
-          placeholder="Email Address: "
+          placeholder="				 JaneDoe@wego2.com "
           placeholderTextColor="#3498db"
           onChangeText={(text) => this.setState({email: text})}
           onSubmitEditing={(event) => {
@@ -83,7 +83,7 @@ class SignUp extends Component {
 				<TextInput
           ref='ThirdInput'
           style={styles.inputText}
-          placeholder="Username: "
+          placeholder="				 JaneDoe01 "
           placeholderTextColor="#3498db"
           onChangeText={(text) => this.setState({username: text})}
           onSubmitEditing={(event) => {
@@ -93,7 +93,7 @@ class SignUp extends Component {
         <TextInput
           ref='FourthInput'
           style={styles.inputText}
-          placeholder="Password: "
+          placeholder="				 ************ "
           placeholderTextColor="#3498db"
           password={true}
           onChangeText={(text) => this.setState({password: text})}
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
       height: 35,
       color: '#3498db',
 			borderColor: "#3498db",
-			fontSize: 20
+			fontSize: 15
     },
     textHeader: {
       fontSize: 30,
