@@ -30,8 +30,8 @@ class Splash extends Component {
 					navigationBarHidden: true,
 					component: Main,
 					title: "",
-					component: SignUp,
-					title: "SignUp",
+					component: Main,
+					title: "Main",
 					passProps: {
 		        userId: +data[1][1],
 						username: data[0][1]
@@ -58,11 +58,9 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'cornflowerblue'
+      backgroundColor: '#fff'
     },
     text: {
-      color: 'blue',
-      backgroundColor: 'lightblue',
       fontSize: 30,
       margin: 80
     },
