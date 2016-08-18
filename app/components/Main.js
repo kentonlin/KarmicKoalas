@@ -7,8 +7,8 @@ import MapComponent from './Map.js'
 import searchRoutes from './searchRoutes'
 import createRoute from './createRoute'
 import myEvents from './myEvents'
-import permissions from 'react-native-permissions'
-
+//import permissions from 'react-native-permissions'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Contacts from 'react-native-contacts';
 
 if (window.navigator && Object.keys(window.navigator).length == 0) {
@@ -164,17 +164,17 @@ class Main extends Component {
         <TouchableHighlight
           style={styles.searchRoutesBtn}
           onPress={() => this.navToSearchRoutes()}>
-          <Text>Search</Text>
+          <Text><Icon name="search" size={25} color="#3498db" /></Text>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.eventsBtn}
           onPress={() => this.navToMyEvents()}>
-          <Text>Events</Text>
+          <Text><Icon name="calendar" size={25} color="#3498db" /></Text>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.createRouteBtn}
           onPress={() => this.navToCreateRoute()}>
-          <Text>Create Route</Text>
+          <Text><Icon name="map" size={25} color="#3498db" /></Text>
         </TouchableHighlight>
         <Text style={styles.welcome}>
         </Text>
@@ -197,41 +197,48 @@ class Main extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   searchRoutesBtn: {
     flex: 1,
-    bottom:0,
+    bottom:20,
+    left:20,
+    width:50,
+    height:50,
     position: 'absolute',
     backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    borderRadius: 20,
-    bottom: 15
+    borderColor: "#3498db",
+    borderWidth: 1,
+    paddingHorizontal: 11,
+    paddingVertical: 11,
+    borderRadius: 50
   },
   eventsBtn: {
     flex: 1,
-    bottom: 0,
-    left: 75,
+    bottom: 20,
+    left: 155,
+    width:50,
+    height:50,
     position: 'absolute',
     backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    borderRadius: 20,
-    bottom: 15
+    borderColor: "#3498db",
+    borderWidth: 1,
+    paddingHorizontal: 11,
+    paddingVertical: 11,
+    borderRadius: 50
   },
   createRouteBtn: {
-    flex: 1,
-    bottom: 0,
-    left: 150,
+    bottom: 20,
+    right: 20,
+    width:50,
+    height:50,
     position: 'absolute',
     backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    borderRadius: 20,
-    bottom: 15
+    borderColor: "#3498db",
+    borderWidth: 1,
+    paddingHorizontal: 11,
+    paddingVertical: 11,
+    borderRadius: 50
   }
 });
 
