@@ -133,7 +133,7 @@ app.post('/getMyEvents', (req, res) => {
       console.log('getMyEvents', events)
        events[0].forEach((item)=>{
        var id = item.event_id
-       db.knex.raw('SELECT `Events`.`route_id`, `Events`.`title`, `Events`.`time`, `Events`.`host_id`, `Routes`.`start_address`, `Routes`.`end_address` '+
+       db.knex.raw('SELECT `Events`.`route_id`,`Events`.`id`, `Events`.`title`, `Events`.`time`, `Events`.`host_id`, `Routes`.`start_address`, `Routes`.`end_address` '+
         'FROM `Events` INNER JOIN `Routes` ON `Routes`.`id`=`Events`.`route_id` WHERE `Events`.`id` = ' + id + '')
            .then((event) => {
              event = event[0][0];

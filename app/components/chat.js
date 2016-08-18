@@ -68,7 +68,7 @@ class Chat extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding:10,
+    padding:0,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -76,40 +76,30 @@ const styles = StyleSheet.create({
     marginLeft:10,
     marginRight:10,
     height: 40,
-    width: width-4,
+    width: width-16,
     padding: 5,
-    marginTop:5,
-    marginLeft:2,
-    marginRight:2,
     color: "#3498db",
     backgroundColor: '#fff',
-    borderColor: "#3498db",
-    borderWidth: 1,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20
+    borderColor: "#ccc",
+    borderWidth: 1
   },
   chat: {
     marginLeft:10,
     marginRight:10,
     height: 40,
-    width: width-4,
+    width: width-16,
     padding: 5,
     marginTop:5,
-    marginLeft:2,
-    marginRight:2,
     color: "#3498db",
     backgroundColor: '#fff',
     borderColor: "#3498db",
-    borderWidth: 1,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20
+    borderWidth: 1
   },
   navBar: {
+
     width: width,
     position: 'absolute',
-    top: 40
+    top: 20
   }
 })
 
