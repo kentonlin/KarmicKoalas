@@ -68,6 +68,9 @@ class myEvents extends Component {
                  <Text style={styles.time}>{rowData.time}</Text>
              </View>
           </View>
+        <View>
+          <Text><Image source={icon} style={styles.image}/>{rowData.title}{'\n'}Start:{rowData.start_address}  End:{rowData.end_address}{'\n'}{rowData.time}{'\n'}</Text>
+        <View />
       </View>
       </TouchableOpacity>
     );
@@ -93,8 +96,9 @@ class myEvents extends Component {
           initialListSize={10}
           dataSource={this.state.objectdataSource}
           renderRow={(item) => { return this.renderRow(item) }}
-
-          enableEmptySections={true}/>
+          renderSeparator={this.renderSeparator}
+          enableEmptySections={true}
+          contentInset={{bottom:10}}/>
       </View>
     );
   }

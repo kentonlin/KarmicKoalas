@@ -31,7 +31,7 @@ class SearchRoutes extends Component {
 
   checkBeforeSubmit() {
     if (!this.state.search) {
-        AlertIOS.alert("keywords are required!");
+        AlertIOS.alert("Keywords are required!");
         setTimeout(function() {
           this.refs.textInput.focus();
         }.bind(this), 0);
