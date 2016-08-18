@@ -135,12 +135,6 @@ app.post('/getMyEvents', (req, res) => {
        var id = item.event_id
        db.knex.raw('SELECT `Events`.`route_id`, `Events`.`title`, `Events`.`time`, `Events`.`host_id`, `Routes`.`start_address`, `Routes`.`end_address` '+
         'FROM `Events` INNER JOIN `Routes` ON `Routes`.`id`=`Events`.`route_id` WHERE `Events`.`id` = ' + id + '')
-
-//SELECT Events.route_id, Events.title, Events.time,Events.host_id, Routes.start_address,Routes.end_address FROM Events INNER JOIN Routes ON Routes.id=Events.route_id
-
-        // //for each event_id get the event info from Events table
-        // item = item.event_id
-        // return db.knex.raw('SELECT * FROM `Events` WHERE `id` = ' + item)
            .then((event) => {
              event = event[0][0];
              console.log('getMyEventsevent', event)

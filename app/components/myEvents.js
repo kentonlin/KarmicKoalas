@@ -71,12 +71,12 @@ class myEvents extends Component {
    render() {
     return (
       <View style={styles.container}>
-        <ListView
-          style={{marginTop: 4, alignSelf: 'center', padding: 7}}
+        <ListView style={styles.eventRow}
+          style={{marginTop: 0, alignSelf: 'center', padding: 0}}
           initialListSize={10}
           dataSource={this.state.objectdataSource}
           renderRow={(item) => { return this.renderRow(item) }}
-          renderSeparator={this.renderSeparator}
+
           enableEmptySections={true}/>
       </View>
     );
@@ -87,14 +87,18 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'flex-start',
-      backgroundColor: '#E0DFDF'
+      backgroundColor: '#fff'
     },
     eventRow: {
       flex: 1,
       flexDirection: "row",
       justifyContent: "flex-start",
       height: 70,
-      marginTop: 5
+      margin: 10,
+      borderColor:'#3498db',
+      borderWidth:2,
+      borderRadius:20,
+      padding:50
     },
     text: {
       flex: 1

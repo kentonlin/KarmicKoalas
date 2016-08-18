@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: '#E0DFDF'
+    backgroundColor: 'white'
   },
   routeRow: {
     flex: 1,
