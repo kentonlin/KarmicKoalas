@@ -26,7 +26,7 @@ class myEvents extends Component {
   }
 
   componentDidMount(){
-    fetch("http:localhost:8000/getMyEvents", {
+    fetch("http://localhost:8000/getMyEvents", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({user_id: this.props.userId})
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       flexDirection: "row",
       width: width-27,
-      height: 105,
+      height: 100,
       marginTop: 5,
       borderColor:'#3498db',
       borderWidth:1,
@@ -135,8 +135,8 @@ const styles = StyleSheet.create({
       overflow: 'hidden',
     },
     img: {
-      paddingLeft:5,
-      paddingRight:15,
+      paddingLeft:15,
+      paddingRight:25,
       backgroundColor: '#fff',
       justifyContent: 'center'
     },
