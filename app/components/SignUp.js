@@ -57,14 +57,14 @@ class SignUp extends Component {
 		return (
       <View style={styles.container}>
 				<Text style={styles.textHeader}>
-					Sign Up
+					INSERT LOGO
 				</Text>
         <TextInput
           style = {styles.inputText}
           returnKeyType = {"next"}
           autoFocus = {true}
           placeholder = "Name: "
-          placeholderTextColor="white"
+          placeholderTextColor="#3498db"
           onChangeText={(text) => this.setState({name: text})}
           onSubmitEditing={(event) => {
             this.refs.SecondInput.focus();
@@ -74,7 +74,7 @@ class SignUp extends Component {
           ref='SecondInput'
           style = {styles.inputText}
           placeholder="Email Address: "
-          placeholderTextColor="white"
+          placeholderTextColor="#3498db"
           onChangeText={(text) => this.setState({email: text})}
           onSubmitEditing={(event) => {
             this.refs.ThirdInput.focus();
@@ -84,7 +84,7 @@ class SignUp extends Component {
           ref='ThirdInput'
           style={styles.inputText}
           placeholder="Username: "
-          placeholderTextColor="white"
+          placeholderTextColor="#3498db"
           onChangeText={(text) => this.setState({username: text})}
           onSubmitEditing={(event) => {
             this.refs.FourthInput.focus();
@@ -94,7 +94,7 @@ class SignUp extends Component {
           ref='FourthInput'
           style={styles.inputText}
           placeholder="Password: "
-          placeholderTextColor="white"
+          placeholderTextColor="#3498db"
           password={true}
           onChangeText={(text) => this.setState({password: text})}
         />
@@ -111,41 +111,24 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'cornflowerblue'
+      backgroundColor: '#ffffff'
     },
     text: {
       color: 'blue',
-      backgroundColor: 'lightblue',
+      backgroundColor: '#3498db',
       fontSize: 30,
       margin: 80
     },
-    navBar: {
-      backgroundColor: 'cornflowerblue',
-      height: 64,
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0
-    },
-    navText: {
-      color: 'white',
-      fontSize: 16,
-      fontWeight: "700",
-      textAlign: 'center',
-      paddingTop: 30
-    },
     inputText: {
-      height: 40,
-      color: 'white'
-    },
-    TextInput: {
-      borderWidth: 2,
-      color: 'white'
+      height: 20,
+      color: '#3498db',
+			borderColor: "#3498db",
+	    borderWidth: 1,
+			alignItems: 'center'
     },
     textHeader: {
       fontSize: 30,
-      color: 'white',
+      color: '#3498db',
       justifyContent: 'flex-start'
     },
     buttonText: {
@@ -160,7 +143,6 @@ const styles = StyleSheet.create({
     button: {
       height: 44,
       flexDirection: 'row',
-      alignSelf: 'stretch',
       justifyContent: 'center',
       backgroundColor: 'skyblue'
     }
