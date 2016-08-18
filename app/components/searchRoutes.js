@@ -73,7 +73,7 @@ class SearchRoutes extends Component {
       <TouchableOpacity style={styles.routeRow} onPress={(event) => this.handleItemClick(rowData)}>
       <View style={styles.box}>
         <View style={styles.img}>
-          <Text><Icon name="event" size={25} color="#3498db"/></Text>
+          <Text><FIcon name="globe" size={25} color="#3498db"/></Text>
         </View>
         <View style={styles.text}>
            <View>
@@ -123,7 +123,7 @@ class SearchRoutes extends Component {
           </View>
 
             <ListView style={styles.eventRow}
-              style={{marginTop: 75, alignSelf: 'center'}}
+              style={{marginTop: 15, alignSelf: 'center'}}
               initialListSize={10}
               dataSource={this.state.dataSource}
               renderRow={(item) => { return this.renderRow(item) }}
@@ -141,16 +141,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#eee'
   },
   search: {
+    zIndex:5,
     flexDirection: "row",
+    backgroundColor:'#ccc',
     width: width,
-    height: 40,
+    height: 60,
     borderColor: "#3498db",
     borderWidth: 1
   },
   inputText: {
     top:65,
     height: 40,
-    width: width-30,
+    width: width-35,
     marginLeft:0,
     backgroundColor: '#fff',
     paddingHorizontal: 18,
@@ -189,11 +191,12 @@ const styles = StyleSheet.create({
     height: 70,
     width: width-20,
     marginRight:5,
-    marginLeft:5
+    marginLeft:5,
+    margin:5
   },
   text: {
     backgroundColor: '#fff',
-    width: width-88,
+    width: width-84,
     paddingRight:20,
     height: 67,
     overflow: 'hidden',
