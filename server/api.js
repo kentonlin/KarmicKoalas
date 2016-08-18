@@ -45,14 +45,14 @@ app.post('/searchKeywords', (req, res) => {
         //console.log('results',results)
         if (results[0][0] === undefined){
           //keyword not in db
-          return db.knex.raw('INSERT IGNORE INTO `keywords` (`word`) values ( "' + word + '")')
-            .then((result) => {
-              var key_id = result[0].insertId
-                    //console.log('insert keyword into keywords',word )
-                    if(keywords.length === 1){
+          // return db.knex.raw('INSERT IGNORE INTO `keywords` (`word`) values ( "' + word + '")')
+          //   .then((result) => {
+          //     var key_id = result[0].insertId
+          //           //console.log('insert keyword into keywords',word )
+                    //if(keywords.length === 1){
                       res.status(200).send({message:"We don't have any routes for those keywords"})
-                    }
-            })
+                  //  }
+            //})
         } else {
           var key_id = results[0][0].id
 
