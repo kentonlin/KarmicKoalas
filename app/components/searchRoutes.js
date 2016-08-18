@@ -61,7 +61,7 @@ class SearchRoutes extends Component {
           this.setState({
             dataSource: ds.cloneWithRows(responseData)
           })
-       }
+      }
      }).catch((error) => {
        console.error(error);
      })
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: 'white'
+    backgroundColor: '#EEE'
   },
   routeRow: {
     flex: 1,
