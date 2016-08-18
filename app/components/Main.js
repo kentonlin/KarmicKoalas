@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   eventsBtn: {
     flex: 1,
     bottom: 20,
-    left: 155,
+    left: 170,
     width:50,
     height:50,
     position: 'absolute',

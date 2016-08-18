@@ -70,9 +70,25 @@ class Chat extends Component {
    }
  }
 
+ navBar(options) {
+  if(options === '1'){
+    return {  }
+  } else {
+    return {
+      width: width-16,
+      position: 'absolute',
+      borderColor: "#3498db",
+      borderWidth: 1,
+      marginLeft:10,
+      marginRight:10,
+      top: 20
+    }
+  }
+}
+
   render() {
     return (
-        <View style={styles.navBar}>
+        <View style={this.navBar(this.props.eventId)}>
           <TextInput
              onKeyPress={this.handleKeyDown.bind(this)}
              placeholder="Send a Message to the Group"
