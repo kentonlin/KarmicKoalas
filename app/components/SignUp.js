@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
 import logo from '../icons/pin.png'
 
-
 class SignUp extends Component {
 	constructor(props) {
     super(props)

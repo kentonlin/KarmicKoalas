@@ -27,8 +27,8 @@ class Splash extends Component {
       } else {
 				this.props.navigator.resetTo({
 					navigationBarHidden: true,
-					component: SignUp,
-					title: "SignUp",
+					component: Main,
+					title: "Main",
 					passProps: {
 		        userId: +data[1][1],
 						username: data[0][1]
