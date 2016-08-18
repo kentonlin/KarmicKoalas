@@ -61,10 +61,10 @@ class SignUp extends Component {
 				</Text>
         <TextInput
           style={styles.inputText}
-          returnKeyType = {"next"}
-          autoFocus = {true}
-          placeholder = "		   name: Jane Doe "
-          placeholderTextColor="#3498db"
+          returnKeyType={"next"}
+          autoFocus ={true}
+          placeholder = "		Name "
+          placeholderTextColor="silver"
           onChangeText={(text) => this.setState({name: text})}
           onSubmitEditing={(event) => {
             this.refs.SecondInput.focus();
@@ -73,7 +73,7 @@ class SignUp extends Component {
         <TextInput
           ref='SecondInput'
           style={styles.inputText}
-          placeholder="				 JaneDoe@wego2.com "
+          placeholder="				 JaneDoe@wegotoo.com "
           placeholderTextColor="#3498db"
           onChangeText={(text) => this.setState({email: text})}
           onSubmitEditing={(event) => {
