@@ -73,14 +73,21 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
     chatIn: {
-    width: width-20,
-    padding:5,
     marginLeft:10,
     marginRight:10,
-    backgroundColor: 'white',
-    top:40,
-    color: '#19B5FE',
-    padding: 8,
+    height: 40,
+    width: width-4,
+    padding: 5,
+    marginTop:5,
+    marginLeft:2,
+    marginRight:2,
+    color: "#3498db",
+    backgroundColor: '#fff',
+    borderColor: "#3498db",
+    borderWidth: 1,
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20
   },
   chat: {
     marginLeft:10,
