@@ -3,6 +3,7 @@ import {Dimensions, View, StyleSheet, Image, NavigatorIOS, Text, ListView, TextI
 
 import createEvent from './createEvent';
 import icon from '../icons/noun_14294.png'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const { width, height } = Dimensions.get('window')
@@ -29,7 +30,7 @@ class SearchRoutes extends Component {
     });
   }
 
-  checkBeforeSubmit() {
+  checkBeforeRequest() {
     if (!this.state.search) {
         AlertIOS.alert("Keywords are required!");
         setTimeout(function() {
@@ -56,11 +57,11 @@ class SearchRoutes extends Component {
           this.setState({
             search: responseData.message
           })
-        }else {
+        } else {
           this.setState({
             dataSource: ds.cloneWithRows(responseData)
           })
-      }
+       }
      }).catch((error) => {
        console.error(error);
      })
@@ -109,7 +110,7 @@ class SearchRoutes extends Component {
           onKeyPress={this.handleKeyDown}
           onChangeText={(text) => this.setState({search: text})}/>
         <View style={{paddingTop: 2}}>
-        <TouchableHighlight onPress={() => this.checkBeforeSubmit()} style={styles.button}>
+        <TouchableHighlight onPress={() => this.checkBeforeRequest()} style={styles.button}>
             <Text style={styles.buttonText}>Submit - becoming an icon</Text>
         </TouchableHighlight>
         <View>

@@ -121,14 +121,14 @@ const styles = StyleSheet.create({
     },
 		TextInput: {
 			justifyContent: 'center',
+			fontSize: 30,
 			margin: 10
 		},
     inputText: {
-      height: 40,
+      height: 35,
       color: '#3498db',
 			borderColor: "#3498db",
 	    borderWidth: 1,
-			padding: 30,
 			alignItems: 'center'
     },
     textHeader: {
