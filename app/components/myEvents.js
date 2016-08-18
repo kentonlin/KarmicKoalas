@@ -2,13 +2,15 @@
 // My Events Template to render views of user created views.
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight, ScrollView, ListView, TextInput, AlertIOS, AsyncStorage } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight, Dimensions, ScrollView, ListView, TextInput, AlertIOS, AsyncStorage } from 'react-native';
 import icon from '../icons/noun_14294.png'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Main from './Main';
 // Test Data Objects
 //TODO Get request to database for event data.
 
+const { width, height } = Dimensions.get('window')
 let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 class myEvents extends Component {
@@ -48,9 +50,24 @@ class myEvents extends Component {
     highlightedRow: (sectionID: nunber, rowID: number) => void)  {
     return (
       <TouchableOpacity style={styles.eventRow} onPress={() => this.goMap(rowData)}>
-      <View>
-        <Text><Image source={icon} style={styles.image}/>{rowData.title}{'\n'}Start:{rowData.start_address}  End:{rowData.end_address}{'\n'}{rowData.time}{'\n'}</Text>
-        <View />
+        <View style={styles.box}>
+          <View style={styles.img}>
+            <Text><Icon name="event" size={25} color="#3498db"/></Text>
+          </View>
+          <View style={styles.text}>
+             <View>
+                 <Text style={styles.titleRow}>{rowData.title}</Text>
+             </View>
+             <View>
+                 <Text style={styles.start}>Start:{rowData.start_address}</Text>
+             </View>
+             <View>
+                 <Text style={styles.start}>End:{rowData.end_address}</Text>
+             </View>
+             <View>
+                 <Text style={styles.time}>{rowData.time}</Text>
+             </View>
+          </View>
       </View>
       </TouchableOpacity>
     );
@@ -86,26 +103,45 @@ class myEvents extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'flex-start',
       backgroundColor: '#fff'
     },
     eventRow: {
-      flex: 1,
       flexDirection: "row",
-      justifyContent: "flex-start",
-      height: 70,
-      margin: 10,
+      width: width-20,
+      height: 100,
+      margin: 5,
       borderColor:'#3498db',
-      borderWidth:2,
-      borderRadius:20,
-      padding:50
+      borderWidth:1,
+      padding:5
+    },
+    box: {
+      flexDirection: "row"
     },
     text: {
-      flex: 1
+      width: width-75,
     },
-    image: {
-      height: 30,
-      width: 30
+    img: {
+      paddingLeft:5,
+      paddingRight:15,
+      backgroundColor: '#fff',
+      justifyContent: 'center'
+    },
+    titleRow: {
+      marginTop:5,
+      marginBottom:5,
+      fontWeight:'bold',
+      color:'#000',
+      textAlign:'left',
+    },
+    start: {
+      color:'#ccc',
+      fontSize:11
+    },
+    time: {
+      color:'#000',
+      fontSize:11,
+      textAlign:'left',
+      paddingTop:10,
     }
 });
 
