@@ -100,7 +100,7 @@ class SignUp extends Component {
           onChangeText={(text) => this.setState({password: text})}
         />
         <TouchableHighlight onPress={() => this.signUp()} style={styles.button}>
-					<Image source={submit_btn} style={styles.sb}/>
+					<Text></Text>
         </TouchableHighlight>
 			</View>
 			)
@@ -133,17 +133,24 @@ const styles = StyleSheet.create({
       color: '#3498db',
       justifyContent: 'flex-start'
     },
+    buttonText: {
+      fontSize: 20,
+      color: 'white'
+    },
+    button: {
+      height: 44,
+			width: 100,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      backgroundColor: 'green',
+			borderRadius: 50,
+			marginTop: 10
+    },
 		logo: {
 			height: 20,
 			width: 20,
 			flexDirection: 'row'
-		},
-		sb: {
-			marginTop: 20,
-			height: 10,
-			width: 20,
-			flexDirection: 'row'
 		}
-});
+	});
 
 module.exports =  SignUp;
