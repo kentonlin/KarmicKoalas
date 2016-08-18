@@ -85,17 +85,18 @@ class MapComponent extends Component {
      const { prevLatLng } = this.state
      return (haversine(prevLatLng, newLatLng) || 0)
   }
-  // playEvent(eventId){
-  //   console.log('Event ID', eventId);
-  //    fetch("http://localhost:8000/getRouteById", {method: "POST", headers: {'Content-Type': 'application/json'} ,body: JSON.stringify({event_id: eventId})})
-  //    .then((response) => response.json())
-  //    .then((responseData) => {
-  //      console.log('SERVER', responseData);
-  //      this.setState({routeCoordinates: JSON.parse(responseData.route_object)});
-  //      this.props.initializesEvent(eventId)
-  //    })
-  //    .done();
-  //  }
+  saveRoute(route) {
+    // {title:string, keywords:[],start:{}, end:{}, routeObject:[]}
+      console.log('Route to save', route);
+      fetch("https://wegotoo.herokuapp.com/createRoute", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({title:'Saved Route', keywords:['saved'], start:route[0], end:route[route.length-1], routeObject:route})
+      }).then((response) => response.json()).then((responseData) => {
+        console.log('SERVER', responseData)
+      })
+      .done();
+   }
   //function update user array for annotations
   updateUsersArray(object){
     var exist = false;
@@ -161,6 +162,11 @@ class MapComponent extends Component {
         />
           </MapView>
         <TouchableHighlight
+          style={styles.save}
+          onPress={() => {this.saveRoute(this.state.routeCoordinates)}}>
+          <Text><Icon name="floppy-o" size={25} color="#3498db" /></Text>
+        </TouchableHighlight>
+        <TouchableHighlight
           style={styles.button}
           onPress={() => {this.setState({routeCoordinates: [], toggle: true})}}>
           <Text><Icon name="circle" size={25} color="#e74c3c" /></Text>
@@ -187,6 +193,20 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     bottom:250,
+    left:20,
+    width:50,
+    height:50,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    borderColor: "#3498db",
+    borderWidth: 1,
+    paddingHorizontal: 13,
+    paddingVertical: 12,
+    borderRadius: 50
+  },
+  save: {
+    flex: 1,
+    bottom:410,
     left:20,
     width:50,
     height:50,
