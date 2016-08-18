@@ -18,7 +18,7 @@ class Chat extends Component {
       eventId: props.eventId,
       message: props.message,
       socket:props.socket,
-      incomingMessage: props.incomingMessage
+      incomingMessage: ' '
      }
   }
 
@@ -46,6 +46,29 @@ class Chat extends Component {
     this.state.message = "";
     }
   }
+  jewelStyle(options) {
+   if(options !== ' '){
+     return {
+       height: 40,
+       justifyContent: 'center',
+       fontSize:18,
+       width: width-18,
+       padding: 10,
+       color: "#3498db",
+       backgroundColor: '#fff',
+     }
+   } else {
+     return {
+       height: 0,
+       justifyContent: 'center',
+       fontSize:18,
+       width: width-18,
+       padding: 0,
+       color: "#3498db",
+       backgroundColor: '#fff',
+     }
+   }
+ }
 
   render() {
     return (
@@ -57,7 +80,7 @@ class Chat extends Component {
              style={styles.chat}
              onChangeText={(message) => this.setState({message})}
              value={this.state.message}/>
-           <Text style={styles.chatIn}>
+           <Text style={this.jewelStyle(this.state.incomingMessage)}>
                {this.state.incomingMessage}
            </Text>
         </View>
@@ -72,15 +95,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-    chatIn: {
-
-    justifyContent: 'center',
-    fontSize:18,
-    width: width-18,
-    padding: 10,
-    color: "#3498db",
-    backgroundColor: '#fff',
-  },
   chat: {
     height: 40,
     width: width-18,
@@ -90,7 +104,6 @@ const styles = StyleSheet.create({
   },
   navBar: {
     width: width-16,
-
     position: 'absolute',
     borderColor: "#3498db",
     borderWidth: 1,
