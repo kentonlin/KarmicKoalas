@@ -76,7 +76,6 @@ describe('/getRouteById', () => {
       }
     }, (err, res, body) => {
       expect(body).to.be.an('object');
-      console.log("body:", body)
       // TODO why is body.title stringified?
       expect(JSON.parse(body.title)).to.equal("New York walk");
       done();
@@ -107,46 +106,46 @@ describe('/getAllUsers', () => {
   });
 });
 
-// describe('/signup', () => {
-//   it("should create a new user", (done) => {
-//     request({
-//       method: "POST",
-//       url: localhost + "/signup",
-//       json: {
-//         name: "test",
-//         username: "test",
-//         email: "test@test.com",
-//         password: "test"
-//       }
-//     }, (err, res, body) => {
-//       expect(body).to.be.an("object");
-//       var userId = body.userId;
-//       expect(userId).not.to.be.NaN;
-//       request(localhost + "/getAllUsers", (err, res, body) => {
-//             // console.log("SIGNUP")
-//         var users = JSON.parse(body);
-//         var found = false;
-//         users.forEach(user => {
-//           if(user.user_id === userId) found = true;
-//         });
-//         expect(found).to.equal(true);
-//         new User({
-//           id: userId
-//         }).destroy().then(user => {
-//           request(localhost + "/getAllUsers", (err, res, body) => {
-//             var users = JSON.parse(body);
-//             var found = false;
-//             users.forEach(user => {
-//               if(user.user_id === userId) found = true;
-//             });
-//             expect(found).to.equal(false);
-//             done();
-//           });
-//         });
-//       });
-//     });
-//   });
-// });
+describe('/signup', () => {
+  var User = require('../server/db/models/user');
+  it("should create a new user", (done) => {
+    request({
+      method: "POST",
+      url: localhost + "/signup",
+      json: {
+        name: "test",
+        username: "test",
+        email: "test@test.com",
+        password: "test"
+      }
+    }, (err, res, body) => {
+      expect(body).to.be.an("object");
+      var userId = body.userId;
+      expect(userId).not.to.be.NaN;
+      request(localhost + "/getAllUsers", (err, res, body) => {
+        var users = JSON.parse(body);
+        var found = false;
+        users.forEach(user => {
+          if(user.user_id === userId) found = true;
+        });
+        expect(found).to.equal(true);
+        new User({
+          id: userId
+        }).destroy().then(user => {
+          request(localhost + "/getAllUsers", (err, res, body) => {
+            var users = JSON.parse(body);
+            var found = false;
+            users.forEach(user => {
+              if(user.user_id === userId) found = true;
+            });
+            expect(found).to.equal(false);
+            done();
+          });
+        });
+      });
+    });
+  });
+});
 
 describe('/createRoute', () => {
   it("should create a new Route", (done) => {
