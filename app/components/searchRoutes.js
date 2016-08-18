@@ -49,9 +49,7 @@ class SearchRoutes extends Component {
     })
     .then((response) => response.json()).then((responseData) => {
         console.log('DATA FROM SERVER', responseData);
-        if (responseData === null){
-          console.log("NO DATA RETURNED");
-        }
+
         if (responseData.message){
           console.log(responseData.message)
           this.setState({
