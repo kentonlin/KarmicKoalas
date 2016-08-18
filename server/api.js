@@ -141,8 +141,8 @@ app.post('/getMyEvents', (req, res) => {
              console.log('getMyEventsevent', event)
             //compile object with data on event]
             if(event.start_address !== null){
-              var start_address = event.start_address.slice(0,event.start_address.lastIndexOf(',')-6)
-              var end_address = event.end_address.slice(0,event.end_address.lastIndexOf(',')-6)
+              var start_address = event.start_address.slice(1,event.start_address.lastIndexOf(',')-6)
+              var end_address = event.end_address.slice(1,event.end_address.lastIndexOf(',')-6)
             } else {
               var start_address = 'no address available'
               var end_address = 'no address available'
