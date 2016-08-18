@@ -26,7 +26,7 @@ class myEvents extends Component {
   }
 
   componentDidMount(){
-    fetch("http://localhost:8000/getMyEvents", {
+    fetch("https://wegotoo.herokuapp.com/getMyEvents", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({user_id: this.props.userId})
@@ -64,10 +64,10 @@ class myEvents extends Component {
                  <Text style={styles.titleRow}>{rowData.title}</Text>
              </View>
              <View>
-                 <Text style={styles.start}>Start:{rowData.start_address}</Text>
+                 <Text style={styles.start}>Start: {rowData.start_address}</Text>
              </View>
              <View>
-                 <Text style={styles.start}>End:{rowData.end_address}</Text>
+                 <Text style={styles.start}>End: {rowData.end_address}</Text>
              </View>
              <View>
                  <Text style={styles.time}>{rowData.time}</Text>
