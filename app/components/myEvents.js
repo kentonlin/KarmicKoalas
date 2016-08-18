@@ -26,7 +26,7 @@ class myEvents extends Component {
   }
 
   componentDidMount(){
-    fetch("http:localhost:8000/getMyEvents", {
+    fetch("https://wegotoo.herokuapp.com/getMyEvents", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({user_id: this.props.userId})
@@ -64,10 +64,10 @@ class myEvents extends Component {
                  <Text style={styles.titleRow}>{rowData.title}</Text>
              </View>
              <View>
-                 <Text style={styles.start}>Start:{rowData.start_address}</Text>
+                 <Text style={styles.start}>Start: {rowData.start_address}</Text>
              </View>
              <View>
-                 <Text style={styles.start}>End:{rowData.end_address}</Text>
+                 <Text style={styles.start}>End: {rowData.end_address}</Text>
              </View>
              <View>
                  <Text style={styles.time}>{rowData.time}</Text>
@@ -101,7 +101,6 @@ class myEvents extends Component {
           initialListSize={10}
           dataSource={this.state.objectdataSource}
           renderRow={(item) => { return this.renderRow(item) }}
-          renderSeparator={this.renderSeparator}
           enableEmptySections={true}
           contentInset={{bottom:10}}/>
       </View>
@@ -117,12 +116,13 @@ const styles = StyleSheet.create({
     eventRow: {
       backgroundColor: '#fff',
       flexDirection: "row",
-      width: width-20,
+      width: width-27,
       height: 100,
       marginTop: 5,
       borderColor:'#3498db',
       borderWidth:1,
-      padding:5
+      padding:5,
+      overflow: 'hidden',
     },
     box: {
       flexDirection: "row",
@@ -130,12 +130,13 @@ const styles = StyleSheet.create({
     },
     text: {
       width: width-75,
+      paddingRight:10,
       height: 90,
       overflow: 'hidden',
     },
     img: {
-      paddingLeft:5,
-      paddingRight:15,
+      paddingLeft:15,
+      paddingRight:25,
       backgroundColor: '#fff',
       justifyContent: 'center'
     },
