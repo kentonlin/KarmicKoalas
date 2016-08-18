@@ -139,12 +139,12 @@ class MapComponent extends Component {
           ))}
             <MapView.Marker
               title={'Start'}
-              image={pin}
+              pinColor={'#3498db'}
               coordinate={this.props.pinStart}
             />
             <MapView.Marker
               title={'Finish'}
-              image={pin2}
+              pinColor={'#e74c3c'}
               coordinate={this.props.pinEnd}
             />
           <MapView.Polyline
@@ -208,8 +208,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: "#3498db",
     borderWidth: 1,
-    paddingHorizontal: 12,
-    paddingVertical: 9,
+    paddingHorizontal: 12.5,
+    paddingVertical: 8,
     borderRadius: 50
   },
   map: {
