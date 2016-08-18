@@ -3,6 +3,7 @@ import {Dimensions, View, StyleSheet, Image, NavigatorIOS, Text, ListView, TextI
 
 import createEvent from './createEvent';
 import icon from '../icons/noun_14294.png'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const { width, height } = Dimensions.get('window')
@@ -29,9 +30,9 @@ class SearchRoutes extends Component {
     });
   }
 
-  checkBeforeSubmit() {
+  checkBeforeRequest() {
     if (!this.state.search) {
-        AlertIOS.alert("keywords are required!");
+        AlertIOS.alert("Keywords are required!");
         setTimeout(function() {
           this.refs.textInput.focus();
         }.bind(this), 0);
@@ -48,15 +49,13 @@ class SearchRoutes extends Component {
     })
     .then((response) => response.json()).then((responseData) => {
         console.log('DATA FROM SERVER', responseData);
-        if (responseData === null){
-          console.log("NO DATA RETURNED");
-        }
+
         if (responseData.message){
           console.log(responseData.message)
           this.setState({
             search: responseData.message
           })
-        }else {
+        } else {
           this.setState({
             dataSource: ds.cloneWithRows(responseData)
           })
@@ -109,8 +108,8 @@ class SearchRoutes extends Component {
           onKeyPress={this.handleKeyDown}
           onChangeText={(text) => this.setState({search: text})}/>
         <View style={{paddingTop: 2}}>
-        <TouchableHighlight onPress={() => this.checkBeforeSubmit()} style={styles.button}>
-            <Text style={styles.buttonText}>Submit</Text>
+        <TouchableHighlight onPress={() => this.checkBeforeRequest()} style={styles.button}>
+            <Text style={styles.buttonText}>Submit - becoming an icon</Text>
         </TouchableHighlight>
         <View>
           <ListView
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: 'white'
+    backgroundColor: '#EEE'
   },
   routeRow: {
     flex: 1,
@@ -145,7 +144,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 18,
     paddingVertical: 12,
-    borderColor: '#fff'
+    borderRadius: 20,
+    borderColor: "#3498db",
+    borderWidth: 1
   },
   buttonText: {
     fontSize: 18,
