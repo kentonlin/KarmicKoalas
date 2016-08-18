@@ -2,7 +2,8 @@
 const email = require('./email');
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./db/config')
+const db = require('./db/config');
+const moment = require('moment');
 
 const User = require('./db/models/user');
 const Keyword = require('./db/models/keyword');
@@ -51,7 +52,7 @@ app.post('/searchKeywords', (req, res) => {
                     }
             })
         } else {
-          var key_id = result[0][0].id
+          var key_id = results[0][0].id
         }
         console.log('key_id', key_id)
           //get id for keyword word
@@ -138,13 +139,22 @@ app.post('/getMyEvents', (req, res) => {
            .then((event) => {
              event = event[0][0];
              console.log('getMyEventsevent', event)
-            //compile object with data on event
+            //compile object with data on event]
+            if(event.start_address !== null){
+              var start_address = event.start_address.slice(0,event.start_address.lastIndexOf(',')-6)
+              var end_address = event.end_address.slice(0,event.end_address.lastIndexOf(',')-6)
+            } else {
+              var start_address = 'no address available'
+              var end_address = 'no address available'
+            }
+            var time = Date.parse(event.time)
+            time = moment(time).format("dddd, MMMM Do YYYY, h:mm a");
             obj = {
                 route_id:event.route_id,
-                start_address:event.start_address,
-                end_address:event.end_address,
+                start_address:start_address,
+                end_address:end_address,
                 title: event.title,
-                time: event.time,
+                time: time,
                 event_id: event.id
               }
               myEvents.push(obj);

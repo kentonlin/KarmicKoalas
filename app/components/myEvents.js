@@ -34,9 +34,14 @@ class myEvents extends Component {
       var data = responseData.filter(event => {
         return new Date(event.time) > new Date();
       });
-      this.setState({
-        objectdataSource: dataSource.cloneWithRows(data)
-      });
+      if (data.length===0){
+        console.log('You have no current events');
+        AlertIOS.alert("You have no current events");
+      }else {
+        this.setState({
+          objectdataSource: dataSource.cloneWithRows(data)
+        })
+      }
     }).done();
   }
 

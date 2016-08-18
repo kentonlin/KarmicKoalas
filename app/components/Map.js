@@ -7,7 +7,7 @@ import haversine from 'haversine'
 import pick from 'lodash/pick'
 import pin from '../icons/pin.png'
 import pin2 from '../icons/pin2.png'
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/Foundation';
 const { width, height } = Dimensions.get('window')
 
 class MapComponent extends Component {
@@ -163,12 +163,12 @@ class MapComponent extends Component {
         <TouchableHighlight
           style={styles.button}
           onPress={() => {this.setState({routeCoordinates: [], toggle: true})}}>
-          <Text><Icon name="radio-button-checked" size={30} color="#3498db"/></Text>
+          <Text><Icon name="record" size={30} color="#ff4d4d"/></Text>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.buttonStop}
           onPress={() => {this.setState({routeCoordinates: [], toggle: false})}}>
-          <Text><Icon name="highlight-off" size={30} color="#3498db"/></Text>
+          <Text><Icon name="x-circle" size={30} color="#3498db"/></Text>
         </TouchableHighlight>
       </View>
     )
@@ -186,16 +186,14 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    top:200,
+    top:130,
     right:15,
-    width:50,
-    height:50,
+    width:30,
+    height:30,
     position: 'absolute',
     backgroundColor: '#fff',
-    borderColor: "#3498db",
+    borderColor: "#ff4d4d",
     borderWidth: 1,
-    paddingHorizontal: 9,
-    paddingVertical: 9,
     borderRadius: 50
   },
   buttonStop: {
