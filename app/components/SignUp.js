@@ -119,11 +119,16 @@ const styles = StyleSheet.create({
       fontSize: 30,
       margin: 80
     },
+		TextInput: {
+			justifyContent: 'center',
+			margin: 10
+		},
     inputText: {
-      height: 20,
+      height: 40,
       color: '#3498db',
 			borderColor: "#3498db",
 	    borderWidth: 1,
+			padding: 30,
 			alignItems: 'center'
     },
     textHeader: {
@@ -134,11 +139,6 @@ const styles = StyleSheet.create({
     buttonText: {
       fontSize: 20,
       color: 'white'
-    },
-    buttonText: {
-      fontSize: 18,
-      color: 'white',
-      alignSelf: 'center'
     },
     button: {
       height: 44,
