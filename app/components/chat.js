@@ -70,38 +70,46 @@ const styles = StyleSheet.create({
     flex: 1,
     padding:10,
     justifyContent: 'center',
-    alignItems: 'center',
-
+    alignItems: 'center'
   },
     chatIn: {
-    width: width-20,
-    padding:5,
     marginLeft:10,
     marginRight:10,
-    backgroundColor: 'white',
-    top:10,
-    color: '#19B5FE',
-    padding: 8,
+    height: 40,
+    width: width-4,
+    padding: 5,
+    marginTop:5,
+    marginLeft:2,
+    marginRight:2,
+    color: "#3498db",
+    backgroundColor: '#fff',
+    borderColor: "#3498db",
+    borderWidth: 1,
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20
   },
   chat: {
     marginLeft:10,
     marginRight:10,
     height: 40,
-    width: width-20,
-    padding:5,
-    backgroundColor: 'white',
-    top:20,
-    color: '#19B5FE',
-    padding: 8,
+    width: width-4,
+    padding: 5,
+    marginTop:5,
+    marginLeft:2,
+    marginRight:2,
+    color: "#3498db",
+    backgroundColor: '#fff',
+    borderColor: "#3498db",
+    borderWidth: 1,
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20
   },
   navBar: {
-    height: 64,
     width: width,
     position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0
+    top: 40
   }
 })
 
