@@ -116,10 +116,13 @@ const styles = StyleSheet.create({
       padding:5
     },
     box: {
-      flexDirection: "row"
+      flexDirection: "row",
+      height: 92,
     },
     text: {
       width: width-75,
+      height: 90,
+      overflow: 'hidden',
     },
     img: {
       paddingLeft:5,
