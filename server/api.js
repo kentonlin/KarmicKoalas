@@ -79,12 +79,20 @@ app.post('/searchKeywords', (req, res) => {
                     .then((routeInfo) => {
                       //console.log('get route_info', routeInfo[0][0])
                       var routeInfo = routeInfo[0][0]
+                      var title = routeInfo.title.slice(1,routeInfo.title.length-1)
+                      if(routeInfo.start_address !== null){
+                        var start_address = routeInfo.start_address.slice(1,routeInfo.start_address.lastIndexOf(',')-6)
+                        var end_address = routeInfo.end_address.slice(1,routeInfo.end_address.lastIndexOf(',')-6)
+                      } else {
+                        var start_address = 'no address available'
+                        var end_address = 'no address available'
+                      }
                       var data = {
-                        title: routeInfo.title,
+                        title: title,
                         start: routeInfo.start,
-                        start_address: routeInfo.start_address,
+                        start_address: start_address,
                         end: routeInfo.end,
-                        end_address: routeInfo.end_address,
+                        end_address: end_address,
                         points_of_interest: routeInfo.points_of_interest,
                         id:routeInfo.id
                       }
