@@ -123,9 +123,7 @@ const styles = StyleSheet.create({
       height: 35,
       color: '#3498db',
 			borderColor: "#3498db",
-			alignSelf: 'flex-start',
-			fontSize: 20,
-			margin: 10
+			fontSize: 20
     },
     textHeader: {
       fontSize: 30,
