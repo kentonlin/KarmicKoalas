@@ -101,7 +101,6 @@ class myEvents extends Component {
           initialListSize={10}
           dataSource={this.state.objectdataSource}
           renderRow={(item) => { return this.renderRow(item) }}
-          renderSeparator={this.renderSeparator}
           enableEmptySections={true}
           contentInset={{bottom:10}}/>
       </View>
@@ -117,12 +116,13 @@ const styles = StyleSheet.create({
     eventRow: {
       backgroundColor: '#fff',
       flexDirection: "row",
-      width: width-20,
-      height: 100,
+      width: width-27,
+      height: 105,
       marginTop: 5,
       borderColor:'#3498db',
       borderWidth:1,
-      padding:5
+      padding:5,
+      overflow: 'hidden',
     },
     box: {
       flexDirection: "row",
@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     },
     text: {
       width: width-75,
+      paddingRight:10,
       height: 90,
       overflow: 'hidden',
     },
