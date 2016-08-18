@@ -1,8 +1,9 @@
 'use strict'
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
 import logo from '../icons/pin.png'
+import submit_btn from '../assets/submit_btn.png'
 
 class SignUp extends Component {
 	constructor(props) {
@@ -56,9 +57,9 @@ class SignUp extends Component {
   render() {
 		return (
       <View style={styles.container}>
-				<Text style={styles.textHeader}>
-					INSERT LOGO
-				</Text>
+				<Image source={logo} style={styles.image}/>
+				<Image source={logo} style={styles.image}/>
+				<Image source={logo} style={styles.image}/>
         <TextInput
           style={styles.inputText}
           returnKeyType={"next"}
@@ -99,7 +100,7 @@ class SignUp extends Component {
           onChangeText={(text) => this.setState({password: text})}
         />
         <TouchableHighlight onPress={() => this.signUp()} style={styles.button}>
-					<Text style={styles.buttonText}>Submit</Text>
+					<Text></Text>
         </TouchableHighlight>
 			</View>
 			)
@@ -141,14 +142,15 @@ const styles = StyleSheet.create({
 			width: 100,
       flexDirection: 'row',
       justifyContent: 'center',
-      backgroundColor: 'skyblue',
+      backgroundColor: 'green',
 			borderRadius: 50,
 			marginTop: 10
     },
 		logo: {
 			height: 20,
-			width: 20
+			width: 20,
+			flexDirection: 'row'
 		}
-});
+	});
 
 module.exports =  SignUp;
