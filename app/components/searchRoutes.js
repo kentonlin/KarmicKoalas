@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Dimensions, View, StyleSheet, Image, NavigatorIOS, Text, ListView, TextInput, TouchableHighlight, TouchableOpacity, AlertIOS } from 'react-native';
 
 import createEvent from './createEvent';
-import icon from '../icons/noun_14294.png'
+import FIcon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -42,7 +42,7 @@ class SearchRoutes extends Component {
   }
 
   getRoutes(){
-    fetch("https://wegotoo.herokuapp.com/searchKeywords", {
+    fetch("http:localhost:8000/searchKeywords", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({keywords: this.state.search.trim().split(',')})
@@ -71,10 +71,25 @@ class SearchRoutes extends Component {
     highlightedRow: (sectionID: nunber, rowID: number) => void) {
     return (
       <TouchableOpacity style={styles.routeRow} onPress={(event) => this.handleItemClick(rowData)}>
+      <View style={styles.box}>
+        <View style={styles.img}>
+          <Text><Icon name="event" size={25} color="#3498db"/></Text>
+        </View>
+        <View style={styles.text}>
+           <View>
+               <Text style={styles.titleRow}>{rowData.title}</Text>
+           </View>
+           <View>
+               <Text style={styles.start}>Start: {rowData.start_address}</Text>
+           </View>
+           <View>
+               <Text style={styles.start}>End: {rowData.end_address}</Text>
+           </View>
+        </View>
       <View>
-       <Text><Image style={styles.image} source={icon}/>{rowData.title}{'\n'}Start:{rowData.start_address}{'\n'}End:{rowData.end_address}</Text>
-      </View>
-      </TouchableOpacity>
+        <View />
+    </View></View>
+    </TouchableOpacity>
     );
   }
 
@@ -84,7 +99,7 @@ class SearchRoutes extends Component {
         key={`${sectionID}-${rowID}`}
         style={{
           height: adjacentRowHighlighted ? 4 : 1,
-          backgroundColor: adjacentRowHighlighted ? '#073AD2' : '#E0DFDF',
+          backgroundColor: adjacentRowHighlighted ? '#B2B0B2' : '#073AD2',
         }}
       />
     );
@@ -93,36 +108,29 @@ class SearchRoutes extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput
-          ref='textInput'
-          style={styles.inputText}
-          autoFocus = {true}
-          multiline = {true}
-          numberOfLines = {8}
-          borderWidth={2}
-          fontSize={15}
-          padding={8}
-          marginTop={68}
-          value={this.state.search}
-          placeholder="Enter keywords: ex. NYC,Atlanta,City-Of-Love"
-          onKeyPress={this.handleKeyDown}
-          onChangeText={(text) => this.setState({search: text})}/>
-        <View style={{paddingTop: 2}}>
-        <TouchableHighlight onPress={() => this.checkBeforeRequest()} style={styles.button}>
-            <Text style={styles.buttonText}>Submit - becoming an icon</Text>
-        </TouchableHighlight>
-        <View>
-          <ListView
-            style={{marginTop: 2, padding: 7}}
-            initialListSize={1}
-            dataSource={this.state.dataSource}
-            renderRow={(route) => { return this.renderRow(route) }}
-            renderSeparator={this.renderSeparator}
-            enableEmptySections={true}
-            automaticallyAdjustContentInsets={false}/>
+        <View style={styles.search}>
+          <TextInput
+            ref='textInput'
+            style={styles.inputText}
+            autoFocus = {true}
+            value={this.state.search}
+            placeholder="Enter keywords: ex. NYC,Atlanta,City-Of-Love"
+            onKeyPress={this.handleKeyDown}
+            onChangeText={(text) => this.setState({search: text})}/>
+            <TouchableHighlight style={styles.sendBtn} onPress={() => this.checkBeforeRequest()}>
+                <Text><FIcon name="search" size={20} color="#3498db" /></Text>
+            </TouchableHighlight>
           </View>
-        </View>
+
+            <ListView style={styles.eventRow}
+              style={{marginTop: 75, alignSelf: 'center'}}
+              initialListSize={10}
+              dataSource={this.state.dataSource}
+              renderRow={(item) => { return this.renderRow(item) }}
+              enableEmptySections={true}
+              contentInset={{bottom:10}}/>
       </View>
+
       );
    }
 }
@@ -130,37 +138,90 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: '#EEE'
+    backgroundColor: '#eee'
   },
-  routeRow: {
-    flex: 1,
+  search: {
     flexDirection: "row",
-    justifyContent: "flex-start",
-    height: 70
-  },
-  inputText: {
-    height: 40,
     width: width,
-    backgroundColor: '#fff',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
+    height: 40,
     borderColor: "#3498db",
     borderWidth: 1
   },
-  buttonText: {
-    fontSize: 18,
-    color: '#000000',
-    alignSelf: 'center'
-  },
-  button: {
+  inputText: {
+    top:65,
     height: 40,
-    backgroundColor: '#A9D0F5',
-    paddingHorizontal: 30,
-    paddingVertical: 12,
-    padding: 5,
-    marginTop: 2
+    width: width-30,
+    marginLeft:0,
+    backgroundColor: '#fff',
+    paddingHorizontal: 18,
+    paddingVertical: 12
   },
+  sendBtn: {
+    flex: 0.25,
+    top: 65,
+    marginRight: 30,
+    width:40,
+    height:40,
+    position: 'absolute',
+    backgroundColor: '#fff',
+    justifyContent: 'center'
+  },
+  list: {
+    flexDirection: "row",
+    width: width,
+    top: 40,
+    height:height-40
+  },
+  eventRow: {
+    backgroundColor: '#fff',
+    flexDirection: "row",
+    width: width-20,
+    height: 90,
+    borderColor:'#3498db',
+    borderWidth:1,
+    padding:5,
+    overflow: 'hidden',
+  },
+  box: {
+    flexDirection: "row",
+    borderColor:'#3498db',
+    borderWidth:1,
+    height: 70,
+    width: width-20,
+    marginRight:5,
+    marginLeft:5
+  },
+  text: {
+    backgroundColor: '#fff',
+    width: width-88,
+    paddingRight:20,
+    height: 67,
+    overflow: 'hidden',
+  },
+  img: {
+    paddingLeft:15,
+    paddingRight:25,
+    backgroundColor: '#fff',
+    justifyContent: 'center'
+  },
+  titleRow: {
+    marginTop:5,
+    marginBottom:5,
+    fontWeight:'bold',
+    color:'#000',
+    textAlign:'left',
+  },
+  start: {
+    color:'#ccc',
+    fontSize:11
+  },
+  time: {
+    color:'#000',
+    fontSize:11,
+    textAlign:'left',
+    paddingTop:10,
+  },
+
   image: {
     height: 20,
     width: 20
