@@ -39,45 +39,60 @@ app.post('/searchKeywords', (req, res) => {
   console.log('keywords',keywords)
   //get id for each keyword from keywords db
   keywords.forEach((word) => {
+    console.log('word',word)
     return db.knex.raw('SELECT `id` FROM `keywords` WHERE `word` = "' + word + '"')
       .then((results) => {
+        //console.log('results',results)
         if (results[0][0] === undefined){
           //keyword not in db
           return db.knex.raw('INSERT IGNORE INTO `keywords` (`word`) values ( "' + word + '")')
             .then((result) => {
               var key_id = result[0].insertId
-                    console.log('insert keyword into keywords',word )
+                    //console.log('insert keyword into keywords',word )
                     if(keywords.length === 1){
                       res.status(200).send({message:"We don't have any routes for those keywords"})
                     }
             })
         } else {
           var key_id = results[0][0].id
-        }
-        console.log('key_id', key_id)
+
+        //console.log('key_id', key_id)
           //get id for keyword word
         return db.knex.raw('SELECT `route` FROM `keywords_routes` WHERE `key_id` = ' + key_id)
           .then((data) => {
-            //console.log('get routeids from keyword', data[0][0].route)
-            routes.push(data[0][0].route)
+            var routes = []
+            //console.log('get routeids from keyword', data[0])
+            data[0].forEach((row)=>{
+              console.log('row',row)
+              console.log('route',row.route)
+              routes.push(row.route)
+            })
             //this will be a list of records with route ids from join table with keyword id
             routes.forEach((route_id) => {
-              console.log('route_id', route_id)
+            //  console.log('route_id', route_id)
               //console.log(routeIdList.includes(route_id))
               if(routeIdList.includes(route_id) === false){
                    routeIdList.push(route_id)
                    count ++;
-                   console.log('routeIdList', routeIdList, count)
+                   //console.log('routeIdList', routeIdList, count)
                    return db.knex.raw('SELECT `title`,`start`,`end`,`id`,`points_of_interest`,`start_address`, `end_address`  FROM `Routes` WHERE `id` = ' + route_id)
                     .then((routeInfo) => {
-                      console.log('get route_info', routeInfo[0][0])
+                      //console.log('get route_info', routeInfo[0][0])
                       var routeInfo = routeInfo[0][0]
+                      var title = routeInfo.title.slice(1,routeInfo.title.length-1)
+                      if(routeInfo.start_address !== null){
+                        var start_address = routeInfo.start_address.slice(1,routeInfo.start_address.lastIndexOf(',')-6)
+                        var end_address = routeInfo.end_address.slice(1,routeInfo.end_address.lastIndexOf(',')-6)
+                      } else {
+                        var start_address = 'no address available'
+                        var end_address = 'no address available'
+                      }
                       var data = {
-                        title: routeInfo.title,
+                        title: title,
                         start: routeInfo.start,
-                        start_address: routeInfo.start_address,
+                        start_address: start_address,
                         end: routeInfo.end,
-                        end_address: routeInfo.end_address,
+                        end_address: end_address,
                         points_of_interest: routeInfo.points_of_interest,
                         id:routeInfo.id
                       }
@@ -92,6 +107,7 @@ app.post('/searchKeywords', (req, res) => {
                }
             })
           })
+        }
   })
  })
 });
