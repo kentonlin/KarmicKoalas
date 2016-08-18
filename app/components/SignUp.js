@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
-import Main from './Main';
 
 class SignUp extends Component {
 	constructor(props) {
@@ -62,8 +61,8 @@ class SignUp extends Component {
         <TextInput
           style={styles.inputText}
           returnKeyType={"next"}
-          autoFocus ={true}
-          placeholder = "		Name "
+          autoFocus={true}
+          placeholder="		Name "
           placeholderTextColor="silver"
           onChangeText={(text) => this.setState({name: text})}
           onSubmitEditing={(event) => {
@@ -73,8 +72,8 @@ class SignUp extends Component {
         <TextInput
           ref='SecondInput'
           style={styles.inputText}
-          placeholder="				 JaneDoe@wegotoo.com "
-          placeholderTextColor="#3498db"
+          placeholder="		Email "
+          placeholderTextColor="silver"
           onChangeText={(text) => this.setState({email: text})}
           onSubmitEditing={(event) => {
             this.refs.ThirdInput.focus();
@@ -83,8 +82,8 @@ class SignUp extends Component {
 				<TextInput
           ref='ThirdInput'
           style={styles.inputText}
-          placeholder="				 JaneDoe01 "
-          placeholderTextColor="#3498db"
+					placeholder="		Username "
+          placeholderTextColor="silver"
           onChangeText={(text) => this.setState({username: text})}
           onSubmitEditing={(event) => {
             this.refs.FourthInput.focus();
@@ -93,13 +92,17 @@ class SignUp extends Component {
         <TextInput
           ref='FourthInput'
           style={styles.inputText}
-          placeholder="				 ************ "
-          placeholderTextColor="#3498db"
+					placeholder="		Password "
+          placeholderTextColor="silver"
           password={true}
           onChangeText={(text) => this.setState({password: text})}
         />
         <TouchableHighlight onPress={() => this.signUp()} style={styles.button}>
-            <Text style={styles.buttonText}>Submit</Text>
+					<View>
+					  <Icon name='signingup' style={styles.icon}>
+            	<Text style={styles.buttonText}>Submit</Text>
+						</Icon>
+					</View>
         </TouchableHighlight>
 			</View>
 			)
@@ -139,7 +142,11 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'center',
       backgroundColor: 'skyblue'
-    }
+    },
+		image: {
+			height:30,
+			width:30
+		}
 });
 
 module.exports =  SignUp;
