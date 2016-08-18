@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
 import SignUp from './SignUp'
 import Main from './Main'
+import About from './About'
 import icon from '../icons/noun_8677.png'
 
 class Splash extends Component {
@@ -29,6 +30,8 @@ class Splash extends Component {
 					navigationBarHidden: true,
 					component: Main,
 					title: "",
+					component: SignUp,
+					title: "SignUp",
 					passProps: {
 		        userId: +data[1][1],
 						username: data[0][1]

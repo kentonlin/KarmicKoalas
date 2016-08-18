@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
 import logo from '../icons/pin.png'
 
 class SignUp extends Component {
@@ -56,9 +56,9 @@ class SignUp extends Component {
   render() {
 		return (
       <View style={styles.container}>
-				<Text style={styles.textHeader}>
-					INSERT LOGO
-				</Text>
+				<Image source={logo} style={styles.image}/>
+				<Image source={logo} style={styles.image}/>
+				<Image source={logo} style={styles.image}/>
         <TextInput
           style={styles.inputText}
           returnKeyType={"next"}
@@ -147,7 +147,8 @@ const styles = StyleSheet.create({
     },
 		logo: {
 			height: 20,
-			width: 20
+			width: 20,
+			flexDirection: 'row'
 		}
 });
 
