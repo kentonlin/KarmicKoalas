@@ -40,7 +40,7 @@ class Chat extends Component {
 
   handleKeyDown(e) {
     if(e.nativeEvent.key == "Enter"){
-      var message = this.state.message + ' -' + this.state.username;
+      var message = this.state.username + ': ' + this.state.message;
       console.log('sending tweet', message, this.props.eventId)
     this.socket.emit('tweet', {'text':message, 'eventId': this.props.eventId})
     this.state.message = "";
@@ -73,32 +73,29 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
     chatIn: {
-    marginLeft:10,
-    marginRight:10,
-    height: 40,
-    width: width-16,
-    padding: 5,
+
+    justifyContent: 'center',
+    fontSize:18,
+    width: width-18,
+    padding: 10,
     color: "#3498db",
     backgroundColor: '#fff',
-    borderColor: "#ccc",
-    borderWidth: 1
   },
   chat: {
-    marginLeft:10,
-    marginRight:10,
     height: 40,
-    width: width-16,
-    padding: 5,
-    marginTop:5,
+    width: width-18,
+    padding: 10,
     color: "#3498db",
     backgroundColor: '#fff',
-    borderColor: "#3498db",
-    borderWidth: 1
   },
   navBar: {
+    width: width-16,
 
-    width: width,
     position: 'absolute',
+    borderColor: "#3498db",
+    borderWidth: 1,
+    marginLeft:10,
+    marginRight:10,
     top: 20
   }
 })

@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: "#3498db",
     borderWidth: 1,
-    paddingHorizontal: 11,
+    paddingHorizontal: 12,
     paddingVertical: 11,
     borderRadius: 50
   },
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: "#3498db",
     borderWidth: 1,
-    paddingHorizontal: 11,
+    paddingHorizontal: 12,
     paddingVertical: 11,
     borderRadius: 50
   },
