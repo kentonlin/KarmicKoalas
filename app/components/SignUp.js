@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
 import logo from '../icons/pin.png'
+import submit_btn from '../assets/submit_btn.png'
 
 class SignUp extends Component {
 	constructor(props) {
@@ -99,7 +100,7 @@ class SignUp extends Component {
           onChangeText={(text) => this.setState({password: text})}
         />
         <TouchableHighlight onPress={() => this.signUp()} style={styles.button}>
-					<Text style={styles.buttonText}>Submit</Text>
+					<Image source={submit_btn} style={styles.sb}/>
         </TouchableHighlight>
 			</View>
 			)
@@ -111,8 +112,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#ffffff',
-			borderWidth: 100
+      backgroundColor: '#ffffff'
     },
     text: {
       color: 'blue',
@@ -133,21 +133,14 @@ const styles = StyleSheet.create({
       color: '#3498db',
       justifyContent: 'flex-start'
     },
-    buttonText: {
-      fontSize: 20,
-      color: 'white'
-    },
-    button: {
-      height: 44,
-			width: 100,
-      flexDirection: 'row',
-      justifyContent: 'center',
-      backgroundColor: 'skyblue',
-			borderRadius: 50,
-			marginTop: 10
-    },
 		logo: {
 			height: 20,
+			width: 20,
+			flexDirection: 'row'
+		},
+		sb: {
+			marginTop: 20,
+			height: 10,
 			width: 20,
 			flexDirection: 'row'
 		}
