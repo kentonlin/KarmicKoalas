@@ -103,13 +103,14 @@ class myEvents extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff'
+      backgroundColor: '#eee'
     },
     eventRow: {
+      backgroundColor: '#fff',
       flexDirection: "row",
       width: width-20,
       height: 100,
-      margin: 5,
+      marginTop: 5,
       borderColor:'#3498db',
       borderWidth:1,
       padding:5
