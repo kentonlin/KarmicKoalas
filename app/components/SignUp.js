@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
+import logo from '../icons/pin.png'
+
 
 class SignUp extends Component {
 	constructor(props) {
@@ -62,7 +64,7 @@ class SignUp extends Component {
           style={styles.inputText}
           returnKeyType={"next"}
           autoFocus={true}
-          placeholder="		Name "
+          placeholder="Name"
           placeholderTextColor="silver"
           onChangeText={(text) => this.setState({name: text})}
           onSubmitEditing={(event) => {
@@ -72,7 +74,7 @@ class SignUp extends Component {
         <TextInput
           ref='SecondInput'
           style={styles.inputText}
-          placeholder="		Email "
+          placeholder="Email"
           placeholderTextColor="silver"
           onChangeText={(text) => this.setState({email: text})}
           onSubmitEditing={(event) => {
@@ -82,7 +84,7 @@ class SignUp extends Component {
 				<TextInput
           ref='ThirdInput'
           style={styles.inputText}
-					placeholder="		Username "
+					placeholder="Username"
           placeholderTextColor="silver"
           onChangeText={(text) => this.setState({username: text})}
           onSubmitEditing={(event) => {
@@ -92,17 +94,13 @@ class SignUp extends Component {
         <TextInput
           ref='FourthInput'
           style={styles.inputText}
-					placeholder="		Password "
+					placeholder="Password"
           placeholderTextColor="silver"
           password={true}
           onChangeText={(text) => this.setState({password: text})}
         />
         <TouchableHighlight onPress={() => this.signUp()} style={styles.button}>
-					<View>
-					  <Icon name='signingup' style={styles.icon}>
-            	<Text style={styles.buttonText}>Submit</Text>
-						</Icon>
-					</View>
+					<Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
 			</View>
 			)
@@ -126,7 +124,9 @@ const styles = StyleSheet.create({
       height: 35,
       color: '#3498db',
 			borderColor: "#3498db",
-			fontSize: 15
+			fontSize: 15,
+			paddingLeft: 95,
+			borderBottomColor: 'red'
     },
     textHeader: {
       fontSize: 30,
@@ -139,13 +139,16 @@ const styles = StyleSheet.create({
     },
     button: {
       height: 44,
+			width: 100,
       flexDirection: 'row',
       justifyContent: 'center',
-      backgroundColor: 'skyblue'
+      backgroundColor: 'skyblue',
+			borderRadius: 50,
+			marginTop: 10
     },
-		image: {
-			height:30,
-			width:30
+		logo: {
+			height: 20,
+			width: 20
 		}
 });
 
