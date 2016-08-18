@@ -60,7 +60,7 @@ class SignUp extends Component {
 					INSERT LOGO
 				</Text>
         <TextInput
-          style = {styles.inputText}
+          style={styles.inputText}
           returnKeyType = {"next"}
           autoFocus = {true}
           placeholder = "Name: "
@@ -72,7 +72,7 @@ class SignUp extends Component {
         />
         <TextInput
           ref='SecondInput'
-          style = {styles.inputText}
+          style={styles.inputText}
           placeholder="Email Address: "
           placeholderTextColor="#3498db"
           onChangeText={(text) => this.setState({email: text})}
@@ -119,17 +119,13 @@ const styles = StyleSheet.create({
       fontSize: 30,
       margin: 80
     },
-		TextInput: {
-			justifyContent: 'center',
-			fontSize: 30,
-			margin: 10
-		},
     inputText: {
       height: 35,
       color: '#3498db',
 			borderColor: "#3498db",
-	    borderWidth: 1,
-			alignItems: 'center'
+			alignSelf: 'flex-start',
+			fontSize: 20,
+			margin: 10
     },
     textHeader: {
       fontSize: 30,
