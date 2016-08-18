@@ -26,7 +26,7 @@ class myEvents extends Component {
   }
 
   componentDidMount(){
-    fetch("https://wegotoo.herokuapp.com/getMyEvents", {
+    fetch("http:localhost:8000/getMyEvents", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({user_id: this.props.userId})
@@ -34,7 +34,7 @@ class myEvents extends Component {
       // var data = responseData.filter(event => {
       //   return new Date(event.time) > new Date();
       // });
-      if (responseData.length===0){
+      if (responseData.message){
         console.log('You have no current events');
         AlertIOS.alert("You have no current events");
       }else {

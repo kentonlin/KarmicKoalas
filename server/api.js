@@ -148,6 +148,10 @@ app.post('/getMyEvents', (req, res) => {
   return db.knex.raw('SELECT `event_id` FROM `events_participants` WHERE `user_id` = ' + user_id)
     .then((events) => {
       console.log('getMyEvents', events)
+      if(events[0].length === 0){
+        //no events for this user_id
+        res.status(200).send({'message':"You don't have any events"})
+      }
        events[0].forEach((item)=>{
        var id = item.event_id
        db.knex.raw('SELECT `Events`.`route_id`,`Events`.`id`, `Events`.`title`, `Events`.`time`, `Events`.`host_id`, `Routes`.`start_address`, `Routes`.`end_address` '+
