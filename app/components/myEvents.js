@@ -26,7 +26,7 @@ class myEvents extends Component {
   }
 
   componentDidMount(){
-    fetch("http://localhost:8000/getMyEvents", {
+    fetch("https://wegotoo.herokuapp.com/getMyEvents", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({user_id: this.props.userId})
@@ -103,22 +103,26 @@ class myEvents extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff'
+      backgroundColor: '#eee'
     },
     eventRow: {
+      backgroundColor: '#fff',
       flexDirection: "row",
       width: width-20,
       height: 100,
-      margin: 5,
+      marginTop: 5,
       borderColor:'#3498db',
       borderWidth:1,
       padding:5
     },
     box: {
-      flexDirection: "row"
+      flexDirection: "row",
+      height: 92,
     },
     text: {
       width: width-75,
+      height: 90,
+      overflow: 'hidden',
     },
     img: {
       paddingLeft:5,
