@@ -52,9 +52,7 @@ class SearchRoutes extends Component {
 
         if (responseData.message){
           console.log(responseData.message)
-          this.setState({
-            search: responseData.message
-          })
+          AlertIOS.alert("We don't have any routes for those keywords");
         } else {
           this.setState({
             dataSource: ds.cloneWithRows(responseData)
