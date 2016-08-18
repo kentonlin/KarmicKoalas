@@ -26,20 +26,20 @@ class myEvents extends Component {
   }
 
   componentDidMount(){
-    fetch("https://wegotoo.herokuapp.com/getMyEvents", {
+    fetch("http:localhost:8000/getMyEvents", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({user_id: this.props.userId})
     }).then((response) => response.json()).then(responseData => {
-      var data = responseData.filter(event => {
-        return new Date(event.time) > new Date();
-      });
-      if (data.length===0){
+      // var data = responseData.filter(event => {
+      //   return new Date(event.time) > new Date();
+      // });
+      if (responseData.length===0){
         console.log('You have no current events');
         AlertIOS.alert("You have no current events");
       }else {
         this.setState({
-          objectdataSource: dataSource.cloneWithRows(data)
+          objectdataSource: dataSource.cloneWithRows(responseData)
         })
       }
     }).done();
