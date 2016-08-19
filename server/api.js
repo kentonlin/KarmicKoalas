@@ -231,6 +231,7 @@ app.post('/signup', (req, res) => {
           'userId': user['id']
         };
         res.status(200).send(JSON.stringify(data))
+        // res.status(200).send(data);
           // } else {
           //     //send resp with error, wrong password
           //     res.send(401, 'wrong password!')
@@ -332,7 +333,8 @@ app.post('/createEvent', (req, res) => {
      })
     .then(() => {
       res.status(200).send(JSON.stringify({
-        'create_event': 'ok'
+        'create_event': 'ok',
+        'event_id': event_id
       }))
     })
 });
