@@ -3,7 +3,6 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight, Dimensions, ScrollView, ListView, TextInput, AlertIOS, AsyncStorage } from 'react-native';
-import icon from '../icons/noun_14294.png'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Main from './Main';
