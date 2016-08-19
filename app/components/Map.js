@@ -5,8 +5,7 @@ import { StyleSheet, View, Text, TextInput, Dimensions, StatusBarIOS, TouchableH
 import MapView from 'react-native-maps';
 import haversine from 'haversine'
 import pick from 'lodash/pick'
-import pin from '../icons/pin.png'
-import pin2 from '../icons/pin2.png'
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 const { width, height } = Dimensions.get('window')
 

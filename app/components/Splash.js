@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, Image, TouchableHighlight, TextInput, AlertIOS,
 import SignUp from './SignUp'
 import Main from './Main'
 import About from './About'
-import icon from '../icons/noun_8677.png'
+import icon from '../icons/weGoToo_logo.png'
 
 class Splash extends Component {
 	constructor(props) {
@@ -26,17 +26,19 @@ class Splash extends Component {
 					title: ""
 				});
       } else {
-				this.props.navigator.resetTo({
+				var that = this
+				setTimeout(function() {
+				that.props.navigator.resetTo({
 					navigationBarHidden: true,
-					component: Main,
-					title: "",
 					component: Main,
 					title: "Main",
 					passProps: {
 		        userId: +data[1][1],
 						username: data[0][1]
 		      }
-				});
+				})
+				// do something in 0 ms
+			}, 500)
     	}
   	});
 	}
@@ -45,9 +47,6 @@ class Splash extends Component {
 		return (
       <View style={styles.container}>
 		 	<Image source={icon} style={styles.image}/>
-				<Text style={styles.textHeader}>
-					WeGoToo>>>>>
-				</Text>
 			</View>
 			)
 	}
@@ -60,13 +59,9 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: '#fff'
     },
-    text: {
-      fontSize: 30,
-      margin: 80
-    },
 		image: {
-			height:30,
-			width:30
+			height:200,
+			width:230
 		}
 });
 

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableHighlight, TextInput, AlertIOS, AsyncStorage } from 'react-native';
-import logo from '../icons/pin.png'
+import logo from '../icons/weGoToo_logo.png'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class SignUp extends Component {
@@ -57,7 +57,7 @@ class SignUp extends Component {
   render() {
 		return (
       <View style={styles.container}>
-				<Image source={logo} style={styles.image}/>
+				<Image source={logo} style={styles.logo}/>
         <TextInput
           style={styles.inputText}
           returnKeyType={"next"}
@@ -108,7 +108,7 @@ class SignUp extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: '#ffffff'
     },
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
 				width:50,
 				height:50,
 				marginLeft:165,
+				marginTop:10,
 				position: 'absolute',
 				backgroundColor: '#fff',
 				borderColor: "#3498db",
@@ -145,8 +146,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 		logo: {
-			height: 20,
-			width: 20,
+			marginTop: 150,
+			height: 160,
+			width: 190,
 			flexDirection: 'row'
 		}
 	});
