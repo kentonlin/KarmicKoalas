@@ -38,9 +38,20 @@ app.post('/searchKeywords', (req, res) => {
   var keywords = req.body.keywords;
   console.log('keywords',keywords)
   //get id for each keyword from keywords db
+//  var keywordList = '(';
   keywords.forEach((word) => {
     word = word.toLowerCase();
     console.log('word',word)
+  //   keywordList +=  word + ', ';
+  // })
+  // keywordList = keywordList.slice(0,-2)
+  // keywordList = keywordList += ')';
+  // return db.knex.raw('SELECT `id` FROM `keywords` WHERE `word` = "' + word + '"')
+
+
+
+
+
     return db.knex.raw('SELECT `id` FROM `keywords` WHERE `word` = "' + word + '"')
       .then((results) => {
         console.log('results',results)
@@ -230,19 +241,10 @@ app.post('/signup', (req, res) => {
       } else {
         //  existing user
         var newPassword = req.body.password
-          // userController.comparePassword(user.password, newPassword, (matches) => {
-          //         if (matches) {
-          //             //log in
         var data = {
           'userId': user['id']
         };
         res.status(200).send(JSON.stringify(data))
-        // res.status(200).send(data);
-          // } else {
-          //     //send resp with error, wrong password
-          //     res.send(401, 'wrong password!')
-          // }
-          //})
       }
     })
 });

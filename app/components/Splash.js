@@ -38,7 +38,7 @@ class Splash extends Component {
 		      }
 				})
 				// do something in 0 ms
-			}, 500)
+			}, 3500)
     	}
   	});
 	}
