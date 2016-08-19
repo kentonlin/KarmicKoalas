@@ -39,6 +39,7 @@ app.post('/searchKeywords', (req, res) => {
   console.log('keywords',keywords)
   //get id for each keyword from keywords db
   keywords.forEach((word) => {
+    word = word.toLowerCase();
     console.log('word',word)
     return db.knex.raw('SELECT `id` FROM `keywords` WHERE `word` = "' + word + '"')
       .then((results) => {
@@ -257,6 +258,7 @@ app.post('/createRoute', (req, res) => {
       route_id = input.id
         //add each keyword to keywords table if new, else get id
       keywords.forEach((input) => {
+        input = input.toLowerCase();
         return db.knex.raw('INSERT IGNORE INTO `keywords` (`word`) values ( "' + input + '")')
           .then((result) => {
             keyword_id = result[0].insertId

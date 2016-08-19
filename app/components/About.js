@@ -20,7 +20,7 @@ class About extends Component {
 				<Text style={styles.textHeader}>
 					WeGoToo
 				</Text>
-        
+
 			</View>
 			)
 	}
