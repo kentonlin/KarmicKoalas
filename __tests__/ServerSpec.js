@@ -76,6 +76,7 @@ describe('/getRouteById', () => {
       }
     }, (err, res, body) => {
       expect(body).to.be.an('object');
+      console.log("body:", body)
       // TODO why is body.title stringified?
       expect(JSON.parse(body.title)).to.equal("New York walk");
       done();
