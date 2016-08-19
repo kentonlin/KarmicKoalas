@@ -333,7 +333,8 @@ app.post('/createEvent', (req, res) => {
      })
     .then(() => {
       res.status(200).send(JSON.stringify({
-        'create_event': 'ok'
+        'create_event': 'ok',
+        'event_id': event_id
       }))
     })
 });
