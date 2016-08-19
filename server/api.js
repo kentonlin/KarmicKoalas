@@ -71,7 +71,7 @@ app.post('/searchKeywords', (req, res) => {
             routes.forEach((route_id) => {
             //  console.log('route_id', route_id)
               //console.log(routeIdList.includes(route_id))
-              if(routeIdList.includes(route_id) === false){
+              if(routeIdList.indexOf(route_id) === -1){
                    routeIdList.push(route_id)
                    count ++;
                    //console.log('routeIdList', routeIdList, count)
