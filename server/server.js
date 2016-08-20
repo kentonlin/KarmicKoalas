@@ -7,8 +7,10 @@ const PORT = process.env.PORT || 8000;
 const INDEX = path.join(__dirname, '../landing/index.html');
 const app = require('./api');
 const server = require('http').Server(app)
-app.use(express.static(path.join(__dirname, '/')));
-app.use((req, res) => res.sendFile(INDEX) )
+app.use(express.static(path.join(__dirname, '../landing/')));
+app.use(express.static(path.join(__dirname, '../node_modules/')));
+console.log('dirname',__dirname);
+//app.use((req, res) => res.sendFile(INDEX) )
 server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const io = require('socket.io')(server);
