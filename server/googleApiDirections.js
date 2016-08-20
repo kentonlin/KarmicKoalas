@@ -11,7 +11,7 @@ const getRoute = (start, end, cb)=>{
             "method": "GET",
             "hostname": "maps.googleapis.com",
             "port": null,
-            "path": "/maps/api/directions/json?origin=" + start + "&destination=" + end + "&mode=walking&key=AIzaSyDPR_rluVMdgqvM4JBorRSJa3Q2Mo_rUXU",
+            "path": "/maps/api/directions/json?origin=" + start + "&destination=" + end + "&mode=walking&key=" + process.env.GOOGLE_MAPS_API ,
             "headers": {
               "cache-control": "no-cache",
               "postman-token": "2a345e43-8982-8909-5e33-b51770a63de2"
