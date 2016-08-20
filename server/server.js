@@ -1,5 +1,5 @@
 'use strict';
-
+const dotenv = require('dotenv').config({path: __dirname + '/config.env'});
 const express = require('express');
 const path = require('path');
 
@@ -30,21 +30,21 @@ io.on('connection', (socket) => {
                 // joinRoom(myRoom, socket)
                 socket.leave(myRoom);
                 myRoom = data.eventId;
-                console.log('+++++++intialaze client side', data, myRoom)
+              //  console.log('+++++++intialaze client side', data, myRoom)
                 socket.join(data.eventId);
-                console.log('joined')
+                //console.log('joined')
             });
 
             socket.on('location', (data) => {
                 //console.log("Incoming location with updated title:", data)
-                console.log("Incoming location:", data, myRoom)
+              //  console.log("Incoming location:", data, myRoom)
                 //data.title = username
                 //myRoom = toString(data.eventId)
                 io.to(data.eventId).emit('groupUpdate', data);
             });
 
             socket.on('tweet', (data) => {
-                console.log("Incoming tweet:", data)
+              //  console.log("Incoming tweet:", data)
                 //myRoom = toString(data.eventId)
                 io.to(data.eventId).emit('tweet', data.text);
             });

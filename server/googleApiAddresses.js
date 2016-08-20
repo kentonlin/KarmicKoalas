@@ -1,6 +1,5 @@
 var http = require("https");
 
-//https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyDPR_rluVMdgqvM4JBorRSJa3Q2Mo_rUXU
 //start:'{latitude: 37.33756603, longitude: -122.02681114}'
 var getAddress = (start, end, cb) => {
   // console.log("START", start,"END", end)
@@ -30,7 +29,7 @@ function getAddressFromLoc(latLongStr, callback){
     "method": "POST",
     "hostname": "maps.googleapis.com",
     "port": null,
-    "path": "/maps/api/geocode/json?latlng="+ latLongStr +"&key=AIzaSyDPR_rluVMdgqvM4JBorRSJa3Q2Mo_rUXU",
+    "path": "/maps/api/geocode/json?latlng="+ latLongStr +"&key=" + process.env.GOOGLE_MAPS_API,
     "headers": {
       "content-type": "application/json",
       "cache-control": "no-cache",
