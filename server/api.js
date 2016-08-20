@@ -36,53 +36,49 @@ app.post('/searchKeywords', (req, res) => {
   var count = 0;
   //returns matching routes,[ {id, title, start, end, points_of_interest},...]
   var keywords = req.body.keywords;
-  console.log('keywords',keywords)
+  //console.log('keywords',keywords)
   //get id for each keyword from keywords db
-//  var keywordList = '(';
+  var keywordList = '(';
   keywords.forEach((word) => {
     word = word.toLowerCase();
-    console.log('word',word)
-  //   keywordList +=  word + ', ';
-  // })
-  // keywordList = keywordList.slice(0,-2)
-  // keywordList = keywordList += ')';
-  // return db.knex.raw('SELECT `id` FROM `keywords` WHERE `word` = "' + word + '"')
-
-
-
-
-
-    return db.knex.raw('SELECT `id` FROM `keywords` WHERE `word` = "' + word + '"')
+    //console.log('word',word)
+    keywordList += '"'+  word + '", ';
+  })
+  keywordList = keywordList.slice(0,-2)
+  keywordList = keywordList += ')';
+  //console.log('keywordList',keywordList)
+  return db.knex.raw('SELECT `id` FROM `keywords` WHERE `word` IN '+ keywordList)
       .then((results) => {
-        console.log('results',results)
-        if (results[0][0] === undefined){
-          //keyword not in db
-          // return db.knex.raw('INSERT IGNORE INTO `keywords` (`word`) values ( "' + word + '")')
-          //   .then((result) => {
-          //     var key_id = result[0].insertId
-          //           //console.log('insert keyword into keywords',word )
-                    //if(keywords.length === 1){
-                      res.status(200).send({message:"We don't have any routes for those keywords"})
-                  //  }
-            //})
+        //console.log('results',results[0])
+        var keyIds = []
+        results[0].forEach((id)=>{
+          keyIds.push(id.id)
+        })
+        //console.log('keyIds',keyIds)
+        if (keyIds.length === 0){
+          res.status(200).send({message:"We don't have any routes for those keywords"})
         } else {
-          var key_id = results[0][0].id
+         var idList = '(';
+          keyIds.forEach((id) => {
+            //console.log('id',id)
+            idList += '"'+  id + '", ';
+          })
+          idList = idList.slice(0,-2)
+          idList = idList += ')';
 
-        console.log('key_id', key_id)
-          //get id for keyword word
-        return db.knex.raw('SELECT `route` FROM `keywords_routes` WHERE `key_id` = ' + key_id)
-          .then((data) => {
+        return db.knex.raw('SELECT `route` FROM `keywords_routes` WHERE `key_id` IN ' + idList)
+          .then((results) => {
             var routes = []
-            console.log('get routeids from keyword', data[0])
-            if (data[0].length === 0){
+            //console.log('get routeids from keyword', results)
+            if (results[0].length === 0){
               ++count
             }
             if (count ===  keywords.length){
               res.status(200).send({message:"We don't have any routes for those keywords"})
             }
-            data[0].forEach((row)=>{
-              console.log('row',row)
-              console.log('route',row.route)
+            results[0].forEach((row)=>{
+            //  console.log('row',row)
+            //  console.log('route',row.route)
               routes.push(row.route)
             })
             //this will be a list of records with route ids from join table with keyword id
@@ -114,11 +110,11 @@ app.post('/searchKeywords', (req, res) => {
                         points_of_interest: routeInfo.points_of_interest,
                         id:routeInfo.id
                       }
-                      console.log('data',data)
+                      //console.log('data',data)
                       routesList.push(data);
-                      console.log('routesList',routesList)
+                      //console.log('routesList',routesList)
                         if (routesList.length === count) {
-                          console.log('routeslist',count, routesList)
+                        //  console.log('routeslist',count, routesList)
                            res.status(200).send(routesList)
                         }
                       })
@@ -126,7 +122,7 @@ app.post('/searchKeywords', (req, res) => {
             })
           })
         }
-  })
+  //})
  })
 });
 app.post('/getRouteById', (req, res) => {
