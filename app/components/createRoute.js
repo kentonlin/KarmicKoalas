@@ -82,7 +82,7 @@ class createRoute extends Component {
       end: end.latlng
     });
     console.log('send to back', startCoord, endCoord);
-      fetch("http://localhost:8000/getRouteFromGoogle", {
+      fetch("https://wegotoo.herokuapp.com/getRouteFromGoogle", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({start: startCoord, end: endCoord})
