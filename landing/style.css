@@ -29,6 +29,24 @@ body {
   margin-top: 30px;
 }
 
+.flow {
+  margin-top: 20px;
+  border: 1px solid blue;
+}
+
+.flow_img {
+  width: 700px;
+}
+
+.techstack {
+  margin-top: 20px;
+  border: 1px solid blue;
+}
+
+.contributors {
+  margin-top: 20px;
+}
+
 .developer_pic {
   width: 100px;
 }
