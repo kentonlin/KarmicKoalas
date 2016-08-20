@@ -82,7 +82,7 @@ class createRoute extends Component {
       end: end.latlng
     });
     console.log('send to back', startCoord, endCoord);
-      fetch("https://wegotoo.herokuapp.com/getRouteFromGoogle", {
+      fetch("http://localhost:8000/getRouteFromGoogle", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({start: startCoord, end: endCoord})
@@ -98,7 +98,7 @@ class createRoute extends Component {
     // {title:string, keywords:[],start:{}, end:{}, routeObject:[]}
     var keywordsArr = this.traceKeywordsString(keywords);
     if(this.state.title && keywordsArr.length && this.state.routeCoordinates.length) {
-      fetch("https://wegotoo.herokuapp.com/createRoute", {
+      fetch("http://localhost:8000/createRoute", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({title:title, keywords:keywordsArr,start:start, end:end, routeObject:routeObject})
