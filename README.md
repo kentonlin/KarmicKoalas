@@ -54,10 +54,10 @@ NODEMAILER
 
 
 ## Contributing
-Please refer to the [CONTRIBUTING.md](docs/CONTRIBUTING.md) file to see how to contribute to our project.
+Please refer to the [CONTRIBUTING.md](_CONTRIBUTING.md) file to see how to contribute to our project.
 
 ## Style Guide
-Please refer to the [STYLE-GUIDE.md](docs/STYLE-GUIDE.md) file to see our style guide.
+Please refer to the [STYLE-GUIDE.md](_STYLE-GUIDE.md) file to see our style guide.
 
 ## Testing
 For server-side testing, we used Mocha and Require. To run all tests:
