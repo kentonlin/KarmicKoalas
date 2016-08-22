@@ -79,4 +79,4 @@ We are a team of 4 full-stack software engineers. If you have any questions, ple
 
 
 ## Special Thanks
-We want to thank our friend [Dohun Park](http://dohunpark.com/) for the great logo!
+We want to thank our friend [Dohun Park](https://www.linkedin.com/in/doh1211/) for the great logo!
