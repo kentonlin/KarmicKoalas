@@ -69,13 +69,13 @@ start the local server and run npm test
 ## Team
 We are a team of 4 full-stack software engineers. If you have any questions, please feel free to contact us!
 
-[Rebecca Gray](https://www.linkedin.com/in/rebeccagray) | [Github](https://github.com/rebeccagray)
+[Rebecca Gray](https://www.linkedin.com/in/rebecca-gray) | [Github](https://github.com/rebeccagray)
 
 [Konstantin Zamaraev](https://www.linkedin.com/in/zamaraevk) | [Github](https://github.com/zamaraevk)
 
 [Alexius Hale-Dubuque](https://www.linkedin.com/in/alexiushaledubuque) | [Github](https://github.com/alexiushaledubuque)
 
-[Bohee Park](https://www.linkedin.com/in/boheepark) | [Github](https://github.com/boheepark)
+[Bohee Park](https://www.linkedin.com/in/bohee-park-681126122) | [Github](https://github.com/boheepark)
 
 
 ## Special Thanks
