@@ -66,13 +66,15 @@ iframe{
   padding-bottom: 50px;
 }
 .item {
-  text-align: left;
   font-size: 14px;
   width: 220px;
   height: 50px;
+  text-align: left;
+  vertical-align: middle;
   margin: 0 auto;
   margin-top: 10px;
   padding-left: 10px;
+  padding-right: 10px;
   background-color: #fff;
   border: 1px solid #3498db;
   }
