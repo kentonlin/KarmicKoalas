@@ -6,8 +6,10 @@ body {
 h2 {
   margin:50px;
 }
+
 a, a:active, a:focus {
   color: #3498db;
+
 }
 .img-circle {
     border-radius: 50%;
@@ -95,11 +97,16 @@ iframe{
   padding-top: 5px;
 }
 .arch{
-  max-width: 400px;
+  max-width: 500px;
 }
 .tech{
   margin-top: 20px;
   max-width: 500px;
+}
+.about p {
+  font-size: 20px;
+  color: #666;
+
 }
 #team {
   font-size: 24px;
@@ -107,20 +114,23 @@ iframe{
 }
 #team p{
   margin-top: 10px;
+  font-size: 18px;
+}
+.sub {
+  margin: 50px;
 }
 .acc{
   font-size: 30px;
   padding-left: 15px;
   padding-right: 15px;
 }
-.acc{
-  font-size: 30px;
-  padding-left: 15px;
-  padding-right: 15px;
+.acc a{
+  color: #666;
 }
 i:hover {
   color:  #3498db;
 }
+
 footer {
   text-align: center;
   font-size: 14px;
@@ -144,7 +154,7 @@ footer {
 }
 
 
-
+/*
 .navbar, .navbar-brand {
   background-color: #fff;
   padding: 0;
@@ -177,4 +187,10 @@ footer {
 
 .developer_pic {
   width: 100px;
+}*/
+
+@media (max-width: 600px) {
+  .jumbotron {
+    height: auto;
+  }
 }
