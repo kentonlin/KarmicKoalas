@@ -9,6 +9,10 @@ h2 {
 a, a:active, a:focus {
   color: #3498db;
 }
+.img-circle {
+    border-radius: 50%;
+    border: 1px solid #3498db;
+}
 .center {
   text-align: center;
 }
@@ -96,6 +100,26 @@ iframe{
 .tech{
   margin-top: 20px;
   max-width: 500px;
+}
+#team {
+  font-size: 24px;
+  color: #666;
+}
+#team p{
+  margin-top: 10px;
+}
+.acc{
+  font-size: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.acc{
+  font-size: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+i:hover {
+  color:  #3498db;
 }
 footer {
   text-align: center;
